@@ -1,0 +1,8 @@
+Login
+Listar todos los formularios dinamicos existentes
+Contrucción de formulario dinamicos
+Asignación de formularios a visitadores
+Listar formularios asignados a visitador
+completar información de formularios
+Visualización de información ingresada por visitadores
+

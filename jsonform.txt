@@ -1,0 +1,78 @@
+{
+    "formularios": [
+        {
+            "nombre": "Formulario de Prueba",
+            "descripcion": "Formulario utilizado para el ingreso de gastos de visitadores medicos",
+            "campos": [
+                {
+                    "tipoCampo": 0,
+                    "posicion": 0,
+                    "titulo": "Ingrese su nombre",
+                    "id": "campodePrueba",
+                    "value": "",
+                    "numeroLineas": 0,
+                    "readonly": 0,
+                    "maxlength": 0,
+                    "minlength": 0,
+                    "min": 0,
+                    "max": 0,
+                    "step": 1,
+                    "required": 1,
+                    "pattern": "",
+                    "placeholder": "Por favor ingrese su nombre"
+                },
+                {
+                    "tipoCampo": 0,
+                    "posicion": 0,
+                    "titulo": "Ingrese su nombre",
+                    "id": "campodePrueba",
+                    "value": "",
+                    "numeroLineas": 0,
+                    "readonly": 0,
+                    "maxlength": 0,
+                    "minlength": 0,
+                    "min": 0,
+                    "max": 0,
+                    "step": 1,
+                    "required": 1,
+                    "pattern": "",
+                    "placeholder": "Por favor ingrese su nombre"
+                },
+                {
+                    "tipoCampo": 0,
+                    "posicion": 0,
+                    "titulo": "Ingrese su nombre",
+                    "id": "campodePrueba",
+                    "value": "",
+                    "numeroLineas": 0,
+                    "readonly": 0,
+                    "maxlength": 0,
+                    "minlength": 0,
+                    "min": 0,
+                    "max": 0,
+                    "step": 1,
+                    "required": 1,
+                    "pattern": "",
+                    "placeholder": "Por favor ingrese su nombre"
+                },
+                {
+                    "tipoCampo": 0,
+                    "posicion": 0,
+                    "titulo": "Ingrese su nombre",
+                    "id": "campodePrueba",
+                    "value": "",
+                    "numeroLineas": 0,
+                    "readonly": 0,
+                    "maxlength": 0,
+                    "minlength": 0,
+                    "min": 0,
+                    "max": 0,
+                    "step": 1,
+                    "required": 1,
+                    "pattern": "",
+                    "placeholder": "Por favor ingrese su nombre"
+                }
+            ]
+        }
+    ]
+}
