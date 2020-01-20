@@ -50,22 +50,33 @@
                                         <option value="5">Númerico</option>
                                         <option value="6">Teléfono</option>
                                         <option value="7">Lista</option>
-                                        <option value="8">Archivo</option>
+                                        <%--<option value="8">Archivo</option>--%>
                                         <option value="9">Password</option>
                                         <option value="10">Url</option>
-                                        <option value="11">checkBox</option>
+                                        <%--<option value="11">checkBox</option>
                                         <option value="12">Option</option>
-                                        <option value="13">Formulario de búsqueda</option>
+                                        <option value="13">Formulario de búsqueda</option>--%>
                                     </select>
                                 </div>
 
-                                <div class="col-md-12 mb-6">
+                                <div class="col-md-12 mb-6" id="divTamanio" style="display: none">
+                                    <label for="tamanioCampo">Tamaño</label>
+                                    <select class="custom-select" id="tamanioCampo" name="tamanioCampo" required>
+                                        <option value="6">Seleccione uno</option>
+                                        <option value="6">Medio</option>
+                                        <option value="12">Grande</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 mb-6" id="divIdCampo" style="display: none">
                                     <label for="idCampo">Id</label>
                                     <input type="text" class="form-control form-control-sm" id="idCampo" name="idCampo" placeholder="Ingrese un id unico del campo en el formulario" required>
                                     <br />
                                 </div>
 
-                                <div class="col-md-12 mb-6">
+
+
+                                <div class="col-md-12 mb-6" id="divTituloCampo" style="display: none">
                                     <label for="texto">Titulo</label>
                                     <input type="text" class="form-control form-control-sm" id="texto" name="texto" placeholder="Texto de titulo de campo" required>
                                     <br />
@@ -78,7 +89,7 @@
                                     <br />
                                 </div>
 
-                                <div class="form-group col-md-12 mb-6">
+                                <div class="form-group col-md-12 mb-6" id="divSoloLectura" style="display: none">
                                     <div class="form-check">
                                         <div class="checkbox p-0">
                                             <input id="checkSoloLectura" type="checkbox" class="form-check-input">
@@ -87,7 +98,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-12 mb-6" id="divRequeried">
+                                <div class="form-group col-md-12 mb-6" id="divRequeried" style="display: none">
                                     <div class="form-check">
                                         <div class="checkbox p-0">
                                             <input id="checkRequeried" type="checkbox" class="form-check-input">
@@ -162,14 +173,14 @@
                                     <br />
                                 </div>
 
-                                <div class="form-row">
+                                <div class="form-row" id="divInfoItems" style="display: none">
                                     <div class="col-md-2 mb-2">
                                         <label for="texto">Valor</label>
-                                        <input type="text" class="form-control form-control-sm" id="listValue" name="listValue" required>
+                                        <input type="text" class="form-control form-control-sm" id="listValue" name="listValue">
                                     </div>
                                     <div class="col-md-7 mb-4">
                                         <label for="texto">Descripción</label>
-                                        <input type="text" class="form-control form-control-sm" id="listText" name="listText" required>
+                                        <input type="text" class="form-control form-control-sm" id="listText" name="listText">
                                     </div>
                                     <div class="col-md-2 mb-1">
                                         <label for="texto">&nbsp&nbsp</label>
@@ -181,7 +192,6 @@
                                     <table class="table table-sm table-border-vertical ">
                                         <thead>
                                             <tr>
-                                                <th style="width: inherit">Sel.</th>
                                                 <th>Valor</th>
                                                 <th>Texto</th>
                                                 <th></th>
@@ -193,7 +203,8 @@
                                 </div>
 
                             </div>
-                            <button class="btn btn-primary" name="agregarCampo" id="agregarCampo" type="submit">Agregar Campo</button>
+                            <hr />
+                            <button class="btn btn-primary" name="agregarCampo" id="agregarCampo" type="button" style="display: none">Agregar Campo</button>
                         </div>
                     </div>
                 </div>
@@ -213,9 +224,14 @@
                             </div>
 
                             <div class="container-fluid">
-                                <div class="form-group row" id="divCampoFormulario">
+                                <div class="row" id="divCampoFormulario">
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Registrar Formulario</button>
+                            <input type="reset" class="btn btn-light" value="Cancelar">
                         </div>
                     </div>
                 </div>
@@ -228,12 +244,10 @@
 
     <script>
         $(document).ready(function () {
+            localStorage.removeItem("infoForms");
 
             $("#btnAgregarElemento").click(function (e) {
                 let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
-                console.log("Data local", campoEspeciales);
-
-
                 let idCampo = '';
                 let valor = '';
                 let texto = '';
@@ -258,49 +272,56 @@
 
                             arrayItemsCampo.push(infoCampo);
 
-                            let campo = JSON.stringify({
-                                idCampo: idCampo,
-                                items: arrayItemsCampo
+
+
+                            let campoExiste = campoEspeciales.find((items, index) => {
+                                if (items.idCampo == idCampo) {
+                                    let itemsActuales = new Array();
+                                    itemsActuales = campoEspeciales[index].items;
+
+                                    let existe = false;
+
+                                    $.each(itemsActuales, function (i, item) {
+                                        let data = JSON.parse(item);
+                                        if (data.valor == valor) {
+                                            existe = true;
+                                            mostrarAlertaGeneral("Error", `Ya existe un elemento en la lista con el mismo valor (${valor})`, "danger");
+                                        }
+                                        if (data.text == texto) {
+                                            existe = true;
+                                            mostrarAlertaGeneral("Error", `Ya existe un elemento en la lista con la misma descripción (${texto})`, "danger");
+                                        }
+                                        if (existe) {
+                                            return false;
+                                        }
+                                    });
+
+                                    if (!existe) {
+                                        itemsActuales.push(infoCampo);
+                                        campoEspeciales[index].items = itemsActuales;
+                                        localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
+
+                                    }
+                                    return true;
+
+                                }
                             });
 
-                            let existeCampo = campoEspeciales.find(x => x.idCampo == idCampo);
 
-                            if (existeCampo) {
-                                existeCampo.item.push(arrayItemsCampo);
-                            } else {
-                                campoEspeciales.push(JSON.parse(campo));
-                            }
-                            localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
-                            let data = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
-                            let infoCampoActual = data.find(item => item.idCampo == idCampo);
-                            if (infoCampoActual) {
-                                console.log("Info Campo especifico", infoCampoActual);
-                                let htmlElemento = '';
-                                $.each(infoCampoActual.items, function (i, item) {
-                                    let itemData = JSON.parse(item);
-                                    let value = itemData.valor;
-                                    let text = itemData.text;
-                                    let select = itemData.selected;
-
-                                    let htmlCheck = '';
-                                    if (select == 1) {
-                                        htmlCheck = 'checked'
-                                    }
-                                    htmlElemento += `<tr>
-                            <td style="width:inherit"><input class="radio radio-primary" id="radio" name="radio" type="radio"></td>
-                            <td>${value}</td>
-                            <td>${text}</td>
-                            <th scope="col"><span class="fa fa-trash"></span></th>
-                            </tr>
-                            `;
-
-
+                            if (!campoExiste) {
+                                console.log("La data existe");
+                                let campo = JSON.stringify({
+                                    idCampo: idCampo,
+                                    items: arrayItemsCampo
                                 });
-                                $("#divElementos").show();
-                                $("#tbodyElementos").html(htmlElemento);
-                            } else {
-                                mostrarAlertaGeneral("Error", "No se encontró el campo especificado", "danger");
+                                campoEspeciales.push(JSON.parse(campo));
+                                localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
                             }
+                            $("#listText").val('');
+                            $("#listValue").val('');
+                            pintarItems();
+
+
                         } else {
                             mostrarAlertaGeneral("Error", "Debe de ingresar una descripción al elemento de la lista", "danger");
                         }
@@ -317,16 +338,16 @@
 
 
             });
-
             $("#agregarCampo").click(function (e) {
+                let infoFormulario = JSON.parse(localStorage.getItem('infoForms'));
 
-                let infoFormulario = JSON.parse(localStorage.getItem("infoForms"));
+                if (!infoFormulario) {
+                    infoFormulario = { nombre: 'Prueba', descripcion: 'Descripcion de prueba', campos: [] }
+                }
 
-                //let arrayCampos = new Array();
-                //arrayCampos = infoFormulario.formularios[0].campos;
-                //console.log("Data Campos", arrayCampos);
+                let agregarCampo = false;
                 let tipoCampo = 1;
-                let posicion = 0;
+                let tamanio = 6;
                 let titulo = '';
                 let id = '';
                 let value = '';
@@ -334,30 +355,37 @@
                 let readonly = 0;
                 let maxlength = 0;
                 let minlength = 0;
-                let min = 0;
-                let max = 0;
-                let step = 1;
+                let min = '';
+                let max = '';
+                let step = 0;
                 let required = 1;
                 let pattern = '';
                 let placeholder = '';
                 let mensajeError = '';
                 tipoCampo = parseInt($("#tipoCampo").val());
+                tamanio = parseInt($("#tamanioCampo").val());
 
                 if ($("#texto").val().trim().length > 0) {
                     titulo = $("#texto").val().trim();
+                    agregarCampo = true;
                 } else {
-                    mensajeError += '/n Ingresar titulo para campo'
+                    mensajeError += 'Ingresar titulo para campo '
+                    agregarCampo = false;
                 }
 
 
                 if ($("#idCampo").val().trim().length > 0) {
                     id = $("#idCampo").val().trim();
+                    agregarCampo = true;
                 } else {
-                    mensajeError += '/n Ingresar id único para campo'
+                    mensajeError += 'Ingresar id único para campo '
+                    agregarCampo = false;
                 }
 
-                if ($("#value").val().trim().length > 0) {
-                    value = $("#value").val().trim();
+                if (tipoCampo != 7) {
+                    if ($("#value").val().trim().length > 0) {
+                        value = $("#value").val().trim();
+                    }
                 }
 
                 if (tipoCampo == 0 || tipoCampo == 1) {
@@ -381,6 +409,11 @@
                     step = $("#aumentarEn").val().trim();
                 }
 
+                if (tipoCampo == 2) {
+                    min = $("#minFecha").val().trim();
+                    max = $("#maxFecha").val().trim()
+                }
+
 
                 if ($("#pattern").val().trim().length > 0) {
                     pattern = $("#pattern").val().trim();
@@ -398,41 +431,77 @@
                     required = 0;
                 }
 
-
-
-
                 placeholder = $("#placeholder").val();
-                let infoCampo = JSON.stringify({
-                    tipoCampo,
-                    posicion: 0,
-                    titulo,
-                    id,
-                    value,
-                    numeroLineas,
-                    readonly,
-                    maxlength,
-                    minlength,
-                    min,
-                    max,
-                    step,
-                    required,
-                    pattern,
-                    placeholder
-                });
 
-                infoFormulario.formularios[0].campos.push(JSON.parse(infoCampo));
-                console.log("Información de formulario", infoFormulario);
 
-                localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
 
-                pintarCampos().then(res => {
-                    $("#divCampoFormulario").html(res);
-                }).catch(error => {
-                    console.log("Data error", error);
-                });
+                if (agregarCampo) {
+                    let existeCampo = false;
+
+                    $.each(infoFormulario.campos, function (i, item) {
+                        console.log("Campo formulario", item);
+                        let itemActual = JSON.parse(item);
+                        console.log("Campo itemActual", itemActual);
+                        if (itemActual.id == id) {
+                            existeCampo = true;
+                            return false;
+                        }
+                    });
+
+                    let itemsActuales = new Array();
+                    let listaValida = true;
+                    if (tipoCampo == 7) {
+                        let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+                        let campoExiste = campoEspeciales.find((items, index) => {
+                            if (items.idCampo == id) {
+                                itemsActuales = campoEspeciales[index].items;
+                            }
+                        });
+
+                        if (!itemsActuales.length > 0) {
+                            listaValida = false;
+                            mostrarAlertaGeneral("Error", "Debe de ingresar elementos a la lista", "danger");
+                        }
+                    }
+                    if (!existeCampo) {
+                        if (listaValida) {
+                            let infoCampo = JSON.stringify({
+                                tipoCampo,
+                                tamanio,
+                                titulo,
+                                id,
+                                value,
+                                numeroLineas,
+                                readonly,
+                                maxlength,
+                                minlength,
+                                min,
+                                max,
+                                step,
+                                required,
+                                pattern,
+                                placeholder,
+                                items: itemsActuales
+                            });
+                            infoFormulario.campos.push(infoCampo);
+                            localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+
+                            pintarCampos().then(res => {
+                                $("#divCampoFormulario").html(res);
+                            }).catch(error => {
+                                console.log("Data error", error);
+                            });
+                        }
+                    } else {
+                        mostrarAlertaGeneral("Error", "El id del campo que intenta agregar ya existe por favor verifique", "danger");
+                    }
+
+
+                } else {
+                    mostrarAlertaGeneral("Error", "Debe de completar los siguientes campos:" + mensajeError, "danger");
+                }
+
             });
-
-
 
             $('#checkSoloLectura').click(function () {
                 if ($(this).is(':checked')) {
@@ -452,15 +521,25 @@
                     $('#divRequeried').show();
                 }
             });
-
             $("#tipoCampo").change(function () {
                 $("#checkSoloLectura").prop("checked", false);
+                $("#idCampo").val('');
+                $("#texto").val('');
+                $("#minlength").val('');
+                $("#maxlength").val('');
+                $("#minFecha").val('');
+                $("#minNumber").val('');
+                $("#maxNumber").val('');
+                $("#aumentarEn").val('');
+                $("#numeroLineas").val('');
+                $("#pattern").val('');
+                $("#placeholder").val('');
+                $("#listValue").val('');
+                $("#listText").val('');
+
                 inputPorTipoCampo();
                 ocultarMostrarCampos();
             });
-
-
-
             $("#minFecha").change(function () {
                 if ($("#minFecha").val().trim().length == 10) {
                     let fechaMin = $("#minFecha").val().trim();
@@ -468,10 +547,7 @@
                     $("#divInputFechaMax").html(htmlFechaMax);
                 }
             });
-
-
             $("#minNumber").change(function () {
-                alert("Hola desde min number");
                 if ($("#minNumber").val().trim().length > 0) {
                     let minNumber = $("#minNumber").val().trim();
                     let htmlMaxNumber = `<input type="number" class="form-control form-control-sm" id="maxNumber" name="maxNumber" min="${minNumber}">`;
@@ -479,15 +555,57 @@
                 }
             });
 
-
-
-            pintarCampos().then(res => {
-                $("#divCampoFormulario").html(res);
-            }).catch(error => {
-                console.log("Data error", error);
-            });
+            //pintarCampos().then(res => {
+            //    $("#divCampoFormulario").html(res);
+            //}).catch(error => {
+            //    console.log("Data error", error);
+            //});
         });
+        function pintarItems() {
+            if ($("#idCampo").val().trim().length > 0) {
+                idCampo = $("#idCampo").val().trim();
+            }
+            let data = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+            let infoCampoActual = data.find(item => item.idCampo == idCampo);
+            if (infoCampoActual) {
+                console.log("Info Campo especifico", infoCampoActual);
+                let htmlElemento = '';
+                let contador = 0;
+                $.each(infoCampoActual.items, function (i, item) {
+                    let itemData = JSON.parse(item);
+                    let value = itemData.valor;
+                    let text = itemData.text;
 
+                    htmlElemento += `<tr>
+                                    <td>${value}</td>
+                                    <td>${text}</td>
+                                    <th scope="col"><a class="btn btn-danger btn-sm" onclick="eliminarItem('${infoCampoActual.idCampo}',${contador})"><span class="icon-trash"></span> </a></th>
+                                    </tr>
+                                    `;
+
+                    contador++;
+                });
+                $("#divElementos").show();
+                $("#tbodyElementos").html(htmlElemento);
+            } else {
+                mostrarAlertaGeneral("Error", "No se encontró el campo especificado", "danger");
+            }
+        }
+        function eliminarItem(idCampo, indexDelete) {
+            let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+
+            let campoExiste = campoEspeciales.find((items, index) => {
+                if (items.idCampo == idCampo) {
+                    let itemsActuales = new Array();
+                    itemsActuales = campoEspeciales[index].items;
+                    console.log("Item econtrado", itemsActuales);
+                    itemsActuales.splice(indexDelete, 1);
+                    campoEspeciales[index].items = itemsActuales;
+                    localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
+                    pintarItems();
+                }
+            });
+        }
         function inputPorTipoCampo() {
             let tipoCampo = $("#tipoCampo").val();
             let visible = false;
@@ -514,22 +632,45 @@
                 htmlInput = `<input type="password" class="form-control form-control-sm" id="value" name="value">`
                 visible = true;
             }
+            else if (tipoCampo == 10) {
+                htmlInput = `<input type="url" class="form-control form-control-sm" id="value" name="value">`
+                visible = true;
+            }
+
             if (visible) {
                 $("#divInputValor").html(htmlInput);
-                $("#divValor").show();
             } else {
                 $("#divInputValor").html('');
-                $("#divValor").hide();
             }
 
         }
         function ocultarMostrarCampos() {
-            let tipoCampo = $("#tipoCampo").val();
+            let tipoCampo = $('#tipoCampo').val();
+            if (tipoCampo) {
+                $('#divIdCampo').show();
+                $('#divTituloCampo').show();
+                $('#divSoloLectura').show();
+                $('#divRequeried').show();
+                $('#agregarCampo').show();
+                $("#divTamanio").show();
+                $("#divSoloLectura").show();
+
+            } else {
+                $('#divIdCampo').hide();
+                $('#divTituloCampo').hide();
+                $('#divSoloLectura').hide();
+                $('#divRequeried').hide();
+                $('#agregarCampo').hide();
+                $("#divTamanio").hide();
+                $("#divSoloLectura").hide();
+            }
+
             if (tipoCampo == 0 || tipoCampo == 1) {
                 $('#divMinlength').show();
                 $('#divMaxlength').show();
                 $('#divPattern').show();
                 $('#divPlaceholder').show();
+                $("#divValor").show();
             } else {
                 $('#divMinlength').hide();
                 $('#divMaxlength').hide();
@@ -539,6 +680,7 @@
 
             if (tipoCampo == 1) {
                 $('#divNumeroLineas').show();
+                $("#divValor").show();
             } else {
                 $('#divNumeroLineas').hide();
             }
@@ -547,6 +689,7 @@
                 $('#divNumericoMax').show();
                 $('#divNumericoMin').show();
                 $('#divNumericoStep').show();
+                $("#divValor").show();
             } else {
                 $('#divNumericoMax').hide();
                 $('#divNumericoMin').hide();
@@ -556,12 +699,26 @@
             if (tipoCampo == 2) {
                 $('#divFechaMax').show();
                 $('#divFechaMin').show();
+                $("#divValor").show();
             } else {
                 $('#divFechaMax').hide();
                 $('#divFechaMin').hide();
             }
-        }
 
+            if (tipoCampo == 7) {
+                $("#divValor").hide();
+                $('#divInfoItems').show();
+                $("#divSoloLectura").hide();
+
+            } else {
+                $('#divInfoItems').hide();
+                $("#divElementos").hide();
+            }
+
+            if (tipoCampo == 10) {
+                $("#divValor").show();
+            }
+        }
         function pintarCampos() {
             return new Promise((resolver, reject) => {
 
@@ -571,59 +728,174 @@
 
                     console.log("Data Formulario", infoFormulario);
 
+                    let tituloFormulario = infoFormulario.nombre;
+                    let descripcion = infoFormulario.descripcion;
 
-                    $.each(infoFormulario.formularios, function (i, infoForm) {
-                        let htmlCampo = '';
-                        let tituloFormulario = infoForm.nombre;
-                        let descripcion = infoForm.descripcion;
-
-                        let htmlTitulo = `<h3>${tituloFormulario}
+                    let htmlTitulo = `<h3>${tituloFormulario}
                                 <small>${descripcion}</small>
                                           </h3>`;
 
-                        $("#divTitulo").html(htmlTitulo);
+                    $("#divTitulo").html(htmlTitulo);
 
-                        $.each(infoForm.campos, function (i, campo) {
-                            let tipoCampo = campo.tipoCampo;
-                            let posicion = campo.posicion;
-                            let titulo = campo.titulo;
-                            let id = campo.id;
-                            let value = campo.value;
-                            let readonly = campo.readonly;
-                            let maxlength = campo.maxlength;
-                            let minlength = campo.minlength;
-                            let min = campo.min;
-                            let max = campo.max;
-                            let step = campo.step;
-                            let required = campo.required;
-                            let pattern = campo.pattern;
-                            let placeholder = campo.placeholder;
 
-                            if (tipoCampo == 0) {
-                                let htmlAdd = '';
-                                if (readonly == 0) {
-                                    if (maxlength > 0) {
-                                        htmlAdd += ` maxlength=${maxlength}`
-                                    }
-                                    if (minlength < maxlength) {
-                                        htmlAdd += ` minlength=${minlength}`
-                                    }
-                                    if (required == 1) {
-                                        htmlAdd += ` required`
-                                    }
-                                } else {
-                                    htmlAdd += ` readonly="readonly"`
+                    let htmlCampo = '';
+                    $.each(infoFormulario.campos, function (i, itemCampo) {
+                        let campo = JSON.parse(itemCampo);
+                        let tipoCampo = campo.tipoCampo;
+                        let tamanio = campo.tamanio;
+                        let titulo = campo.titulo;
+                        let numeroLineas = campo.numeroLineas;
+                        let id = campo.id;
+                        let value = campo.value;
+                        let readonly = campo.readonly;
+                        let maxlength = campo.maxlength;
+                        let minlength = campo.minlength;
+                        let min = campo.min;
+                        let max = campo.max;
+                        let step = campo.step;
+                        let required = campo.required;
+                        let pattern = campo.pattern;
+                        let placeholder = campo.placeholder;
+                        let htmlTamanio = "col-md-6 mb-3";
+
+                        if (tamanio == 12) {
+                            htmlTamanio = "col-md-12 mb-6";
+                        }
+
+                        let htmlAdd = '';
+                        if (required == 1) {
+                            htmlAdd += ` required`
+                        }
+                        if (readonly > 0) {
+                            htmlAdd += ` readonly="readonly"`
+                        }
+
+                        if (tipoCampo == 0 || tipoCampo == 1) {
+
+                            if (readonly == 0) {
+                                if (maxlength > 0) {
+                                    htmlAdd += ` maxlength=${maxlength}`
                                 }
-                                htmlCampo += `
-                        <div class="col-md-6 mb-3">
-                        <label for="texto">${titulo}</label>
-                        <input type="text" class="form-control" id="${id}" name="${id}" placeholder="${placeholder}" value="${value}" pattern="${pattern}" ${htmlAdd}>
-                        </div>`;
+                                if (minlength < maxlength) {
+                                    htmlAdd += ` minlength=${minlength}`
+                                }
+
                             }
 
-                        });
-                        resolver(htmlCampo);
+                            if (tipoCampo == 0) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="text" class="form-control" id="${id}" name="${id}" placeholder="${placeholder}" value="${value}" pattern="${pattern}" ${htmlAdd}>
+                                </div>
+                                `;
+                            } else if (tipoCampo == 1) {
+
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <textarea id="${id}" name="${id}" placeholder="${placeholder}" value="${value}" pattern="${pattern}" ${htmlAdd} rows="${numeroLineas}" class="form-control"></textarea>
+                                </div>
+                                `;
+                            }
+
+
+
+                        }
+                        else if (tipoCampo == 2 || tipoCampo == 5) {
+                            if (readonly == 0) {
+                                if (min.trim().length > 0) {
+                                    htmlAdd += `min="${min}"`;
+                                }
+                                if (max.trim().length > 0) {
+                                    htmlAdd += `max="${max}"`;
+                                }
+                                if (step > 0) {
+                                    htmlAdd += `step="${step}"`;
+                                }
+                            }
+
+                            if (tipoCampo == 2) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="date" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                            }
+                            if (tipoCampo == 5) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="number" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                            }
+                        }
+
+                        if (tipoCampo == 3) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="time" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                        }
+                        if (tipoCampo == 4) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="email" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                        }
+
+                        if (tipoCampo == 6) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="number" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                        }
+                        if (tipoCampo == 9) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="password" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                        }
+
+                        if (tipoCampo == 10) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                <input type="url" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                </div>
+                                `;
+                        }
+
+                        if (tipoCampo == 7) {
+                            let itemsLista = campo.items;
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${titulo}</label>
+                                  <select class="custom-select" id="${id}" name="${id}" ${htmlAdd}>
+                                        <option value="">Seleccione</option>
+                                `;
+
+                            $.each(itemsLista, function (i, item) {
+                                let data = JSON.parse(item);
+                                htmlCampo += `
+                                        <option value="${data.valor}">${data.text}</option>
+                                `;
+                            });
+                            htmlCampo += '</select></div>';
+                        }
                     });
+                    resolver(htmlCampo);
+
                 } catch (error) {
                     reject(error);
                 }

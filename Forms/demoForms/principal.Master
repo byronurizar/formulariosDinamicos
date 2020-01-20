@@ -810,6 +810,11 @@
     <script src="../assets/js/notify/bootstrap-notify.min.js"></script>
     <script src="../assets/js/notify/notify-script.js"></script>
 
+
+    <!-- Sweet alert jquery-->
+<script src="../assets/js/sweet-alert/sweetalert.min.js" ></script>
+<script src="../assets/js/sweet-alert/app.js" ></script>
+
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {
             $.notify({

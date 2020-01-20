@@ -1,78 +1,15 @@
 {
-    "formularios": [
-        {
-            "nombre": "Formulario de Prueba",
-            "descripcion": "Formulario utilizado para el ingreso de gastos de visitadores medicos",
-            "campos": [
-                {
-                    "tipoCampo": 0,
-                    "posicion": 0,
-                    "titulo": "Ingrese su nombre",
-                    "id": "campodePrueba",
-                    "value": "",
-                    "numeroLineas": 0,
-                    "readonly": 0,
-                    "maxlength": 0,
-                    "minlength": 0,
-                    "min": 0,
-                    "max": 0,
-                    "step": 1,
-                    "required": 1,
-                    "pattern": "",
-                    "placeholder": "Por favor ingrese su nombre"
-                },
-                {
-                    "tipoCampo": 0,
-                    "posicion": 0,
-                    "titulo": "Ingrese su nombre",
-                    "id": "campodePrueba",
-                    "value": "",
-                    "numeroLineas": 0,
-                    "readonly": 0,
-                    "maxlength": 0,
-                    "minlength": 0,
-                    "min": 0,
-                    "max": 0,
-                    "step": 1,
-                    "required": 1,
-                    "pattern": "",
-                    "placeholder": "Por favor ingrese su nombre"
-                },
-                {
-                    "tipoCampo": 0,
-                    "posicion": 0,
-                    "titulo": "Ingrese su nombre",
-                    "id": "campodePrueba",
-                    "value": "",
-                    "numeroLineas": 0,
-                    "readonly": 0,
-                    "maxlength": 0,
-                    "minlength": 0,
-                    "min": 0,
-                    "max": 0,
-                    "step": 1,
-                    "required": 1,
-                    "pattern": "",
-                    "placeholder": "Por favor ingrese su nombre"
-                },
-                {
-                    "tipoCampo": 0,
-                    "posicion": 0,
-                    "titulo": "Ingrese su nombre",
-                    "id": "campodePrueba",
-                    "value": "",
-                    "numeroLineas": 0,
-                    "readonly": 0,
-                    "maxlength": 0,
-                    "minlength": 0,
-                    "min": 0,
-                    "max": 0,
-                    "step": 1,
-                    "required": 1,
-                    "pattern": "",
-                    "placeholder": "Por favor ingrese su nombre"
-                }
-            ]
-        }
+    "nombre": "Prueba",
+    "descripcion": "Descripcion de prueba",
+    "campos": [
+        "{\"tipoCampo\":0,\"tamanio\":6,\"titulo\":\"Primer Nombre\",\"id\":\"campo\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"Ingrese primer nombre\",\"items\":[]}",
+        "{\"tipoCampo\":0,\"tamanio\":6,\"titulo\":\"Segundo Nombre\",\"id\":\"nombre2\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"Ingrese segundo nombre\",\"items\":[]}",
+        "{\"tipoCampo\":0,\"tamanio\":6,\"titulo\":\"Primer Apellido\",\"id\":\"apellido1\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"Ingrese primer apellido\",\"items\":[]}",
+        "{\"tipoCampo\":0,\"tamanio\":6,\"titulo\":\"Primer Apellido\",\"id\":\"apellido2\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"Ingrese segundo Apellido\",\"items\":[]}",
+        "{\"tipoCampo\":2,\"tamanio\":6,\"titulo\":\"Fecha de Nacimiento\",\"id\":\"fechaNacimiento\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"\",\"items\":[]}",
+        "{\"tipoCampo\":7,\"tamanio\":6,\"titulo\":\"Genero\",\"id\":\"genero\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"\",\"items\":[\"{\\\"valor\\\":\\\"1\\\",\\\"text\\\":\\\"Masculino\\\",\\\"selected\\\":0}\",\"{\\\"valor\\\":\\\"2\\\",\\\"text\\\":\\\"Femenino\\\",\\\"selected\\\":0}\"]}",
+        "{\"tipoCampo\":6,\"tamanio\":6,\"titulo\":\"Número de Teléfono\",\"id\":\"numeroTelefono\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":1,\"pattern\":\"\",\"placeholder\":\"\",\"items\":[]}",
+        "{\"tipoCampo\":4,\"tamanio\":6,\"titulo\":\"Correo Electrónico\",\"id\":\"correo\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":0,\"minlength\":0,\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":1,\"pattern\":\"\",\"placeholder\":\"\",\"items\":[]}",
+        "{\"tipoCampo\":1,\"tamanio\":6,\"titulo\":\"Dirección\",\"id\":\"direccion\",\"value\":\"\",\"numeroLineas\":0,\"readonly\":0,\"maxlength\":\"50\",\"minlength\":\"10\",\"min\":\"\",\"max\":\"\",\"step\":0,\"required\":0,\"pattern\":\"\",\"placeholder\":\"Ingrese su direccion\",\"items\":[]}"
     ]
 }

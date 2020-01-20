@@ -1433,6 +1433,7 @@
     <Content Include="demo1.aspx" />
     <Content Include="form2.aspx" />
     <Content Include="formulario.aspx" />
+    <Content Include="frm.aspx" />
     <Content Include="js\vue.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -1457,6 +1458,13 @@
     </Compile>
     <Compile Include="formulario.aspx.designer.cs">
       <DependentUpon>formulario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frm.aspx.cs">
+      <DependentUpon>frm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frm.aspx.designer.cs">
+      <DependentUpon>frm.aspx</DependentUpon>
     </Compile>
     <Compile Include="principal.Master.cs">
       <DependentUpon>principal.Master</DependentUpon>
