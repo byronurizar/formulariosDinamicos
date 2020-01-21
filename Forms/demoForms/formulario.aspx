@@ -244,7 +244,7 @@
 
     <script>
         $(document).ready(function () {
-            localStorage.removeItem("infoForms");
+        //    localStorage.removeItem("infoForms");
 
             $("#btnAgregarElemento").click(function (e) {
                 let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
@@ -455,6 +455,8 @@
                         let campoExiste = campoEspeciales.find((items, index) => {
                             if (items.idCampo == id) {
                                 itemsActuales = campoEspeciales[index].items;
+                                campoEspeciales.splice(index, 1);
+                                localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
                             }
                         });
 
@@ -739,7 +741,9 @@
 
 
                     let htmlCampo = '';
+                    let indexCampo = 0;
                     $.each(infoFormulario.campos, function (i, itemCampo) {
+
                         let campo = JSON.parse(itemCampo);
                         let tipoCampo = campo.tipoCampo;
                         let tamanio = campo.tamanio;
@@ -787,6 +791,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="text" class="form-control" id="${id}" name="${id}" placeholder="${placeholder}" value="${value}" pattern="${pattern}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                             } else if (tipoCampo == 1) {
@@ -795,6 +800,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <textarea id="${id}" name="${id}" placeholder="${placeholder}" value="${value}" pattern="${pattern}" ${htmlAdd} rows="${numeroLineas}" class="form-control"></textarea>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                             }
@@ -820,6 +826,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="date" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                             }
@@ -828,6 +835,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="number" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                             }
@@ -838,6 +846,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="time" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                         }
@@ -846,6 +855,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="email" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                         }
@@ -855,6 +865,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="number" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                         }
@@ -863,6 +874,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="password" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                         }
@@ -872,6 +884,7 @@
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${titulo}</label>
                                 <input type="url" class="form-control" id="${id}" name="${id}" value="${value}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
                         }
@@ -891,8 +904,12 @@
                                         <option value="${data.valor}">${data.text}</option>
                                 `;
                             });
-                            htmlCampo += '</select></div>';
+
+                            htmlCampo += `</select>
+                        <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a></div>`;
                         }
+
+                        indexCampo++;
                     });
                     resolver(htmlCampo);
 
@@ -901,6 +918,44 @@
                 }
             });
         }
+
+        function subirCampo(indexCampo) {
+            if (indexCampo > 0) {
+                let infoFormulario;
+                infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+                        let campos = infoFormulario.campos;
+
+                        let item1 = campos[indexCampo];
+                        let item2 = campos[indexCampo - 1];
+
+                        infoFormulario.campos[indexCampo] = item2;
+                        infoFormulario.campos[indexCampo - 1] = item1;
+
+                        localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+
+                        pintarCampos().then(res => {
+                            $("#divCampoFormulario").html(res);
+                        }).catch(error => {
+                            console.log("Data error", error);
+                        });
+            } else {
+                mostrarAlertaGeneral("Error", "El campo esta en la primera posición", "danger");
+            }
+        }
+
+        function eliminarCampo(indexCampo) {
+            let infoFormulario;
+            infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+                    infoFormulario.campos.splice(indexCampo, 1);
+
+                    localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+                    pintarCampos().then(res => {
+                        $("#divCampoFormulario").html(res);
+                    }).catch(error => {
+                        console.log("Data error", error);
+                    });
+        }
+
     </script>
 
 </asp:Content>
