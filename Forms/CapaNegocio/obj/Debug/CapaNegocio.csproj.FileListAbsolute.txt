@@ -9,3 +9,13 @@ D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Debug\CapaNegocio.csproj
 D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
 D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Debug\CapaNegocio.dll
 D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Debug\CapaNegocio.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaNegocio.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaNegocio.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaDatos.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaEntidad.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaDatos.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\bin\Debug\CapaEntidad.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\obj\Debug\CapaNegocio.csprojAssemblyReference.cache
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\obj\Debug\CapaNegocio.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaNegocio\obj\Debug\CapaNegocio.pdb

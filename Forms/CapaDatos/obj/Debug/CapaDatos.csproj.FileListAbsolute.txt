@@ -7,3 +7,11 @@ D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Debug\CapaDatos.csproj.Cor
 D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
 D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Debug\CapaDatos.dll
 D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Debug\CapaDatos.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\bin\Debug\CapaDatos.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\obj\Debug\CapaDatos.csprojAssemblyReference.cache
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\obj\Debug\CapaDatos.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaDatos\obj\Debug\CapaDatos.pdb

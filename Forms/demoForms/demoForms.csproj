@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -1434,6 +1437,7 @@
     <Content Include="form2.aspx" />
     <Content Include="formulario.aspx" />
     <Content Include="frm.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="js\vue.js" />
     <Content Include="pruebaBD.aspx" />
     <Content Include="Web.config" />
@@ -1467,6 +1471,9 @@
     <Compile Include="frm.aspx.designer.cs">
       <DependentUpon>frm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="principal.Master.cs">
       <DependentUpon>principal.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1482,6 +1489,7 @@
     <Compile Include="pruebaBD.aspx.designer.cs">
       <DependentUpon>pruebaBD.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RouteConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\font-awesome\fontawesome-webfont.eot" />

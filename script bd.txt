@@ -1,0 +1,120 @@
+create table formulario(
+idFormulario int identity(1,1) primary key,
+titulo varchar(200) not null,
+descripcion varchar(300),
+idEstado int
+);
+
+create table camposFormulario(
+idCampo int identity(1,1) primary key,
+idFormulario int not null foreign key(idFormulario) references formulario(idFormulario),
+idTipoCampo int,
+idTipoDato int,
+tabIndex int,
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100),
+placeHolder varchar(100),
+longitudMinima int,
+longitudMaxima int,
+valMinimo varchar(100),
+valMax varchar(100),
+mascara nvarchar(100),
+esRequerido int,
+tipoOrigen int,
+valorLista varchar(max),
+elementoJson nvarchar(100),
+seleccionMultiple int,
+urlWebBuscar varchar(100),
+validacionScript varchar(100),
+visible int,
+soloLectura int,
+numeroLineas int,
+aumentarEn decimal,
+expresionRegular varchar(500),
+tamanioDiv int
+);
+
+
+create table hs_formulario(
+idFormularioHs int identity(1,1) primary key,
+idFormularioPadre int,
+titulo varchar(200) not null,
+descripcion varchar(300),
+idEstado int
+);
+
+
+
+create table hs_camposFormulario(
+idCampoHs int identity(1,1) primary key,
+idFormularioHs int not null foreign key(idFormularioHs) references hs_formulario(idFormularioHs),
+idCampo int not null foreign key(idCampo) references camposFormulario(idCampo),
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100),
+);
+
+
+create table hs_camposFormulario(
+idCampoHs int identity(1,1) primary key,
+idFormularioHs int not null foreign key(idFormularioHs) references hs_formulario(idFormularioHs),
+idCampo int not null foreign key(idCampo) references camposFormulario(idCampo),
+elementoJson  varchar(200),
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100),
+);
+
+
+
+
+CREATE TYPE [dbo].[camposFormularioType] AS TABLE(
+idTipoCampo int,
+idTipoDato int,
+tabIndex int,
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100),
+placeHolder varchar(100),
+longitudMinima int,
+longitudMaxima int,
+valMinimo varchar(100),
+valMax varchar(100),
+mascara nvarchar(100),
+esRequerido int,
+tipoOrigen int,
+valorLista varchar(max),
+elementoJson nvarchar(100),
+seleccionMultiple int,
+urlWebBuscar varchar(100),
+validacionScript varchar(100),
+visible int,
+soloLectura int,
+numeroLineas int,
+aumentarEn decimal,
+expresionRegular varchar(500),
+tamanioDiv int
+)
+
+
+
+
+create procedure spr_registrarFormulario(
+@titulo varchar(100),
+@descripcion varchar(100),
+@detalle camposFormularioType READONLY
+)
+as
+begin
+declare @idFormulario int=0;
+
+insert into formulario(titulo,descripcion,idEstado)
+values(@titulo,@descripcion,1);
+
+
+set @idFormulario=@@IDENTITY
+insert into camposFormulario
+
+end
+

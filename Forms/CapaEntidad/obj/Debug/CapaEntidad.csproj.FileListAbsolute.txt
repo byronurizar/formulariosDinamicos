@@ -4,3 +4,7 @@ D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Debug\CapaEntidad.csproj
 D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
 D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Debug\CapaEntidad.dll
 D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\obj\Debug\CapaEntidad.pdb
