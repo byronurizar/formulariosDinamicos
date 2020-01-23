@@ -8,3 +8,4 @@ C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\bin\Debug\CapaEntidad
 C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\bin\Debug\CapaEntidad.pdb
 C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\demoProyects\Net\formulariosDinamicos\Forms\CapaEntidad\obj\Debug\CapaEntidad.csprojAssemblyReference.cache

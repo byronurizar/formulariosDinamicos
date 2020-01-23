@@ -21,6 +21,42 @@ namespace CapaDatos
         public string registrarFormulario(formularioEntidad form)
         {
             string resultado = string.Empty;
+            string sqlConnString = _sConexion;
+            SqlCommand cmd = new SqlCommand();
+            using (SqlConnection conn = new SqlConnection(sqlConnString))
+            {
+                conn.Open();
+                cmd = new SqlCommand("spr_registrarFormulario", conn);
+                cmd.Connection = conn;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("titulo", form.titulo);
+                cmd.Parameters.AddWithValue("descripcion", form.descripcion);
+                cmd.Parameters.AddWithValue("detalle", form.dtCampos);
+
+
+                SqlParameter msgErr1 = new SqlParameter("salida", SqlDbType.NVarChar);
+                msgErr1.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(msgErr1);
+                cmd.Parameters["salida"].Size = 150;
+                cmd.Parameters["salida"].Size = 150;
+
+                using (SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    rdr.Read();
+                    cmd.Parameters["salida"].Value.ToString();
+                   // resultado = rdr.GetString(0);
+                }
+
+              //  var errCode = cmd.Parameters["CODIGO_RESP"].Value.ToString();
+
+            }
+            
+           
+            return resultado;
+        }
+        public string registrarFormularioV2(formularioEntidad form)
+        {
+            string resultado = string.Empty;
             string spName = string.Empty;
             try
             {

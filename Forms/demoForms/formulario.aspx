@@ -161,7 +161,7 @@
                                     <br />
                                 </div>
 
-                                <div class="col-md-12 mb-6" id="divPattern" style="display: none">
+                                <div class="col-md-12 mb-6" id="divExpReg" style="display: none">
                                     <label for="texto">Expresión regular</label>
                                     <input type="text" class="form-control form-control-sm" id="pattern" name="pattern" placeholder="Ingrese una expresión regular">
                                     <br />
@@ -509,7 +509,7 @@
                 if ($(this).is(':checked')) {
                     $('#divMinlength').hide();
                     $('#divMaxlength').hide();
-                    $('#divPattern').hide();
+                    $('#divExpReg').hide();
                     $('#divPlaceholder').hide();
                     $('#divNumericoMax').hide();
                     $('#divNumericoMin').hide();
@@ -670,13 +670,13 @@
             if (tipoCampo == 0 || tipoCampo == 1) {
                 $('#divMinlength').show();
                 $('#divMaxlength').show();
-                $('#divPattern').show();
+                $('#divExpReg').show();
                 $('#divPlaceholder').show();
                 $("#divValor").show();
             } else {
                 $('#divMinlength').hide();
                 $('#divMaxlength').hide();
-                $('#divPattern').hide();
+                $('#divExpReg').hide();
                 $('#divPlaceholder').hide();
             }
 

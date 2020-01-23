@@ -1436,6 +1436,7 @@
     <Content Include="assets\js\wow\wow-init.js" />
     <Content Include="assets\js\wow\wow.min.js" />
     <Content Include="assets\video\auth-bg.mp4" />
+    <Content Include="buildsforms.aspx" />
     <Content Include="demo1.aspx" />
     <Content Include="form2.aspx" />
     <Content Include="formulario.aspx" />
@@ -1446,6 +1447,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="buildsforms.aspx.cs">
+      <DependentUpon>buildsforms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="buildsforms.aspx.designer.cs">
+      <DependentUpon>buildsforms.aspx</DependentUpon>
+    </Compile>
     <Compile Include="demo1.aspx.cs">
       <DependentUpon>demo1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

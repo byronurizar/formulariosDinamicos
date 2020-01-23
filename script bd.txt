@@ -130,3 +130,26 @@ select @idFormulario,* from @detalle
 select 'Exitoso'
 end
 
+
+
+
+----Work 23012020---
+alter procedure spr_registrarFormulario(
+@titulo varchar(100),
+@descripcion varchar(100),
+@detalle camposFormularioType READONLY,
+@salida varchar(200) output
+)
+as
+begin
+declare @idFormulario int=0;
+
+insert into formulario(titulo,descripcion,idEstado)
+values(@titulo,@descripcion,1);
+
+
+set @idFormulario=@@IDENTITY
+insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etiqueta,valor,texto,placeHolder,longitudMinima,longitudMaxima,valMinimo,valMax,mascara,esRequerido,tipoOrigen,valorLista,elementoJson,seleccionMultiple,urlWebBuscar,validacionScript,visible,soloLectura,numeroLineas,aumentarEn,expresionRegular,tamanioDiv)
+select @idFormulario,* from @detalle
+set @salida= 'Exitoso'
+end
