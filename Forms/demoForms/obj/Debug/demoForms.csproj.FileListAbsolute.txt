@@ -234,3 +234,7 @@ C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\obj\Debug\demoForms.csp
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\obj\Debug\demoForms.csproj.CopyComplete
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\obj\Debug\demoForms.dll
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\obj\Debug\demoForms.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Microsoft.AspNet.FriendlyUrls.dll
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Newtonsoft.Json.dll
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Microsoft.AspNet.FriendlyUrls.xml
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Newtonsoft.Json.xml

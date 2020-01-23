@@ -45,17 +45,6 @@ idEstado int
 );
 
 
-
-create table hs_camposFormulario(
-idCampoHs int identity(1,1) primary key,
-idFormularioHs int not null foreign key(idFormularioHs) references hs_formulario(idFormularioHs),
-idCampo int not null foreign key(idCampo) references camposFormulario(idCampo),
-etiqueta varchar(100),
-valor varchar(100),
-texto varchar(100),
-);
-
-
 create table hs_camposFormulario(
 idCampoHs int identity(1,1) primary key,
 idFormularioHs int not null foreign key(idFormularioHs) references hs_formulario(idFormularioHs),
@@ -116,5 +105,28 @@ values(@titulo,@descripcion,1);
 set @idFormulario=@@IDENTITY
 insert into camposFormulario
 
+end
+
+
+
+
+----------
+create procedure spr_registrarFormulario(
+@titulo varchar(100),
+@descripcion varchar(100),
+@detalle camposFormularioType READONLY
+)
+as
+begin
+declare @idFormulario int=0;
+
+insert into formulario(titulo,descripcion,idEstado)
+values(@titulo,@descripcion,1);
+
+
+set @idFormulario=@@IDENTITY
+insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etiqueta,valor,texto,placeHolder,longitudMinima,longitudMaxima,valMinimo,valMax,mascara,esRequerido,tipoOrigen,valorLista,elementoJson,seleccionMultiple,urlWebBuscar,validacionScript,visible,soloLectura,numeroLineas,aumentarEn,expresionRegular,tamanioDiv)
+select @idFormulario,* from @detalle
+select 'Exitoso'
 end
 
