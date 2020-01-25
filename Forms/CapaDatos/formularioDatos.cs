@@ -10,15 +10,15 @@ using Microsoft.ApplicationBlocks.Data;
 
 namespace CapaDatos
 {
-   public class formularioDatos
+   public class FormularioDatos
     {
         sConexion _Conexionbd = new sConexion();
         string _sConexion = string.Empty;
-        public formularioDatos()
+        public FormularioDatos()
         {
             _sConexion = _Conexionbd.GetConex().ToString();
         }
-        public string registrarFormulario(formularioEntidad form)
+        public string registrarFormulario(dataFormulario form)
         {
             string resultado = string.Empty;
             string sqlConnString = _sConexion;
@@ -54,7 +54,7 @@ namespace CapaDatos
            
             return resultado;
         }
-        public string registrarFormularioV2(formularioEntidad form)
+        public string registrarFormularioV2(dataFormulario form)
         {
             string resultado = string.Empty;
             string spName = string.Empty;

@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="formularioEntidad.cs" />
+    <Compile Include="dataFormulario.cs" />
+    <Compile Include="FormularioEntidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pruebaEntidad.cs" />
+    <Compile Include="RespuestaEntidad.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

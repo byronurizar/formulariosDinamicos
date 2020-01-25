@@ -47,6 +47,7 @@
                                         <option value="4">Modal de búsqueda</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-12 mb-6" id="divLtaTpDato" style="display: none">
                                     <label for="ltaTpDato">Tipo de Dato</label>
                                     <select class="form-control custom-select form-control-sm" id="ltaTpDato" name="ltaTpDato" required>
@@ -74,18 +75,12 @@
                                 <div class="col-md-12 mb-6" id="divDataxOrigen" style="display: none">
                                     <label for="ltaOrigen">Origenes disponibles</label>
                                     <select class="form-control custom-select form-control-sm" id="ltaOrigen" name="ltaOrigen" required>
-                                        <option value="">Seleccione uno</option>
-                                        <option value="1">Listar Municipio</option>
-                                        <option value="3">Listar Departamentos</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-12 mb-6" id="divCamposExistenes" style="display: none">
-                                    <label for="ltaCamposExistentes">Campos Existentes</label>
+                                    <label for="ltaCamposExistentes">Busqueda depende del campo</label>
                                     <select class="form-control custom-select form-control-sm" id="ltaCamposExistentes" name="ltaCamposExistentes" required>
-                                        <option value="">Seleccione uno</option>
-                                        <option value="1">Departamento de Residencia</option>
-                                        <option value="3">Código de cliente</option>
                                     </select>
                                 </div>
 
@@ -93,9 +88,6 @@
                                 <div class="col-md-12 mb-6" id="divModalsDisponibles" style="display: none">
                                     <label for="ltaModals">Modals disponibles</label>
                                     <select class="form-control custom-select form-control-sm" id="ltaModals" name="ltaModals" required>
-                                        <option value="">Seleccione uno</option>
-                                        <option value="1">Busqueda de Médico</option>
-                                        <option value="3">Busqueda de Empleado</option>
                                     </select>
                                 </div>
 
@@ -244,10 +236,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                             <hr />
-                            <button class="btn btn-primary" name="agregarCampo" id="agregarCampo" type="button" style="display: block">Agregar Campo</button>
+                            <button class="btn btn-primary" name="agregarCampo" id="agregarCampo" type="button" style="display: none">Agregar Campo</button>
                         </div>
                     </div>
                 </div>
@@ -273,8 +265,8 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Registrar Formulario</button>
-                            <input type="reset" class="btn btn-light" value="Cancelar">
+                            <button type="submit" class="btn btn-primary" id="btnRegistrarForm" name="btnRegistrarForm">Registrar Formulario</button>
+                           <%-- <input type="reset" class="btn btn-light" value="Cancelar">--%>
                         </div>
                     </div>
                 </div>
@@ -288,9 +280,16 @@
 
 
         $(document).ready(function () {
+            pintarCampos().then(res => {
+                $("#divCampoFormulario").html(res);
+            }).catch(error => {
+                console.log("Data error", error);
+            });
+
             $("#ltaTpCampo").change(function () {
                 $("#checkSoloLectura").prop("checked", false);
                 $("#checkRequeried").prop("checked", false);
+                $("#agregarCampo").show();
                 inputPorTipoDato();
                 let tipoCampo = $('#ltaTpCampo').val();
                 if (tipoCampo == 1) {
@@ -307,6 +306,7 @@
                         let campo = campos[i];
                         $(`#${campo}`).show();
                     }
+                    divLimpiarCampos();
                 }
 
                 if (tipoCampo == 3) {
@@ -316,6 +316,7 @@
                         let campo = campos[i];
                         $(`#${campo}`).show();
                     }
+                    divLimpiarCampos();
                 }
 
                 if (tipoCampo == 4) {
@@ -325,10 +326,9 @@
                         let campo = campos[i];
                         $(`#${campo}`).show();
                     }
+                    divLimpiarCampos();
+                    getModalsBusqueda();
                 }
-
-
-
             });
 
             $("#ltaTpDato").change(function () {
@@ -347,18 +347,18 @@
                     $('#divDataxOrigen').hide();
                     $('#divCamposExistenes').hide();
                     $('#divInfoItems').show();
-                    
-                }  else if (tipoOrigen == 2) {
+
+                } else if (tipoOrigen == 2) {
+                    getOrigenesList();
                     $('#divDataxOrigen').show();
                     $('#divElementos').hide();
                     $('#divInfoItems').hide();
-                }  
+                }
             });
 
             $("#ltaOrigen").change(function () {
-                let ltaOrigen = $('#ltaTpOrigen').val();
-                $('#divCamposExistenes').show();
-
+                let ltaOrigen = $('#ltaOrigen').val();
+                mostrarCamposPorOrigen(ltaOrigen);
             });
 
             $('#checkSoloLectura').click(function () {
@@ -429,6 +429,7 @@
                     $("#divInputFechaMax").html(htmlFechaMax);
                 }
             });
+
             $("#txtMinNumber").change(function () {
                 if ($("#txtMinNumber").val().trim().length > 0) {
                     let minNumber = $("#txtMinNumber").val().trim();
@@ -455,11 +456,11 @@
                             texto = $("#txtListText").val().trim();
 
                             let arrayItemsCampo = new Array();
-                            let infoCampo = JSON.stringify({
+                            let infoCampo = {
                                 valor: valor,
                                 text: texto,
                                 selected: 0
-                            });
+                            };
 
                             arrayItemsCampo.push(infoCampo);
 
@@ -472,8 +473,7 @@
 
                                     let existe = false;
 
-                                    $.each(itemsActuales, function (i, item) {
-                                        let data = JSON.parse(item);
+                                    $.each(itemsActuales, function (i, data) {
                                         if (data.valor == valor) {
                                             existe = true;
                                             mostrarAlertaGeneral("Error", `Ya existe un elemento en la lista con el mismo valor (${valor})`, "danger");
@@ -500,12 +500,11 @@
 
 
                             if (!campoExiste) {
-                                console.log("La data existe");
-                                let campo = JSON.stringify({
+                                let campo = {
                                     idCampo: idCampo,
                                     items: arrayItemsCampo
-                                });
-                                campoEspeciales.push(JSON.parse(campo));
+                                };
+                                campoEspeciales.push(campo);
                                 localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
                             }
                             $("#txtListValue").val('');
@@ -523,7 +522,18 @@
                 }
             });
 
-
+            $("#agregarCampo").click(function () {
+                agregarCampo();
+                pintarCampos().then(res => {
+                    $("#divCampoFormulario").html(res);
+                }).catch(error => {
+                    console.log("Data error", error);
+                });
+            });
+            $("#btnRegistrarForm").click(function () {
+                registrarFormulario();
+            });
+            
 
         });
 
@@ -662,8 +672,7 @@
                 console.log("Info Campo especifico", infoCampoActual);
                 let htmlElemento = '';
                 let contador = 0;
-                $.each(infoCampoActual.items, function (i, item) {
-                    let itemData = JSON.parse(item);
+                $.each(infoCampoActual.items, function (i, itemData) {
                     let value = itemData.valor;
                     let text = itemData.text;
 
@@ -681,6 +690,525 @@
             } else {
                 mostrarAlertaGeneral("Error", "No se encontró el campo especificado", "danger");
             }
+        }
+
+        function eliminarItem(idCampo, indexDelete) {
+            let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+            let campoExiste = campoEspeciales.find((items, index) => {
+                if (items.idCampo == idCampo) {
+                    let itemsActuales = new Array();
+                    itemsActuales = campoEspeciales[index].items;
+                    itemsActuales.splice(indexDelete, 1);
+                    campoEspeciales[index].items = itemsActuales;
+                    localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
+                    pintarItemsLista();
+                }
+            });
+        }
+
+        function getOrigenesList() {
+            $("#nuevoLoader").addClass('loader-wrapper');
+            $("#mensajeLoader").html('Realizando Busqueda');
+
+            let htmlOptions = '';
+            $('#ltaOrigen').empty();
+            getJson(JSON.stringify({}), "buildsforms.aspx/getOrigenesList").then(response => {
+                if (response.codigo == 0) {
+                    htmlOptions = `<option value="">Seleccione</option>`;
+                    $.each(response.valor, function (i, item) {
+                        htmlOptions += `<option value="${item.idOrigen}">${item.nombre}</option>`;
+                    });
+                    $('#ltaOrigen').prepend(htmlOptions);
+                    localStorage.setItem("OrigenesLista", JSON.stringify(response.valor));
+                } else {
+                    htmlOptions = `<option value="">No existen registros</option>`;
+                    $('#ltaOrigen').prepend(htmlOptions);
+                    swal("Alerta", response.mensaje, "error");
+                }
+            }).catch(error => {
+                swal("Alerta", error, "warning");
+            });
+
+           
+        }
+
+        function getModalsBusqueda() {
+            let htmlOptions = '';
+            $('#ltaModals').empty();
+            getJson(JSON.stringify({}), "buildsforms.aspx/getModalsBusqueda").then(response => {
+                if (response.codigo == 0) {
+                    htmlOptions = `<option value="">Seleccione</option>`;
+                    $.each(response.valor, function (i, item) {
+                        htmlOptions += `<option value="${item.idModal}">${item.nombre}</option>`;
+                    });
+                    $('#ltaModals').prepend(htmlOptions);
+                } else {
+                    htmlOptions = `<option value="">No existen registros</option>`;
+                    $('#ltaModals').prepend(htmlOptions);
+                    swal("Alerta", response.mensaje, "error");
+                }
+            }).catch(error => {
+                swal("Alerta", error, "warning");
+            });
+        }
+
+
+        function mostrarCamposPorOrigen(idOrigen) {
+            let origenesLista = JSON.parse(localStorage.getItem("OrigenesLista"));
+            let origen = origenesLista.find(x => x.idOrigen == idOrigen);
+            if (origen) {
+                if (origen.numeroParametros == 1) {
+                    let htmlOptions = '';
+                    $('#ltaCamposExistentes').empty();
+                    let infoFormulario;
+                    infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+                    $.each(infoFormulario.campos, function (i, campo) {
+                        htmlOptions += `<option value="${campo.elementoJson}">${campo.etiqueta}</option>`;
+
+                    });
+                    $('#ltaCamposExistentes').prepend(htmlOptions);
+                    $('#divCamposExistenes').show();
+                }
+            } else {
+                $('#ltaCamposExistentes').empty();
+                $('#divCamposExistenes').hide();
+            }
+        }
+
+        var getJson = (data, metodo) => {
+            return new Promise(function (resolver, rechazar) {
+                try {
+                    $.ajax({
+                        url: metodo,
+                        async: false,
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ stringRequest: data }),
+                        success: function (myData) {
+                            let dataResponse = myData.d;
+                            try {
+                                resolver(JSON.parse(dataResponse));
+                            } catch (err) {
+                                rechazar(JSON.stringify(err));
+                                swal("ERROR", "El objeto no es un json válido", "error");
+                            }
+                        }
+                    }).fail(function (xhr, textStatus, errorThrown) {
+                        swal("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
+                        rechazar(JSON.stringify(xhr));
+                    });
+                } catch (error) {
+                    swal("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
+                    rechazar(JSON.stringify(error));
+                }
+            });
+        }
+        function agregarCampo() {
+            let agregarCampo = true;
+            let infoFormulario = JSON.parse(localStorage.getItem('infoForms'));
+
+            if (!infoFormulario) {
+                infoFormulario = { nombre: 'Prueba', descripcion: 'Descripcion de prueba', campos: [] }
+            }
+
+            let idTipoCampo = 0;
+            let idTipoDato = 0;
+            let tabIndex = 0;
+            let etiqueta = "";
+            let valor = "";
+            let texto = "";
+            let placeHolder = "";
+            let longitudMinima = 0;
+            let longitudMaxima = 0;
+            let valMinimo = "";
+            let valMax = "";
+            let mascara = "";
+            let esRequerido = 0;
+            let tipoOrigen = 0;
+            let valorLista = "";
+            let elementoJson = "";
+            let seleccionMultiple = 0;
+            let urlWebBuscar = "";
+            let validacionScript = "";
+            let visible = 1;
+            let soloLectura = 0;
+            let numeroLineas = 0;
+            let aumentarEn = 0;
+            let expresionRegular = "";
+            let tamanioDiv = 0;
+            let elementoJsonPadre = "";
+
+            let itemsCampo = new Array();
+
+            idTipoCampo = parseInt($("#ltaTpCampo").val());
+            elementoJson = $("#txtIdCampo").val().trim();
+            let existeCampo = false;
+            $.each(infoFormulario.campos, function (i, item) {
+                if (item.elementoJson == elementoJson) {
+                    existeCampo = true;
+                    return false;
+                }
+            });
+
+            if (!existeCampo) {
+                etiqueta = $("#txtEtiqueta").val().trim();
+                placeHolder = $("#txtPlaceholder").val().trim();
+
+                expresionRegular = $("#txtExpReg").val().trim();
+                tamanioDiv = $("#tamanioCampo").val();
+
+                if ($("#checkSoloLectura").is(':checked')) {
+                    soloLectura = 1;
+                } else {
+                    soloLectura = 0;
+                }
+
+                if ($("#checkRequeried").is(':checked')) {
+                    esRequerido = 1;
+                } else {
+                    esRequerido = 0;
+                }
+
+                if (idTipoCampo == 1 || idTipoCampo == 2) {
+                    valor = $("#value").val().trim();
+                    texto = $("#value").val().trim();
+                }
+
+                if (idTipoCampo == 1) {
+                    idTipoDato = parseInt($("#ltaTpDato").val());
+                    if (idTipoDato == 1) {
+                        if ($("#txtMaxlength").val().trim().length > 0) {
+                            longitudMaxima = $("#txtMaxlength").val().trim();
+                        }
+                        if ($("#txtMinlength").val().trim().length > 0) {
+                            longitudMinima = $("#txtMinlength").val().trim();
+                        }
+                        if (longitudMaxima > 0) {
+                            if (longitudMinima > longitudMaxima) {
+                                mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor o igual a la longitud máxima', "danger");
+                                agregarCampo = false;
+                            }
+                        }
+                    } else if (idTipoDato == 2) {
+                        if ($("#txtMaxNumber").val().trim().length > 0) {
+                            valMax = $("#txtMaxNumber").val().trim();
+                        }
+                        if ($("#txtMinNumber").val().trim().length > 0) {
+                            valMinimo = $("#txtMinNumber").val().trim();
+                        }
+                        if ($("#txtAumentarEn").val().trim().length > 0) {
+                            aumentarEn = $("#txtAumentarEn").val().trim();
+                        }
+                        if (valMax > 0) {
+                            if (aumentarEn > 0) {
+                                if (valMax % aumentarEn == 0) {
+
+                                } else {
+                                    mostrarAlertaGeneral("Error", 'El valor maximo debe ser multiplo del campo Aumentar en', "danger");
+                                    agregarCampo = false;
+                                }
+                            }
+                            if (valMinimo > valMax) {
+                                mostrarAlertaGeneral("Error", 'El valor mínimo debe ser menor o igual al valor máximo' + valMinimo, "danger");
+                                agregarCampo = false;
+                            }
+
+                        }
+                    } else if (idTipoDato == 4) {
+                        if ($("#txtMaxFecha").val().trim().length > 0) {
+                            valMax = $("#txtMaxFecha").val().trim();
+                        }
+                        if ($("#txtMinFecha").val().trim().length > 0) {
+                            valMinimo = $("#txtMinFecha").val().trim();
+                        }
+                    }
+                } else if (idTipoCampo == 2) {
+                    if ($("#txtNumeroLineas").val().trim().length > 0) {
+                        numeroLineas = $("#txtNumeroLineas").val().trim();
+                    }
+                    if ($("#txtMaxlength").val().trim().length > 0) {
+                        longitudMaxima = $("#txtMaxlength").val().trim();
+                    }
+                    if ($("#txtMinlength").val().trim().length > 0) {
+                        longitudMinima = $("#txtMinlength").val().trim();
+                    }
+                    if (longitudMaxima > 0) {
+                        if (longitudMinima > longitudMaxima) {
+                            mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor a la longitud máxima', "danger");
+                            agregarCampo = false;
+                        }
+                    }
+                } else if (idTipoCampo == 3) {
+
+                    tipoOrigen = $("#ltaTpOrigen").val();
+                    if (tipoOrigen == 1) {
+                        let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+                        let campoExiste = campoEspeciales.find((items, index) => {
+                            if (items.idCampo == elementoJson) {
+                                itemsCampo = campoEspeciales[index].items;
+                                campoEspeciales.splice(index, 1);
+                                localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
+                            }
+                        });
+
+                        if (!itemsCampo.length > 0) {
+                            agregarCampo = false;
+                            mostrarAlertaGeneral("Error", "Debe de ingresar elementos a la lista", "danger");
+                        }
+                    } else if (tipoOrigen == 2) {
+                        let idOrigen = $("#ltaOrigen").val();
+                        let origenesLista = JSON.parse(localStorage.getItem("OrigenesLista"));
+                        let origen = origenesLista.find(x => x.idOrigen == idOrigen);
+                        itemsCampo = origen.nombreSpEjecutar;
+                        if (origen) {
+                            if (origen.numeroParametros == 1) {
+                                elementoJsonPadre = $("#ltaCamposExistentes").val();
+                            }
+                        }
+                    }
+                } else if (idTipoCampo == 4) {
+                    urlWebBuscar = $("#ltaModals").val();
+                }
+
+                if (agregarCampo) {
+                    let infoCampo = {
+                        idTipoCampo,
+                        idTipoDato,
+                        tabIndex,
+                        etiqueta,
+                        valor,
+                        texto,
+                        placeHolder,
+                        longitudMinima,
+                        longitudMaxima,
+                        valMinimo,
+                        valMax,
+                        mascara,
+                        esRequerido,
+                        tipoOrigen,
+                        valorLista: itemsCampo,
+                        elementoJson,
+                        seleccionMultiple,
+                        urlWebBuscar,
+                        validacionScript,
+                        visible,
+                        soloLectura,
+                        numeroLineas,
+                        aumentarEn,
+                        expresionRegular,
+                        tamanioDiv,
+                        elementoJsonPadre
+                    };
+                    infoFormulario.campos.push(infoCampo);
+                    localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+                    mostrarAlertaGeneral("Información", "Campo agregado exitosamente", "success");
+                    divLimpiarCampos();
+                }
+            } else {
+                mostrarAlertaGeneral("Error", "El id del campo que intenta agregar ya existe por favor verifique", "danger");
+            }
+        }
+        function pintarCampos() {
+            return new Promise((resolver, reject) => {
+                try {
+                    let infoFormulario;
+                    infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+                    let tituloFormulario = infoFormulario.nombre;
+                    let descripcion = infoFormulario.descripcion;
+                    let htmlTitulo = `<h3>${tituloFormulario}<small>${descripcion}</small></h3>`;
+                    $("#divTitulo").html(htmlTitulo);
+                    let htmlCampo = '';
+                    let indexCampo = 0;
+                    $.each(infoFormulario.campos, function (i, campo) {
+                        let htmlTamanio = "col-md-6 mb-3";
+                        let htmlAdd = '';
+
+                        if (parseInt(campo.tamanioDiv) == 12) {
+                            htmlTamanio = "col-md-12 mb-6";
+                        }
+
+                        if (campo.esRequerido == 1) {
+                            htmlAdd += ` required`
+                        }
+
+                        if (campo.soloLectura > 0) {
+                            htmlAdd += ` readonly="readonly"`
+                        }
+
+                        if (campo.idTipoCampo == 1) {
+                            if (campo.idTipoDato == 1) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="text" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 2) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="number" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 3) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="email" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 4) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="date" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 5) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="time" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 6) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="number" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 7) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="password" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            } else if (campo.idTipoDato == 8) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <input type="url" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                            }
+                        } else if (campo.idTipoCampo == 2) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                <textarea id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" rows="${campo.numeroLineas}" class="form-control" ${htmlAdd}></textarea>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                </div>
+                                `;
+                        } else if (campo.idTipoCampo == 3) {
+                            if (parseInt(campo.tipoOrigen) == 1) {
+                                let itemsLista = campo.valorLista;
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                  <select class="custom-select" id="${campo.elementoJson}" name="${campo.elementoJson}" ${htmlAdd}>
+                                        <option value="">Seleccione</option>
+                                `;
+
+                                $.each(itemsLista, function (i, data) {
+                                    htmlCampo += `
+                                        <option value="${data.valor}">${data.text}</option>
+                                `;
+                                });
+                                htmlCampo += `</select>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a></div>`;
+                            } else if (parseInt(campo.tipoOrigen) == 2) {
+                                htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                <label for="texto">${campo.etiqueta}</label>
+                                  <select class="custom-select" id="${campo.elementoJson}" name="${campo.elementoJson}" ${htmlAdd}>
+                                        <option value="">${campo.valorLista}</option>
+                                    </select>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a></div>`;
+                            }
+                        } else if (campo.idTipoCampo == 4) {
+                            htmlCampo += `
+                                <div class="${htmlTamanio}">
+                                    <div class="form-group">
+                                        <label>${campo.etiqueta}</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" value="${campo.etiqueta}" readonly="readonly">
+                                            <div class="input-group-append">
+                                                <a class="btn btn-info"> <span class="icon-share"></span> Buscar</a>
+                                            </div>
+                                        </div>
+                                <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                                    </div>
+                                </div>
+                                `;
+                        }
+                        indexCampo++;
+                    });
+
+                    resolver(htmlCampo);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+        function subirCampo(indexCampo) {
+            if (indexCampo > 0) {
+                let infoFormulario;
+                infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+                let campos = infoFormulario.campos;
+
+                let item1 = campos[indexCampo];
+                let item2 = campos[indexCampo - 1];
+
+                infoFormulario.campos[indexCampo] = item2;
+                infoFormulario.campos[indexCampo - 1] = item1;
+
+                localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+
+                pintarCampos().then(res => {
+                    $("#divCampoFormulario").html(res);
+                }).catch(error => {
+                    console.log("Data error", error);
+                });
+            } else {
+                mostrarAlertaGeneral("Error", "El campo esta en la primera posición", "danger");
+            }
+        }
+        function eliminarCampo(indexCampo) {
+            let infoFormulario;
+            infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+            infoFormulario.campos.splice(indexCampo, 1);
+
+            localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+            pintarCampos().then(res => {
+                $("#divCampoFormulario").html(res);
+            }).catch(error => {
+                console.log("Data error", error);
+            });
+        }
+
+        function registrarFormulario() {
+            let infoFormulario;
+            infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
+            getJson(JSON.stringify({ infoFormulario}), "buildsforms.aspx/regFormulario").then(response => {
+                if (response.codigo == 0) {
+                    swal("Alerta", response.mensaje, "error");
+                } else {
+                    swal("Alerta", response.mensaje, "error");
+                }
+            }).catch(error => {
+                swal("Alerta", error, "warning");
+            });
         }
     </script>
 </asp:Content>

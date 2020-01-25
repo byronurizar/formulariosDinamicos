@@ -83,7 +83,8 @@ soloLectura int,
 numeroLineas int,
 aumentarEn decimal,
 expresionRegular varchar(500),
-tamanioDiv int
+tamanioDiv int,
+elementoJsonPadre varchar(100)
 )
 
 
@@ -152,4 +153,88 @@ set @idFormulario=@@IDENTITY
 insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etiqueta,valor,texto,placeHolder,longitudMinima,longitudMaxima,valMinimo,valMax,mascara,esRequerido,tipoOrigen,valorLista,elementoJson,seleccionMultiple,urlWebBuscar,validacionScript,visible,soloLectura,numeroLineas,aumentarEn,expresionRegular,tamanioDiv)
 select @idFormulario,* from @detalle
 set @salida= 'Exitoso'
+end
+
+
+
+---------------------------24012020--------------------
+create table cat_origenesList(
+idOrigen int identity(1,1) primary key,
+nombre varchar(100) not null,
+nombreSpEjecutar varchar(100),
+numeroParametros int,
+estatus int
+);
+
+
+create procedure spr_listarOrigenesList
+as
+begin
+select * from cat_origenesList;
+end
+
+
+create table cat_modalsBusqueda(
+idModal int identity(1,1) primary key,
+nombre nvarchar(100) not null,
+estado int
+);
+
+
+create procedure spr_listarModalBusqueda
+as
+begin
+select * from cat_modalsBusqueda
+end
+
+alter table camposFormulario add elementoJsonPadre varchar(100);
+
+falta agregar columna a type
+
+CREATE TYPE [dbo].[camposFormularioType] AS TABLE(
+idTipoCampo int,
+idTipoDato int,
+tabIndex int,
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100),
+placeHolder varchar(100),
+longitudMinima int,
+longitudMaxima int,
+valMinimo varchar(100),
+valMax varchar(100),
+mascara nvarchar(100),
+esRequerido int,
+tipoOrigen int,
+valorLista varchar(max),
+elementoJson nvarchar(100),
+seleccionMultiple int,
+urlWebBuscar varchar(100),
+validacionScript varchar(100),
+visible int,
+soloLectura int,
+numeroLineas int,
+aumentarEn decimal,
+expresionRegular varchar(500),
+tamanioDiv int,
+elementoJsonPadre varchar(100)
+)
+
+
+
+----
+ALTER procedure [dbo].[spr_registrarFormulario](
+@titulo varchar(100),
+@descripcion varchar(100),
+@detalle camposFormularioType READONLY
+)
+as
+begin
+declare @idFormulario int=0;
+insert into formulario(titulo,descripcion,idEstado)
+values(@titulo,@descripcion,1);
+set @idFormulario=@@IDENTITY
+insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etiqueta,valor,texto,placeHolder,longitudMinima,longitudMaxima,valMinimo,valMax,mascara,esRequerido,tipoOrigen,valorLista,elementoJson,seleccionMultiple,urlWebBuscar,validacionScript,visible,soloLectura,numeroLineas,aumentarEn,expresionRegular,tamanioDiv,elementoJsonPadre )
+select @idFormulario,* from @detalle
+select 'exitoso'
 end

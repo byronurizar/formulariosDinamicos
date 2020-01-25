@@ -40,8 +40,20 @@
     <!-- Responsive css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
 
+    <%--Loader --%>
+    <link type="text/css" href="assets/css/jquery.loadingModal.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style>
+        .padre {
+  background: yellow;
+  height: 150px;
+  /*IMPORTANTE*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+    </style>
 </head>
 <body>
     <!-- Loader starts -->
@@ -56,6 +68,17 @@
     </div>
     <!-- Loader ends -->
 
+    <%--Nuevo Loader Inicio--%>
+<div id="nuevoLoader">
+     <div class="loader bg-white">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <h4 id="mensajeLoader"></h4>
+        </div>
+</div>
+    <%--Nuevo Loader Fin--%>
 
     <!--page-wrapper Start-->
     <div class="page-wrapper">
@@ -280,6 +303,9 @@
     <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
     <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
 
+
+    <%--Loader --%>
+    <script src="assets/js/jquery.loadingModal.js"></script>
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {
             $.notify({

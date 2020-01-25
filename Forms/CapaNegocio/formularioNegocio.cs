@@ -7,11 +7,11 @@ using CapaDatos;
 using CapaEntidad;
 namespace CapaNegocio
 {
-  public  class formularioNegocio
+  public  class FormularioNegocio
     {
-        formularioDatos _formularioDatos = new formularioDatos();
+        FormularioDatos _formularioDatos = new FormularioDatos();
 
-        public string registrarForm(formularioEntidad form)
+        public string registrarForm(dataFormulario form)
         {
             return _formularioDatos.registrarFormulario(form);
         }

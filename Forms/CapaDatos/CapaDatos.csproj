@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="formularioDatos.cs" />
+    <Compile Include="FormularioDatos.cs" />
+    <Compile Include="ModalBusquedaDatos.cs" />
+    <Compile Include="origenesListDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pruebaBD.cs" />
     <Compile Include="sConexion.cs" />
