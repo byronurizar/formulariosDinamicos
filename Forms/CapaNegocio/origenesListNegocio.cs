@@ -11,7 +11,7 @@ namespace CapaNegocio
 {
   public  class OrigenesListNegocio
     {
-        origenesListDatos _origenesListDatos = new origenesListDatos();
+        OrigenesListDatos _origenesListDatos = new OrigenesListDatos();
 
         public RespuestaEntidad getOrigenesList()
         {

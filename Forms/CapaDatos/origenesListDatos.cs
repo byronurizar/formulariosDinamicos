@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using CapaEntidad;
 namespace CapaDatos
 {
-  public  class origenesListDatos
+  public  class OrigenesListDatos
     {
         
         sConexion _Conexionbd = new sConexion();
         string _sConexion = string.Empty;
-        public origenesListDatos()
+        public OrigenesListDatos()
         {
             _sConexion = _Conexionbd.GetConex().ToString();
         }

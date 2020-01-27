@@ -144,8 +144,7 @@ namespace demoForms
                         dataForm.descripcion = frm.infoFormulario.descripcion;
                         dataForm.dtCampos = dtCampo;
                         FormularioNegocio frmNegocio = new FormularioNegocio();
-
-                        string a = frmNegocio.registrarForm(dataForm);
+                        rsp= frmNegocio.RegistrarFormulario(dataForm);
                     }
                     else
                     {
@@ -159,13 +158,12 @@ namespace demoForms
                     rsp.codigo = -1;
                     rsp.mensaje = "El objeto enviado es inválido";
                 }
-
                 jsonResponse = JsonConvert.SerializeObject(rsp);
             }
             catch (Exception ex)
             {
                 rsp.codigo = -1;
-                rsp.mensaje = "Ocurrió un error al serializar el objeto";
+                rsp.mensaje =string.Empty;
                 rsp.error = ex.ToString();
                 jsonResponse = JsonConvert.SerializeObject(rsp);
             }

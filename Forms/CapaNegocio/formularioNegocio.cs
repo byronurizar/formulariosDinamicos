@@ -11,9 +11,9 @@ namespace CapaNegocio
     {
         FormularioDatos _formularioDatos = new FormularioDatos();
 
-        public string registrarForm(dataFormulario form)
+        public RespuestaEntidad RegistrarFormulario(dataFormulario form)
         {
-            return _formularioDatos.registrarFormulario(form);
+            return _formularioDatos.RegistrarFormulario(form);
         }
     }
 }

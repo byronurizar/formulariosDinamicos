@@ -238,3 +238,33 @@ insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etique
 select @idFormulario,* from @detalle
 select 'exitoso'
 end
+
+
+
+--------------------27012020-----------------
+USE [ejemplo]
+GO
+/****** Object:  StoredProcedure [dbo].[spr_registrarFormulario]    Script Date: 27/01/2020 09:55:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[spr_registrarFormulario](
+@titulo varchar(100),
+@descripcion varchar(100),
+@detalle camposFormularioType READONLY,
+@codigo int output,
+@mensaje varchar(200) output,
+@error varchar(200) output
+)
+as
+begin
+declare @idFormulario int=0;
+insert into formulario(titulo,descripcion,idEstado)
+values(@titulo,@descripcion,1);
+set @idFormulario=@@IDENTITY
+insert into camposFormulario(idFormulario,idTipoCampo,idTipoDato,tabIndex,etiqueta,valor,texto,placeHolder,longitudMinima,longitudMaxima,valMinimo,valMax,mascara,esRequerido,tipoOrigen,valorLista,elementoJson,seleccionMultiple,urlWebBuscar,validacionScript,visible,soloLectura,numeroLineas,aumentarEn,expresionRegular,tamanioDiv,elementoJsonPadre )
+select @idFormulario,* from @detalle
+set @codigo=0;
+set @mensaje='Formulario registrado exitosamente';
+end
