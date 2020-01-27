@@ -277,8 +277,6 @@
 
     </div>
     <script>
-
-
         $(document).ready(function () {
             pintarCampos().then(res => {
                 $("#divCampoFormulario").html(res);
@@ -536,7 +534,6 @@
             
 
         });
-
         function divLimpiarCampos() {
             $("#checkSoloLectura").prop("checked", false);
             $("#checkRequeried").prop("checked", false);
@@ -552,7 +549,6 @@
                 }
             }
         }
-
         function ocultarCampos() {
             let stringCampos = 'divLtaTpOrigen|divDataxOrigen|divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divFechaMin|divFechaMax|divNumericoMin|divNumericoMax|divNumericoStep|divNumeroLineas|divExpReg|divPlaceholder|divInfoItems|divElementos|divModalsDisponibles|divCamposExistenes';
             let campos = stringCampos.split('|');
@@ -561,7 +557,6 @@
                 $(`#${campo}`).hide();
             }
         }
-
         function mostrarCampo() {
             let tipoCampo = $('#ltaTpCampo').val();
             let tipoDato = $('#ltaTpDato').val();
@@ -633,7 +628,6 @@
 
 
         }
-
         function inputPorTipoDato() {
             let tipoCampo = $('#ltaTpCampo').val();
             let htmlInput = '';
@@ -661,7 +655,6 @@
             }
             $("#divInputValor").html(htmlInput);
         }
-
         function pintarItemsLista() {
             if ($("#txtIdCampo").val().trim().length > 0) {
                 idCampo = $("#txtIdCampo").val().trim();
@@ -691,7 +684,6 @@
                 mostrarAlertaGeneral("Error", "No se encontró el campo especificado", "danger");
             }
         }
-
         function eliminarItem(idCampo, indexDelete) {
             let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
             let campoExiste = campoEspeciales.find((items, index) => {
@@ -705,7 +697,6 @@
                 }
             });
         }
-
         function getOrigenesList() {
             $("#nuevoLoader").addClass('loader-wrapper');
             $("#mensajeLoader").html('Realizando Busqueda');
@@ -731,7 +722,6 @@
 
            
         }
-
         function getModalsBusqueda() {
             let htmlOptions = '';
             $('#ltaModals').empty();
@@ -751,8 +741,6 @@
                 swal("Alerta", error, "warning");
             });
         }
-
-
         function mostrarCamposPorOrigen(idOrigen) {
             let origenesLista = JSON.parse(localStorage.getItem("OrigenesLista"));
             let origen = origenesLista.find(x => x.idOrigen == idOrigen);
@@ -774,7 +762,6 @@
                 $('#divCamposExistenes').hide();
             }
         }
-
         var getJson = (data, metodo) => {
             return new Promise(function (resolver, rechazar) {
                 try {
@@ -987,7 +974,7 @@
                         mascara,
                         esRequerido,
                         tipoOrigen,
-                        valorLista: itemsCampo,
+                        valorLista: JSON.stringify(itemsCampo),
                         elementoJson,
                         seleccionMultiple,
                         urlWebBuscar,
@@ -1112,7 +1099,7 @@
                                 `;
                         } else if (campo.idTipoCampo == 3) {
                             if (parseInt(campo.tipoOrigen) == 1) {
-                                let itemsLista = campo.valorLista;
+                                let itemsLista = JSON.parse(campo.valorLista);
                                 htmlCampo += `
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${campo.etiqueta}</label>
@@ -1196,7 +1183,6 @@
                 console.log("Data error", error);
             });
         }
-
         function registrarFormulario() {
             let infoFormulario;
             infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];

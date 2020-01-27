@@ -112,5 +112,52 @@ namespace CapaDatos
 
             return resultado;
         }
+        public RespuestaEntidad getFormulario(int id)
+        {
+            RespuestaEntidad rsp = new RespuestaEntidad();
+            string sqlConnString = _sConexion;
+            string spName = "spr_listarFormulario";
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlParameter[] storedParms = new SqlParameter[1];
+                storedParms = SqlHelperParameterCache.GetSpParameterSet(sqlConnString, spName);
+                storedParms[0].Value = id;
+                ds = SqlHelper.ExecuteDataset(sqlConnString, System.Data.CommandType.StoredProcedure, spName, storedParms);
+                if (ds != null)
+                {
+                    if (ds.Tables.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows.Count > 0 && ds.Tables[1].Rows.Count > 0)
+                        {
+                            rsp.codigo = 0;
+                            rsp.valor = ds;
+                        }
+                        else
+                        {
+                            rsp.codigo = -2;
+                            rsp.mensaje = "No existe información del formulario";
+                        }
+                    }
+                    else
+                    {
+                        rsp.codigo = -2;
+                        rsp.mensaje = "No existe información del formulario";
+                    }
+                }
+                else
+                {
+                    rsp.codigo = -2;
+                    rsp.mensaje = "No existe información del formulario";
+                }
+            }
+            catch (Exception e)
+            {
+                rsp.codigo = -1;
+                rsp.error = e.Message.ToString();
+                throw new Exception(e.Message);
+            }
+            return rsp;
+        }
     }
 }

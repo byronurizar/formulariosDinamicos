@@ -268,3 +268,12 @@ select @idFormulario,* from @detalle
 set @codigo=0;
 set @mensaje='Formulario registrado exitosamente';
 end
+
+create procedure spr_listarFormulario
+@idFormulario int
+as
+begin
+select * from formulario where idFormulario=@idFormulario
+select * from camposFormulario where idFormulario=@idFormulario
+end
+

@@ -1443,6 +1443,7 @@
     <Content Include="frm.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\vue.js" />
+    <Content Include="miform.aspx" />
     <Content Include="pruebaBD.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -1484,6 +1485,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="miform.aspx.cs">
+      <DependentUpon>miform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="miform.aspx.designer.cs">
+      <DependentUpon>miform.aspx</DependentUpon>
     </Compile>
     <Compile Include="principal.Master.cs">
       <DependentUpon>principal.Master</DependentUpon>
