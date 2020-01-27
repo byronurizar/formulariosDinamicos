@@ -40,8 +40,7 @@
     <!-- Responsive css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
 
-    <%--Loader --%>
-    <link type="text/css" href="assets/css/jquery.loadingModal.css" rel="stylesheet" />
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style>
@@ -303,9 +302,7 @@
     <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
     <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
 
-
-    <%--Loader --%>
-    <script src="assets/js/jquery.loadingModal.js"></script>
+    s
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {
             $.notify({

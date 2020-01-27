@@ -34,17 +34,17 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("detalle", form.dtCampos);
 
 
-                SqlParameter msgErr1 = new SqlParameter("salida", SqlDbType.NVarChar);
-                msgErr1.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(msgErr1);
-                cmd.Parameters["salida"].Size = 150;
-                cmd.Parameters["salida"].Size = 150;
+                //SqlParameter msgErr1 = new SqlParameter("salida", SqlDbType.NVarChar);
+                //msgErr1.Direction = ParameterDirection.Output;
+                //cmd.Parameters.Add(msgErr1);
+                //cmd.Parameters["salida"].Size = 150;
+                //cmd.Parameters["salida"].Size = 150;
 
                 using (SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     rdr.Read();
-                    cmd.Parameters["salida"].Value.ToString();
-                   // resultado = rdr.GetString(0);
+                 //   cmd.Parameters["salida"].Value.ToString();
+                    resultado = rdr.GetString(0);
                 }
 
               //  var errCode = cmd.Parameters["CODIGO_RESP"].Value.ToString();

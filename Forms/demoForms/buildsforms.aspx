@@ -1202,9 +1202,9 @@
             infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
             getJson(JSON.stringify({ infoFormulario}), "buildsforms.aspx/regFormulario").then(response => {
                 if (response.codigo == 0) {
-                    swal("Alerta", response.mensaje, "error");
+                    swal("Alerta", response.mensaje, "success");
                 } else {
-                    swal("Alerta", response.mensaje, "error");
+                    swal("Alerta", response.mensaje +"  "+ response.error, "error");
                 }
             }).catch(error => {
                 swal("Alerta", error, "warning");

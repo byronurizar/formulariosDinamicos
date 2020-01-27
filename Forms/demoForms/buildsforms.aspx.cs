@@ -102,12 +102,14 @@ namespace demoForms
                     dtCampo.Columns.Add("expresionRegular", typeof(string));
                     dtCampo.Columns.Add("tamanioDiv", typeof(string));
                     dtCampo.Columns.Add("elementoJsonPadre", typeof(string));
+
+                    int contador = 0;
                     foreach (Campos campo in frm.infoFormulario.campos)
                     {
                         DataRow nuevaFila = dtCampo.NewRow();
                         nuevaFila["idTipoCampo"] = campo.idTipoCampo;
                         nuevaFila["idTipoDato"] = campo.idTipoDato;
-                        nuevaFila["tabIndex"] = campo.tabIndex;
+                        nuevaFila["tabIndex"] = contador;
                         nuevaFila["etiqueta"] = campo.etiqueta;
                         nuevaFila["valor"] = campo.valor;
                         nuevaFila["texto"] = campo.texto;
@@ -132,6 +134,7 @@ namespace demoForms
                         nuevaFila["tamanioDiv"] = campo.tamanioDiv;
                         nuevaFila["elementoJsonPadre"] = campo.elementoJsonPadre;
                         dtCampo.Rows.Add(nuevaFila);
+                        contador++;
                     }
 
                     if (dtCampo.Rows.Count > 0)
