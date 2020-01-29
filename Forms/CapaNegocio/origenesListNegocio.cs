@@ -17,5 +17,9 @@ namespace CapaNegocio
         {
             return _origenesListDatos.getOrigenesList();
         }
+        public RespuestaEntidad getItemsLista(ItemsListaEntidad item)
+        {
+            return _origenesListDatos.getItemsLista(item);
+        }
     }
 }

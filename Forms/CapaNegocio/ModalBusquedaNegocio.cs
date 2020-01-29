@@ -14,5 +14,13 @@ namespace CapaNegocio
         {
             return _ModalBusquedaDatos.getModalsBusqueda();
         }
+        public RespuestaEntidad getInfoModal(int idModal)
+        {
+            return _ModalBusquedaDatos.getInfoModal(idModal);
+        }
+        public RespuestaEntidad getBusquedaModal(int idModal,string parametro)
+        {
+            return _ModalBusquedaDatos.getBusquedaModal(idModal,parametro);
+        }
     }
 }

@@ -41,6 +41,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
 
     
+
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style>
@@ -302,7 +304,7 @@
     <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
     <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
 
-    s
+
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {
             $.notify({

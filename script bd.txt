@@ -277,3 +277,70 @@ select * from formulario where idFormulario=@idFormulario
 select * from camposFormulario where idFormulario=@idFormulario
 end
 
+
+
+
+---------------28012020
+create procedure getDepartamentos
+as
+begin
+select idCampo as value,etiqueta as texto from camposFormulario
+end
+
+ALTER procedure [dbo].[getDepartamentos](
+@parametro1 int
+)
+as
+begin
+select idCampo as value,etiqueta as texto from camposFormulario where idFormulario=@parametro1;
+end
+
+
+
+
+------
+create procedure spr_listarInfoModal
+@idModal int
+as
+begin
+select * from cat_modalsBusqueda where idModal=@idModal
+end
+
+
+alter table cat_modalsBusqueda add textoAyuda varchar(200);
+alter table cat_modalsBusqueda add usarSp int,script varchar(max);
+
+
+
+USE [ejemplo]
+GO
+/****** Object:  StoredProcedure [dbo].[spr_busquedaModal]    Script Date: 28/01/2020 17:38:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[spr_busquedaModal]
+@idModal int,
+@parametro varchar(100)
+as
+begin
+declare @scriptDb varchar(max),
+@usarSp int
+
+set @usarSp=(
+select usarSp from cat_modalsBusqueda where idModal=@idModal
+);
+
+if(@usarSp=0)
+begin
+set @scriptDb=(
+select script from cat_modalsBusqueda where idModal=@idModal
+)
+
+set @scriptDb+= ' where etiqueta like ''%'+@parametro+'%''';
+print @scriptDb;
+
+exec (@scriptDb)
+end
+
+end

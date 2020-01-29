@@ -57,7 +57,7 @@
                                         <option value="3">Correo electrónico</option>
                                         <option value="4">Fecha</option>
                                         <option value="5">Hora</option>
-                                        <option value="6">Teléfono</option>
+                                        <option value="7">Teléfono</option>
                                         <option value="7">Password</option>
                                         <option value="8">Url</option>
                                     </select>
@@ -569,7 +569,7 @@
                         $(`#${campo}`).show();
                     }
                 } else if (tipoDato == 2) {
-                    let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divExpReg|divPlaceholder';
+                    let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divPlaceholder';
                     let campos = camposTipoDato2.split('|');
                     for (let i = 0; i < campos.length; i++) {
                         let campo = campos[i];
@@ -698,8 +698,8 @@
             });
         }
         function getOrigenesList() {
-            $("#nuevoLoader").addClass('loader-wrapper');
-            $("#mensajeLoader").html('Realizando Busqueda');
+            //$("#nuevoLoader").addClass('loader-wrapper');
+            //$("#mensajeLoader").html('Realizando Busqueda');
 
             let htmlOptions = '';
             $('#ltaOrigen').empty();
@@ -808,8 +808,8 @@
             let placeHolder = "";
             let longitudMinima = 0;
             let longitudMaxima = 0;
-            let valMinimo = "";
-            let valMax = "";
+            let valMinimo = 0;
+            let valMax = 0;
             let mascara = "";
             let esRequerido = 0;
             let tipoOrigen = 0;
@@ -879,13 +879,13 @@
                         }
                     } else if (idTipoDato == 2) {
                         if ($("#txtMaxNumber").val().trim().length > 0) {
-                            valMax = $("#txtMaxNumber").val().trim();
+                            valMax = parseInt($("#txtMaxNumber").val().trim());
                         }
                         if ($("#txtMinNumber").val().trim().length > 0) {
-                            valMinimo = $("#txtMinNumber").val().trim();
+                            valMinimo = parseInt($("#txtMinNumber").val().trim());
                         }
                         if ($("#txtAumentarEn").val().trim().length > 0) {
-                            aumentarEn = $("#txtAumentarEn").val().trim();
+                            aumentarEn = parseInt($("#txtAumentarEn").val().trim());
                         }
                         if (valMax > 0) {
                             if (aumentarEn > 0) {
@@ -1010,7 +1010,7 @@
                     $.each(infoFormulario.campos, function (i, campo) {
                         let htmlTamanio = "col-md-6 mb-3";
                         let htmlAdd = '';
-
+                        let valor = campo.valor;
                         if (parseInt(campo.tamanioDiv) == 12) {
                             htmlTamanio = "col-md-12 mb-6";
                         }
@@ -1068,7 +1068,7 @@
                                 htmlCampo += `
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${campo.etiqueta}</label>
-                                <input type="number" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}>
+                                <input type="text" class="form-control" id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" ${htmlAdd}  pattern="^[2|3|4|5|6|7][0-9]{7}$" minlength="8" maxlength="8">
                                 <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;
@@ -1093,7 +1093,7 @@
                             htmlCampo += `
                                 <div class="${htmlTamanio}">
                                 <label for="texto">${campo.etiqueta}</label>
-                                <textarea id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" rows="${campo.numeroLineas}" class="form-control" ${htmlAdd}></textarea>
+                                <textarea id="${campo.elementoJson}" name="${campo.elementoJson}" placeholder="${campo.placeHolder}" value="${campo.valor}" rows="${campo.numeroLineas}" class="form-control" ${htmlAdd}>${valor.trim()}</textarea>
                                 <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
                                 </div>
                                 `;

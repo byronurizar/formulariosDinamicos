@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using CapaEntidad;
 using CapaNegocio;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace demoForms
 {
@@ -19,7 +20,8 @@ namespace demoForms
         {
 
             OrigenesListNegocio _origenesListNegocio = new OrigenesListNegocio();
-//            RespuestaEntidad rsp = new RespuestaEntidad();
+            RespuestaEntidad rsp = new RespuestaEntidad();
+            RespuestaEntidad response = new RespuestaEntidad();
             string jsonResponse = string.Empty;
             FormularioNegocio frm = new FormularioNegocio();
 
@@ -29,7 +31,7 @@ namespace demoForms
 
                 DataSet ds = new DataSet();
 
-                ds =(DataSet)rsp.valor;
+                ds = (DataSet)rsp.valor;
 
                 InfoFormulario info = new InfoFormulario();
                 info.nombre = ds.Tables[0].Rows[0]["titulo"].ToString(); ;
@@ -37,10 +39,10 @@ namespace demoForms
 
                 List<Campos> listaCampos = new List<Campos>();
 
-                foreach (DataRow item in ds.Tables[1].Rows)
+                foreach (DataRow item in ds.Tables[1].Select("", "tabIndex asc"))
                 {
                     Campos campo = new Campos();
-                    campo.idTipoCampo =Convert.ToInt32(item["idTipoCampo"].ToString());
+                    campo.idTipoCampo = Convert.ToInt32(item["idTipoCampo"].ToString());
                     campo.idTipoDato = Convert.ToInt32(item["idTipoDato"].ToString());
                     campo.tabIndex = Convert.ToInt32(item["tabIndex"].ToString());
                     campo.etiqueta = item["etiqueta"].ToString();
@@ -69,26 +71,112 @@ namespace demoForms
                     listaCampos.Add(campo);
                 }
 
-                info.campos=listaCampos;
+                info.campos = listaCampos;
 
-                jsonResponse = JsonConvert.SerializeObject(info);
+                response.valor = info;
+                response.codigo = 0;
+                response.mensaje = string.Empty;
+                response.error = string.Empty;
+                jsonResponse = JsonConvert.SerializeObject(response);
+                ClientScript.RegisterStartupScript(this.GetType(), "campos", "pintarCampos(" + jsonResponse + ");", true);
+
             }
             catch (Exception ex)
             {
-                rsp.codigo = -1;
-                rsp.mensaje = "Ocurrió un error al serializar el objeto";
-                rsp.error = ex.ToString();
-                jsonResponse = JsonConvert.SerializeObject(rsp);
+                response.codigo = -1;
+                response.mensaje = "Ocurrió un error al serializar el objeto";
+                response.error = ex.ToString();
+                response.valor = null;
+                jsonResponse = JsonConvert.SerializeObject(response);
             }
+
+
+        }
+
+        [WebMethod]
+        static public string getItemsLista(string stringRequest)
+        {
+            string jsonResponse = string.Empty;
+            RespuestaEntidad response = new RespuestaEntidad();
+            try
+            {
+                JObject solicitud = JObject.Parse(stringRequest);
+                ItemsListaEntidad items = new ItemsListaEntidad();
+                items.numeroParametros = 1;
+                items.nombreSp =(string)solicitud["nombreSp"];
+                string valPrametro= (string)solicitud["parametro"];
+                
+                string[] parametro = { valPrametro };
+                items.parametros = parametro;
+
+                OrigenesListNegocio origenLista = new OrigenesListNegocio();
+                response = origenLista.getItemsLista(items);
+                jsonResponse = JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                response.codigo = -1;
+                response.mensaje = "Ocurrió un error al serializar el objeto";
+                response.error = ex.ToString();
+                response.valor = null;
+                jsonResponse = JsonConvert.SerializeObject(response);
+
+            }
+            return jsonResponse;
 
         }
         [WebMethod]
-        static public string getFormulario(string stringRequest)
+        static public string getInfoModal(string stringRequest)
         {
-            
-            return "";
+            string jsonResponse = string.Empty;
+            RespuestaEntidad response = new RespuestaEntidad();
+            try
+            {
+                JObject solicitud = JObject.Parse(stringRequest);
+                ModalBusquedaNegocio modal = new ModalBusquedaNegocio();
+                int parametro = (Int32)solicitud["idModal"];
+                response = modal.getInfoModal(parametro);
+                jsonResponse = JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                response.codigo = -1;
+                response.mensaje = "Ocurrió un error al serializar el objeto";
+                response.error = ex.ToString();
+                response.valor = null;
+                jsonResponse = JsonConvert.SerializeObject(response);
+
+            }
+            return jsonResponse;
+
+        }
+        [WebMethod]
+        static public string getBusquedaModal(string stringRequest)
+        {
+            string jsonResponse = string.Empty;
+            RespuestaEntidad response = new RespuestaEntidad();
+            try
+            {
+                JObject solicitud = JObject.Parse(stringRequest);
+                ModalBusquedaNegocio modal = new ModalBusquedaNegocio();
+                int idModal = (Int32)solicitud["idModal"];
+                string parametro = (string)solicitud["parametro"];
+
+                response = modal.getBusquedaModal(idModal,parametro.Trim());
+                jsonResponse = JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                response.codigo = -1;
+                response.mensaje = "Ocurrió un error al serializar el objeto";
+                response.error = ex.ToString();
+                response.valor = null;
+                jsonResponse = JsonConvert.SerializeObject(response);
+
+            }
+            return jsonResponse;
 
         }
     }
-   
+
 }

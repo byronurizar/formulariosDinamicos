@@ -13,6 +13,7 @@ namespace CapaEntidad
     }
     public class Campos
     {
+        public int idCampo { get; set; }
         public int idTipoCampo { get; set; }
         public int idTipoDato { get; set; }
         public int tabIndex { get; set; }
