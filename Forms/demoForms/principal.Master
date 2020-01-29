@@ -28,6 +28,9 @@
     <!-- Themify icon -->
     <link rel="stylesheet" type="text/css" href="../assets/css/themify.css">
 
+    <!--JSGrid css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/datatables.css" />
+
     <!-- Flag icon -->
     <link rel="stylesheet" type="text/css" href="../assets/css/flag-icon.css">
 
@@ -304,6 +307,8 @@
     <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
     <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
 
+    <!--Datatable js-->
+    <script src="../assets/js/datatables/jquery.dataTables.min.js"></script>
 
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {

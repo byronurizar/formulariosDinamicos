@@ -344,3 +344,95 @@ exec (@scriptDb)
 end
 
 end
+
+
+
+
+----------29092020
+USE [ejemplo]
+GO
+/****** Object:  StoredProcedure [dbo].[spr_busquedaModal]    Script Date: 29/01/2020 11:54:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[spr_busquedaModal]
+@idModal int,
+@parametro varchar(100)
+as
+begin
+declare @scriptDb varchar(max),
+@usarSp int
+
+set @usarSp=(
+select usarSp from cat_modalsBusqueda where idModal=@idModal
+);
+
+if(@usarSp=0)
+begin
+set @scriptDb=(
+select script from cat_modalsBusqueda where idModal=@idModal
+)
+
+set @scriptDb+= '''%'+@parametro+'%''';
+print @scriptDb;
+
+exec (@scriptDb)
+end
+
+end
+
+
+
+create table departamento(
+id int identity(1,1) primary key,
+nombre varchar(150)
+);
+
+
+
+create table municipio(
+id int identity(1,1) primary key,
+idDepto int,
+nombre varchar(150)
+);
+
+
+create procedure getDeptoResidencia
+as
+select * from departamento
+
+
+ALTER procedure [dbo].[getDeptoResidencia]
+as
+begin
+select id as value,nombre as texto from departamento
+end
+
+
+
+
+
+create procedure getMunicipioResidencia
+@idD int
+as
+begin
+select * from municipio where idDepto=@idD
+end
+
+
+ALTER procedure [dbo].[getMunicipioResidencia]
+@idD int
+as
+begin
+select id as value,nombre as texto from municipio where idDepto=@idD
+end
+
+
+ALTER procedure [dbo].[spr_listarFormulario]
+@idFormulario int
+as
+begin
+select * from formulario where idFormulario=@idFormulario
+select * from camposFormulario where idFormulario=@idFormulario
+end
