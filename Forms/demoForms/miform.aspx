@@ -69,7 +69,7 @@
                         getItemsListaConParametros('${camposRelacionados.elementoJson}','${camposRelacionados.valorLista}','${elementoJson}');
                         });`;
                         } else {
-                            script += `$("#hidden${elementoJson}").bind("change",function () {
+                            script += `$("#hidden${elementoJson}").on("change",function () {
                         getItemsListaConParametros('${camposRelacionados.elementoJson}','${camposRelacionados.valorLista}','hidden${elementoJson}');
                         });`;
                         }

@@ -266,7 +266,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" id="btnRegistrarForm" name="btnRegistrarForm">Registrar Formulario</button>
-                           <%-- <input type="reset" class="btn btn-light" value="Cancelar">--%>
+                            <%-- <input type="reset" class="btn btn-light" value="Cancelar">--%>
                         </div>
                     </div>
                 </div>
@@ -327,6 +327,10 @@
                     divLimpiarCampos();
                     getModalsBusqueda();
                 }
+            });
+
+            $("#txtIdCampo").keyup(function () {
+                $(this).val($(this).val().trim());
             });
 
             $("#ltaTpDato").change(function () {
@@ -531,7 +535,7 @@
             $("#btnRegistrarForm").click(function () {
                 registrarFormulario();
             });
-            
+
 
         });
         function divLimpiarCampos() {
@@ -720,7 +724,7 @@
                 swal("Alerta", error, "warning");
             });
 
-           
+
         }
         function getModalsBusqueda() {
             let htmlOptions = '';
@@ -830,170 +834,180 @@
 
             idTipoCampo = parseInt($("#ltaTpCampo").val());
             elementoJson = $("#txtIdCampo").val().trim();
-            let existeCampo = false;
-            $.each(infoFormulario.campos, function (i, item) {
-                if (item.elementoJson == elementoJson) {
-                    existeCampo = true;
-                    return false;
-                }
-            });
+            if (elementoJson.trim().length > 0) {
 
-            if (!existeCampo) {
-                etiqueta = $("#txtEtiqueta").val().trim();
-                placeHolder = $("#txtPlaceholder").val().trim();
+                let existeCampo = false;
+                $.each(infoFormulario.campos, function (i, item) {
+                    if (item.elementoJson == elementoJson) {
+                        existeCampo = true;
+                        return false;
+                    }
+                });
 
-                expresionRegular = $("#txtExpReg").val().trim();
-                tamanioDiv = $("#tamanioCampo").val();
+                if (!existeCampo) {
+                    etiqueta = $("#txtEtiqueta").val().trim();
+                    if (etiqueta.length > 0) {
+                        placeHolder = $("#txtPlaceholder").val().trim();
 
-                if ($("#checkSoloLectura").is(':checked')) {
-                    soloLectura = 1;
-                } else {
-                    soloLectura = 0;
-                }
+                        expresionRegular = $("#txtExpReg").val().trim();
+                        tamanioDiv = $("#tamanioCampo").val();
 
-                if ($("#checkRequeried").is(':checked')) {
-                    esRequerido = 1;
-                } else {
-                    esRequerido = 0;
-                }
-
-                if (idTipoCampo == 1 || idTipoCampo == 2) {
-                    valor = $("#value").val().trim();
-                    texto = $("#value").val().trim();
-                }
-
-                if (idTipoCampo == 1) {
-                    idTipoDato = parseInt($("#ltaTpDato").val());
-                    if (idTipoDato == 1) {
-                        if ($("#txtMaxlength").val().trim().length > 0) {
-                            longitudMaxima = $("#txtMaxlength").val().trim();
+                        if ($("#checkSoloLectura").is(':checked')) {
+                            soloLectura = 1;
+                        } else {
+                            soloLectura = 0;
                         }
-                        if ($("#txtMinlength").val().trim().length > 0) {
-                            longitudMinima = $("#txtMinlength").val().trim();
+
+                        if ($("#checkRequeried").is(':checked')) {
+                            esRequerido = 1;
+                        } else {
+                            esRequerido = 0;
                         }
-                        if (longitudMaxima > 0) {
-                            if (longitudMinima > longitudMaxima) {
-                                mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor o igual a la longitud máxima', "danger");
-                                agregarCampo = false;
+
+                        if (idTipoCampo == 1 || idTipoCampo == 2) {
+                            valor = $("#value").val().trim();
+                            texto = $("#value").val().trim();
+                        }
+
+                        if (idTipoCampo == 1) {
+                            idTipoDato = parseInt($("#ltaTpDato").val());
+                            if (idTipoDato == 1) {
+                                if ($("#txtMaxlength").val().trim().length > 0) {
+                                    longitudMaxima = $("#txtMaxlength").val().trim();
+                                }
+                                if ($("#txtMinlength").val().trim().length > 0) {
+                                    longitudMinima = $("#txtMinlength").val().trim();
+                                }
+                                if (longitudMaxima > 0) {
+                                    if (longitudMinima > longitudMaxima) {
+                                        mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor o igual a la longitud máxima', "danger");
+                                        agregarCampo = false;
+                                    }
+                                }
+                            } else if (idTipoDato == 2) {
+                                if ($("#txtMaxNumber").val().trim().length > 0) {
+                                    valMax = parseInt($("#txtMaxNumber").val().trim());
+                                }
+                                if ($("#txtMinNumber").val().trim().length > 0) {
+                                    valMinimo = parseInt($("#txtMinNumber").val().trim());
+                                }
+                                if ($("#txtAumentarEn").val().trim().length > 0) {
+                                    aumentarEn = parseInt($("#txtAumentarEn").val().trim());
+                                }
+                                if (valMax > 0) {
+                                    if (aumentarEn > 0) {
+                                        if (valMax % aumentarEn == 0) {
+
+                                        } else {
+                                            mostrarAlertaGeneral("Error", 'El valor maximo debe ser multiplo del campo Aumentar en', "danger");
+                                            agregarCampo = false;
+                                        }
+                                    }
+                                    if (valMinimo > valMax) {
+                                        mostrarAlertaGeneral("Error", 'El valor mínimo debe ser menor o igual al valor máximo' + valMinimo, "danger");
+                                        agregarCampo = false;
+                                    }
+
+                                }
+                            } else if (idTipoDato == 4) {
+                                if ($("#txtMaxFecha").val().trim().length > 0) {
+                                    valMax = $("#txtMaxFecha").val().trim();
+                                }
+                                if ($("#txtMinFecha").val().trim().length > 0) {
+                                    valMinimo = $("#txtMinFecha").val().trim();
+                                }
                             }
-                        }
-                    } else if (idTipoDato == 2) {
-                        if ($("#txtMaxNumber").val().trim().length > 0) {
-                            valMax = parseInt($("#txtMaxNumber").val().trim());
-                        }
-                        if ($("#txtMinNumber").val().trim().length > 0) {
-                            valMinimo = parseInt($("#txtMinNumber").val().trim());
-                        }
-                        if ($("#txtAumentarEn").val().trim().length > 0) {
-                            aumentarEn = parseInt($("#txtAumentarEn").val().trim());
-                        }
-                        if (valMax > 0) {
-                            if (aumentarEn > 0) {
-                                if (valMax % aumentarEn == 0) {
-
-                                } else {
-                                    mostrarAlertaGeneral("Error", 'El valor maximo debe ser multiplo del campo Aumentar en', "danger");
+                        } else if (idTipoCampo == 2) {
+                            if ($("#txtNumeroLineas").val().trim().length > 0) {
+                                numeroLineas = $("#txtNumeroLineas").val().trim();
+                            }
+                            if ($("#txtMaxlength").val().trim().length > 0) {
+                                longitudMaxima = $("#txtMaxlength").val().trim();
+                            }
+                            if ($("#txtMinlength").val().trim().length > 0) {
+                                longitudMinima = $("#txtMinlength").val().trim();
+                            }
+                            if (longitudMaxima > 0) {
+                                if (longitudMinima > longitudMaxima) {
+                                    mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor a la longitud máxima', "danger");
                                     agregarCampo = false;
                                 }
                             }
-                            if (valMinimo > valMax) {
-                                mostrarAlertaGeneral("Error", 'El valor mínimo debe ser menor o igual al valor máximo' + valMinimo, "danger");
-                                agregarCampo = false;
+                        } else if (idTipoCampo == 3) {
+
+                            tipoOrigen = $("#ltaTpOrigen").val();
+                            if (tipoOrigen == 1) {
+                                let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
+                                let campoExiste = campoEspeciales.find((items, index) => {
+                                    if (items.idCampo == elementoJson) {
+                                        itemsCampo = campoEspeciales[index].items;
+                                        campoEspeciales.splice(index, 1);
+                                        localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
+                                    }
+                                });
+
+                                if (!itemsCampo.length > 0) {
+                                    agregarCampo = false;
+                                    mostrarAlertaGeneral("Error", "Debe de ingresar elementos a la lista", "danger");
+                                }
+                            } else if (tipoOrigen == 2) {
+                                let idOrigen = $("#ltaOrigen").val();
+                                let origenesLista = JSON.parse(localStorage.getItem("OrigenesLista"));
+                                let origen = origenesLista.find(x => x.idOrigen == idOrigen);
+                                itemsCampo = origen.nombreSpEjecutar;
+                                if (origen) {
+                                    if (origen.numeroParametros == 1) {
+                                        elementoJsonPadre = $("#ltaCamposExistentes").val();
+                                    }
+                                }
                             }
+                        } else if (idTipoCampo == 4) {
+                            urlWebBuscar = $("#ltaModals").val();
+                        }
 
+                        if (agregarCampo) {
+                            let infoCampo = {
+                                idTipoCampo,
+                                idTipoDato,
+                                tabIndex,
+                                etiqueta,
+                                valor,
+                                texto,
+                                placeHolder,
+                                longitudMinima,
+                                longitudMaxima,
+                                valMinimo,
+                                valMax,
+                                mascara,
+                                esRequerido,
+                                tipoOrigen,
+                                valorLista: JSON.stringify(itemsCampo),
+                                elementoJson,
+                                seleccionMultiple,
+                                urlWebBuscar,
+                                validacionScript,
+                                visible,
+                                soloLectura,
+                                numeroLineas,
+                                aumentarEn,
+                                expresionRegular,
+                                tamanioDiv,
+                                elementoJsonPadre
+                            };
+                            infoFormulario.campos.push(infoCampo);
+                            localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+                            mostrarAlertaGeneral("Información", "Campo agregado exitosamente", "success");
+                            divLimpiarCampos();
                         }
-                    } else if (idTipoDato == 4) {
-                        if ($("#txtMaxFecha").val().trim().length > 0) {
-                            valMax = $("#txtMaxFecha").val().trim();
-                        }
-                        if ($("#txtMinFecha").val().trim().length > 0) {
-                            valMinimo = $("#txtMinFecha").val().trim();
-                        }
-                    }
-                } else if (idTipoCampo == 2) {
-                    if ($("#txtNumeroLineas").val().trim().length > 0) {
-                        numeroLineas = $("#txtNumeroLineas").val().trim();
-                    }
-                    if ($("#txtMaxlength").val().trim().length > 0) {
-                        longitudMaxima = $("#txtMaxlength").val().trim();
-                    }
-                    if ($("#txtMinlength").val().trim().length > 0) {
-                        longitudMinima = $("#txtMinlength").val().trim();
-                    }
-                    if (longitudMaxima > 0) {
-                        if (longitudMinima > longitudMaxima) {
-                            mostrarAlertaGeneral("Error", 'La longitud mínima debe ser menor a la longitud máxima', "danger");
-                            agregarCampo = false;
-                        }
-                    }
-                } else if (idTipoCampo == 3) {
+                    } else {
+                        mostrarAlertaGeneral("Error", "Debe de ingresar una etiqueta", "danger");
 
-                    tipoOrigen = $("#ltaTpOrigen").val();
-                    if (tipoOrigen == 1) {
-                        let campoEspeciales = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
-                        let campoExiste = campoEspeciales.find((items, index) => {
-                            if (items.idCampo == elementoJson) {
-                                itemsCampo = campoEspeciales[index].items;
-                                campoEspeciales.splice(index, 1);
-                                localStorage.setItem('campoEspeciales', JSON.stringify(campoEspeciales));
-                            }
-                        });
-
-                        if (!itemsCampo.length > 0) {
-                            agregarCampo = false;
-                            mostrarAlertaGeneral("Error", "Debe de ingresar elementos a la lista", "danger");
-                        }
-                    } else if (tipoOrigen == 2) {
-                        let idOrigen = $("#ltaOrigen").val();
-                        let origenesLista = JSON.parse(localStorage.getItem("OrigenesLista"));
-                        let origen = origenesLista.find(x => x.idOrigen == idOrigen);
-                        itemsCampo = origen.nombreSpEjecutar;
-                        if (origen) {
-                            if (origen.numeroParametros == 1) {
-                                elementoJsonPadre = $("#ltaCamposExistentes").val();
-                            }
-                        }
                     }
-                } else if (idTipoCampo == 4) {
-                    urlWebBuscar = $("#ltaModals").val();
-                }
-
-                if (agregarCampo) {
-                    let infoCampo = {
-                        idTipoCampo,
-                        idTipoDato,
-                        tabIndex,
-                        etiqueta,
-                        valor,
-                        texto,
-                        placeHolder,
-                        longitudMinima,
-                        longitudMaxima,
-                        valMinimo,
-                        valMax,
-                        mascara,
-                        esRequerido,
-                        tipoOrigen,
-                        valorLista: JSON.stringify(itemsCampo),
-                        elementoJson,
-                        seleccionMultiple,
-                        urlWebBuscar,
-                        validacionScript,
-                        visible,
-                        soloLectura,
-                        numeroLineas,
-                        aumentarEn,
-                        expresionRegular,
-                        tamanioDiv,
-                        elementoJsonPadre
-                    };
-                    infoFormulario.campos.push(infoCampo);
-                    localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
-                    mostrarAlertaGeneral("Información", "Campo agregado exitosamente", "success");
-                    divLimpiarCampos();
+                } else {
+                    mostrarAlertaGeneral("Error", "El id del campo que intenta agregar ya existe por favor verifique", "danger");
                 }
             } else {
-                mostrarAlertaGeneral("Error", "El id del campo que intenta agregar ya existe por favor verifique", "danger");
+                mostrarAlertaGeneral("Error", 'El id del campo no puede estar vacio', "danger");
             }
         }
         function pintarCampos() {
@@ -1186,11 +1200,11 @@
         function registrarFormulario() {
             let infoFormulario;
             infoFormulario = JSON.parse(localStorage.getItem("infoForms")) || [];
-            getJson(JSON.stringify({ infoFormulario}), "buildsforms.aspx/regFormulario").then(response => {
+            getJson(JSON.stringify({ infoFormulario }), "buildsforms.aspx/regFormulario").then(response => {
                 if (response.codigo == 0) {
                     swal("Alerta", response.mensaje, "success");
                 } else {
-                    swal("Alerta", response.mensaje +"  "+ response.error, "error");
+                    swal("Alerta", response.mensaje + "  " + response.error, "error");
                 }
             }).catch(error => {
                 swal("Alerta", error, "warning");

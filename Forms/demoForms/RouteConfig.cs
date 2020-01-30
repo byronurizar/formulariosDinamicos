@@ -14,10 +14,7 @@ namespace demoForms
 
             routes.EnableFriendlyUrls();
             routes.MapPageRoute("", "formulario", "~/formulario.aspx");
-            routes.MapPageRoute("", "Customers", "~/Customers.aspx");
-            routes.MapPageRoute("GetCustomer","GetCustomer/{CustomerId}","~/Customers.aspx");
-            routes.MapPageRoute("", "Products", "~/Products.aspx");
-            routes.MapPageRoute("GetProduct", "GetProduct/{ProductId}","~/Products.aspx");
+            routes.MapPageRoute("miform", "miform/{ID}", "~/miform.aspx");
 
         }
     }
