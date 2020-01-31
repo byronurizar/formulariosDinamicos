@@ -436,3 +436,58 @@ begin
 select * from formulario where idFormulario=@idFormulario
 select * from camposFormulario where idFormulario=@idFormulario
 end
+
+
+
+
+
+-------31/01/2020
+CREATE TYPE [dbo].[hsCamposFormularioType] AS TABLE(
+idCampo int,
+elementoJson  varchar(200),
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100)
+)
+
+
+create procedure [dbo].[spr_registrarHsFormulario](
+@idformulario int,
+@detalle hsCamposFormularioType READONLY,
+@codigo int output,
+@mensaje varchar(200) output,
+@error varchar(200) output
+)
+as
+begin
+declare @idForm int=0
+insert into hs_formulario(idFormularioPadre,titulo,descripcion)
+select idFormulario,titulo,descripcion from formulario where idFormulario=@idformulario
+set @idForm=@@IDENTITY
+insert into hs_camposFormulario(idFormularioHs,idCampo,elementoJson,etiqueta,valor,texto)
+select @idForm,* from @detalle
+set @codigo=0;
+set @mensaje='Datos de Formulatio registrado exitosamente';
+end
+
+
+
+create procedure spr_todosLosForms
+as
+begin
+select * from formulario
+end
+
+
+
+create table usuario(
+idUsuario int identity(1,1) primary key,
+usuario varchar(100),
+nombres varchar(100),
+apellidos varchar(100),
+dpi varchar(100),
+telefono varchar(8),
+idMunicipio int,
+direccion varchar(100),
+genero int
+);

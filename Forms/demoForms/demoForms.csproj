@@ -1181,6 +1181,7 @@
     <Content Include="assets\js\datatable-extension\responsive.bootstrap4.min.js" />
     <Content Include="assets\js\datatable-extension\vfs_fonts.js" />
     <Content Include="assets\js\datatables\datatable.custom.js" />
+    <Content Include="assets\js\datatables\dataTables.bootstrap4.min.js" />
     <Content Include="assets\js\datatables\jquery.dataTables.min.js" />
     <Content Include="assets\js\date-picker\datepicker.custom.js" />
     <Content Include="assets\js\date-picker\datepicker.en.js" />
@@ -1436,18 +1437,27 @@
     <Content Include="assets\js\wow\wow-init.js" />
     <Content Include="assets\js\wow\wow.min.js" />
     <Content Include="assets\video\auth-bg.mp4" />
+    <Content Include="buildForm2.aspx" />
     <Content Include="buildsforms.aspx" />
     <Content Include="demo1.aspx" />
     <Content Include="form2.aspx" />
     <Content Include="formulario.aspx" />
     <Content Include="frm.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="gridViewdemo.aspx" />
     <Content Include="js\vue.js" />
     <Content Include="miform.aspx" />
     <Content Include="pruebaBD.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="buildForm2.aspx.cs">
+      <DependentUpon>buildForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="buildForm2.aspx.designer.cs">
+      <DependentUpon>buildForm2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="buildsforms.aspx.cs">
       <DependentUpon>buildsforms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1485,6 +1495,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="gridViewdemo.aspx.cs">
+      <DependentUpon>gridViewdemo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="gridViewdemo.aspx.designer.cs">
+      <DependentUpon>gridViewdemo.aspx</DependentUpon>
     </Compile>
     <Compile Include="miform.aspx.cs">
       <DependentUpon>miform.aspx</DependentUpon>

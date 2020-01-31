@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="demoGridNegocio.cs" />
     <Compile Include="FormularioNegocio.cs" />
+    <Compile Include="InfoSpNegocio.cs" />
     <Compile Include="ModalBusquedaNegocio.cs" />
     <Compile Include="OrigenesListNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -71,6 +71,58 @@ namespace CapaDatos
             }
             return rsp;
         }
+        public RespuestaEntidad RegistrarValoresFormulario(dataFormulario form)
+        {
+            RespuestaEntidad rsp = new RespuestaEntidad();
+            try
+            {
+                string resultado = string.Empty;
+                string sqlConnString = _sConexion;
+                SqlCommand cmd = new SqlCommand();
+                using (SqlConnection conn = new SqlConnection(sqlConnString))
+                {
+                    conn.Open();
+                    cmd = new SqlCommand("spr_registrarHsFormulario", conn);
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("idformulario", form.idFormulario);
+                    cmd.Parameters.AddWithValue("detalle", form.dtCampos);
+
+
+                    SqlParameter CodRes = new SqlParameter("codigo", SqlDbType.Int);
+                    CodRes.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(CodRes);
+
+                    SqlParameter msgErr1 = new SqlParameter("mensaje", SqlDbType.NVarChar);
+                    msgErr1.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(msgErr1);
+
+                    SqlParameter msgErr2 = new SqlParameter("error", SqlDbType.NVarChar);
+                    msgErr2.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(msgErr2);
+
+                    cmd.Parameters["mensaje"].Size = 200;
+                    cmd.Parameters["error"].Size = 200;
+
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        rdr.Read();
+                        rsp.codigo = Convert.ToInt32(cmd.Parameters["codigo"].Value.ToString());
+                        rsp.mensaje = cmd.Parameters["mensaje"].Value.ToString();
+                        rsp.error = cmd.Parameters["error"].Value.ToString();
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                rsp.codigo = -1;
+                rsp.error = e.ToString();
+                throw new Exception(e.Message);
+            }
+            return rsp;
+        }
         public string registrarFormularioV2(dataFormulario form)
         {
             string resultado = string.Empty;

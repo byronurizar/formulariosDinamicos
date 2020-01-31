@@ -201,13 +201,12 @@ namespace demoForms
                     {
                         FormularioNegocio frm = new FormularioNegocio();
                         RespuestaEntidad rsp = new RespuestaEntidad();
-                        rsp = frm.getFormulario(Convert.ToInt32(idForm));
+                        rsp = frm.getFormulario(idForm);
                         if (rsp.codigo == 0)
                         {
                             DataSet dsCamposForm = new DataSet();
                             dsCamposForm = (DataSet)rsp.valor;
                             DataTable dtCampo = new DataTable();
-                            dtCampo.Columns.Add("idFormularioHs", typeof(string));
                             dtCampo.Columns.Add("idCampo", typeof(string));
                             dtCampo.Columns.Add("elementoJson", typeof(string));
                             dtCampo.Columns.Add("etiqueta", typeof(string));
@@ -237,7 +236,6 @@ namespace demoForms
                                  
                                 }
                                 DataRow nuevaFila = dtCampo.NewRow();
-                                nuevaFila["idFormularioHs"] = idForm;
                                 nuevaFila["idCampo"] = idCampo;
                                 nuevaFila["elementoJson"] = elementoJson;
                                 nuevaFila["etiqueta"] = etiqueta;
@@ -245,6 +243,11 @@ namespace demoForms
                                 nuevaFila["texto"] = texto;
                                 dtCampo.Rows.Add(nuevaFila);
                             }
+
+                            dataFormulario dataFormValue = new dataFormulario();
+                            dataFormValue.idFormulario = idForm;
+                            dataFormValue.dtCampos = dtCampo;
+                            rsp = frm.RegistrarValoresFormulario(dataFormValue);
                         }
                         else
                         {

@@ -292,6 +292,7 @@
     <!-- Sidebar jquery-->
     <script src="../assets/js/sidebar-menu.js"></script>
 
+
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/theme-customizer/customizer.js"></script>
@@ -309,6 +310,8 @@
 
     <!--Datatable js-->
     <script src="../assets/js/datatables/jquery.dataTables.min.js"></script>
+
+
 
     <script>
         function mostrarAlertaGeneral(titulo, mensaje, tipo) {

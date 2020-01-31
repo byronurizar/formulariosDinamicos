@@ -19,5 +19,10 @@ namespace CapaNegocio
         {
             return _formularioDatos.getFormulario(id);
         }
+        public RespuestaEntidad RegistrarValoresFormulario(dataFormulario form)
+        {
+            return _formularioDatos.RegistrarValoresFormulario(form);
+        }
+        
     }
 }
