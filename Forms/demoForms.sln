@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demoForms", "demoForms\demoForms.csproj", "{810D85D0-5BE6-46CA-982F-13EA572C5E3D}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaEntidad", "CapaEntidad\CapaEntidad.csproj", "{2D63037A-7EFB-482E-97C5-0D08B1997866}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaNegocio", "CapaNegocio\CapaNegocio.csproj", "{D4BEE5FA-DAF8-4658-A37D-B794737550B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilidades", "Utilidades\Utilidades.csproj", "{B9955959-AD29-443D-8CAB-9423EF3BFB07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D4BEE5FA-DAF8-4658-A37D-B794737550B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BEE5FA-DAF8-4658-A37D-B794737550B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BEE5FA-DAF8-4658-A37D-B794737550B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9955959-AD29-443D-8CAB-9423EF3BFB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9955959-AD29-443D-8CAB-9423EF3BFB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9955959-AD29-443D-8CAB-9423EF3BFB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9955959-AD29-443D-8CAB-9423EF3BFB07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

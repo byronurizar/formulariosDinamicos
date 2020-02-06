@@ -34,6 +34,9 @@ namespace CapaDatos
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("titulo", form.titulo);
                     cmd.Parameters.AddWithValue("descripcion", form.descripcion);
+                    cmd.Parameters.AddWithValue("nombreSp", form.nombreSp);
+                    cmd.Parameters.AddWithValue("idTipoFormulario", form.idTipoFormulario);
+                    cmd.Parameters.AddWithValue("idUsuario", form.idUsuario);
                     cmd.Parameters.AddWithValue("detalle", form.dtCampos);
 
 
@@ -48,6 +51,10 @@ namespace CapaDatos
                     SqlParameter msgErr2 = new SqlParameter("error", SqlDbType.NVarChar);
                     msgErr2.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(msgErr2);
+
+                    cmd.Parameters["titulo"].Size = 200;
+                    cmd.Parameters["descripcion"].Size = 300;
+                    cmd.Parameters["nombreSp"].Size = 200;
 
                     cmd.Parameters["mensaje"].Size = 200;
                     cmd.Parameters["error"].Size = 200;
@@ -87,6 +94,7 @@ namespace CapaDatos
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("idformulario", form.idFormulario);
                     cmd.Parameters.AddWithValue("detalle", form.dtCampos);
+                    cmd.Parameters.AddWithValue("idUsuario", form.idUsuario);
 
 
                     SqlParameter CodRes = new SqlParameter("codigo", SqlDbType.Int);
@@ -119,7 +127,8 @@ namespace CapaDatos
             {
                 rsp.codigo = -1;
                 rsp.error = e.ToString();
-                throw new Exception(e.Message);
+                rsp.valor = null;
+               // throw new Exception(e.Message);
             }
             return rsp;
         }
@@ -208,6 +217,60 @@ namespace CapaDatos
                 rsp.codigo = -1;
                 rsp.error = e.Message.ToString();
                 throw new Exception(e.Message);
+            }
+            return rsp;
+        }
+        public RespuestaEntidad RegistrarFormSpEspecifico(dataFormulario form)
+        {
+            RespuestaEntidad rsp = new RespuestaEntidad();
+            try
+            {
+                string resultado = string.Empty;
+                string sqlConnString = _sConexion;
+                SqlCommand cmd = new SqlCommand();
+                using (SqlConnection conn = new SqlConnection(sqlConnString))
+                {
+                    conn.Open();
+                    cmd = new SqlCommand(form.nombreSp.Trim(), conn);
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (DataRow fila in form.dtCampos.Rows)
+                    {
+                        cmd.Parameters.AddWithValue(fila["parametroSp"].ToString(), fila["valor"].ToString());
+                    }
+
+                    SqlParameter CodRes = new SqlParameter("codigo", SqlDbType.Int);
+                    CodRes.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(CodRes);
+
+                    SqlParameter msgErr1 = new SqlParameter("mensaje", SqlDbType.NVarChar);
+                    msgErr1.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(msgErr1);
+
+                    SqlParameter msgErr2 = new SqlParameter("error", SqlDbType.NVarChar);
+                    msgErr2.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(msgErr2);
+
+                    cmd.Parameters["mensaje"].Size = 200;
+                    cmd.Parameters["error"].Size = 200;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        rdr.Read();
+                        rsp.codigo = Convert.ToInt32(cmd.Parameters["codigo"].Value.ToString());
+                        rsp.mensaje = cmd.Parameters["mensaje"].Value.ToString();
+                        rsp.error = cmd.Parameters["error"].Value.ToString();
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                rsp.codigo = -1;
+                rsp.error = e.ToString();
+                rsp.valor = null;
+                //throw new Exception(e.Message);
             }
             return rsp;
         }

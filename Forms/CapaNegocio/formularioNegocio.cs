@@ -23,6 +23,9 @@ namespace CapaNegocio
         {
             return _formularioDatos.RegistrarValoresFormulario(form);
         }
-        
+        public RespuestaEntidad RegistrarFormSpEspecifico(dataFormulario form)
+        {
+            return _formularioDatos.RegistrarFormSpEspecifico(form);
+        }
     }
 }

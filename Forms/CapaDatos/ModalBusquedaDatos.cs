@@ -22,7 +22,7 @@ namespace CapaDatos
         {
             RespuestaEntidad rsp = new RespuestaEntidad();
             string sqlConnString = _sConexion;
-            string spName = "spr_listarModalBusqueda";
+            string spName = "spr_getModalBusqueda";
             DataSet ds = new DataSet();
             try
             {
@@ -68,7 +68,7 @@ namespace CapaDatos
         {
             RespuestaEntidad rsp = new RespuestaEntidad();
             string sqlConnString = _sConexion;
-            string spName = "spr_listarInfoModal";
+            string spName = "spr_getInfoModal";
             DataSet ds = new DataSet();
             try
             {
@@ -115,7 +115,7 @@ namespace CapaDatos
         {
             RespuestaEntidad rsp = new RespuestaEntidad();
             string sqlConnString = _sConexion;
-            string spName = "spr_busquedaModal";
+            string spName = "spr_getBusquedaModal";
             DataSet ds = new DataSet();
             try
             {

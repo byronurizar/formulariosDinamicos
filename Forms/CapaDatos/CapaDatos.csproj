@@ -50,6 +50,7 @@
     <Compile Include="OrigenesListDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pruebaBD.cs" />
+    <Compile Include="RolMenuDatos.cs" />
     <Compile Include="sConexion.cs" />
     <Compile Include="SQLHelper.cs" />
   </ItemGroup>

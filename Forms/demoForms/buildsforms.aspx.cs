@@ -140,7 +140,7 @@ namespace demoForms
                     if (dtCampo.Rows.Count > 0)
                     {
                         dataFormulario dataForm = new dataFormulario();
-                        dataForm.titulo = frm.infoFormulario.nombre;
+                        dataForm.titulo = frm.infoFormulario.titulo;
                         dataForm.descripcion = frm.infoFormulario.descripcion;
                         dataForm.dtCampos = dtCampo;
                         FormularioNegocio frmNegocio = new FormularioNegocio();

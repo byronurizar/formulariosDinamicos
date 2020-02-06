@@ -22,7 +22,7 @@ namespace CapaDatos
         {
             RespuestaEntidad rsp = new RespuestaEntidad();
             string sqlConnString = _sConexion;
-            string spName = "spr_listarOrigenesList";
+            string spName = "spr_getOrigenesLista";
             DataSet ds = new DataSet();
             try
             {

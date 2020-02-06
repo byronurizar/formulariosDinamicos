@@ -1,0 +1,289 @@
+create table catEstado(
+idEstado int identity(1,1) primary key,
+descripcion VARCHAR(50) NOT NULL,
+activo BIT,
+fechaCrea datetime default(getdate())
+);
+
+
+create table catMenu(
+idMenu int identity(1,1) primary key,
+idMenuPadre int foreign key(idMenuPadre) references catMenu(idMenu),
+descripcion VARCHAR(50) NOT NULL,
+icono varchar(100),
+hRef varchar(500) not null,
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+
+create table catRol(
+idRol int identity(1,1) primary key,
+descripcion varchar(100) not null,
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+
+create table adUsuario(
+idUsuario int identity(1,1) primary key,
+usuario varchar(100) unique not null,
+password varchar(200) not null,
+idRol int not null foreign key(idRol) references catRol(idRol),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+
+create table catRolMenu(
+idAsignacion int identity(1,1) primary key,
+idRol int not null foreign key(idRol) references catRol(idRol),
+idMenu int not null foreign key(idMenu) references catMenu(idMenu),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+create table catTipoFormulario(
+idTipoFormulario int identity(1,1) primary key,
+descripcion varchar(100) not null,
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+
+
+create table catFormulario(
+idFormulario int identity(1,1) primary key,
+idTipoFormulario int not null foreign key(idTipoFormulario) references catTipoFormulario(idTipoFormulario),
+titulo varchar(100) not null,
+descripcion varchar(300),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+idUsuario int not null foreign key(idUsuario) references adUsuario(idUsuario),
+fechaCrea datetime default(getdate())
+);
+
+
+create table catTipoCampo(
+idTipoCampo int identity(1,1) primary key,
+descripcion varchar(20),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+create table catTipoDato(
+idTipoDato int identity(1,1) primary key,
+descripcion varchar(20),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+create table catCamposFormulario(
+idCampo int IDENTITY(1,1) primary key,
+idFormulario int not null foreign key(idFormulario) references catFormulario(idFormulario),
+elementoJson nvarchar(100) NULL,
+etiqueta varchar(100) NULL,
+idTipoCampo int NULL foreign key(idTipoCampo) references catTipoCampo(idTipoCampo),
+idTipoDato int NULL foreign key(idTipoDato) references catTipoDato(idTipoDato),
+tabIndex int NULL,
+valor varchar(100) NULL,
+texto varchar(100) NULL,
+placeHolder varchar(100) NULL,
+longitudMinima int NULL,
+longitudMaxima int NULL,
+valMinimo varchar(100) NULL,
+valMax varchar(100) NULL,
+aumentarEn decimal(18, 0) NULL,
+expresionRegular varchar(500) NULL,
+esRequerido int NULL,
+mascara nvarchar(100) NULL,
+tipoOrigen int NULL,
+valorLista varchar(max) NULL,
+seleccionMultiple int NULL,
+urlWebBuscar varchar(100) NULL,
+validacionScript varchar(100) NULL,
+visible int NULL,
+soloLectura int NULL,
+numeroLineas int NULL,
+tamanioDiv int NULL,
+elementoJsonPadre varchar(100) NULL,
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+idUsuario int not null foreign key(idUsuario) references adUsuario(idUsuario),
+fechaCrea datetime default(getdate())
+)
+
+
+create table histFormulario(
+idHistFormulario int IDENTITY(1,1) primary key,
+idFormularioPadre int not null foreign key(idFormularioPadre ) references catFormulario(idFormulario ),
+titulo varchar(100) not null,
+descripcion varchar(300),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+idUsuario int not null foreign key(idUsuario) references adUsuario(idUsuario),
+fechaCrea datetime default(getdate())
+)
+
+create table histCampoFormulario(
+	idHisCampoFormulario int IDENTITY(1,1) primary key,
+	idHistFormulario int not null foreign key(idHistFormulario ) references histFormulario(idHistFormulario),
+	idCampo int foreign key(idCampo) references catCamposFormulario(idCampo),
+	elementoJson varchar(200) not null,
+	etiqueta varchar(100) NULL,
+	valor varchar(100) NULL,
+	texto varchar(100) NULL,
+	idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+idUsuario int not null foreign key(idUsuario) references adUsuario(idUsuario),
+fechaCrea datetime default(getdate())
+)
+
+
+
+
+create table catTipoOrigen(
+idTipoOrigen int identity(1,1) primary key,
+descripcion varchar(20),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+
+
+
+create procedure spr_getRolMenu(
+@idRol int
+)
+as
+begin
+select cMenu.idMenu,idMenuPadre,descripcion,icono,hRef from catMenu cMenu
+inner join catRolMenu rlMenu
+on cMenu.idMenu=rlMenu.idMenu
+where rlMenu.idRol=@idRol
+end
+
+
+alter table catMenu add posicion int not null default(0)
+
+
+create table catOrigenesLista(
+idOrigen int identity(1,1) primary key,
+nombre varchar(100) not null,
+nombreSpEjecutar varchar(100) not null,
+numeroParametros int,
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+create procedure spr_getOrigenesLista
+as
+begin
+select * from catOrigenesLista where idEstado=1
+end
+
+create table catModalBusqueda(
+idModal int identity(1,1) primary key,
+nombre varchar(100) not null,
+textoAyuda varchar(200),
+usaSp int default(0),
+script varchar(1000),
+idEstado int not null foreign key(idEstado) references catEstado(idEstado),
+fechaCrea datetime default(getdate())
+);
+
+create procedure spr_getModalBusqueda
+as
+begin
+select * from catModalBusqueda where idEstado=1
+end
+
+
+
+alter table catCamposFormulario add parametroSp varchar(100);
+
+CREATE TYPE [dbo].[camposFormularioType] AS TABLE(
+elementoJson nvarchar(100) NULL,
+etiqueta varchar(100) NULL,
+idTipoCampo int NULL,
+idTipoDato int NULL,
+tabIndex int NULL,
+valor varchar(100) NULL,
+texto varchar(100) NULL,
+placeHolder varchar(100) NULL,
+longitudMinima int NULL,
+longitudMaxima int NULL,
+valMinimo varchar(100) NULL,
+valMax varchar(100) NULL,
+aumentarEn decimal(18, 0) NULL,
+expresionRegular varchar(500) NULL,
+esRequerido int NULL,
+mascara nvarchar(100) NULL,
+tipoOrigen int NULL,
+valorLista varchar(max) NULL,
+seleccionMultiple int NULL,
+urlWebBuscar varchar(100) NULL,
+validacionScript varchar(100) NULL,
+visible int NULL,
+soloLectura int NULL,
+numeroLineas int NULL,
+tamanioDiv int NULL,
+elementoJsonPadre varchar(100) NULL,
+parametroSp varchar(100)
+)
+
+
+alter table catFormulario add nombreSp varchar(200);
+
+
+create procedure [dbo].[spr_registrarFormulario](
+@titulo varchar(100),
+@descripcion varchar(200),
+@nombreSp varchar(200),
+@idTipoFormulario int,
+@idUsuario varchar(100),
+@detalle camposFormularioType READONLY,
+@codigo int output,
+@mensaje varchar(200) output,
+@error varchar(200) output
+)
+as
+begin
+declare @idFormulario int=0;
+insert into catFormulario(titulo,descripcion,nombreSp,idTipoFormulario,idEstado,fechaCrea,idUsuario)
+					values(@titulo,@descripcion,@nombreSp,@idTipoFormulario,1,getdate(),@idUsuario);
+set @idFormulario=@@IDENTITY
+insert into catCamposFormulario(idFormulario, elementoJson, etiqueta, idTipoCampo, idTipoDato, tabIndex, valor, texto, placeHolder, longitudMinima, longitudMaxima, valMinimo, valMax, aumentarEn, expresionRegular, esRequerido, mascara, tipoOrigen, valorLista, seleccionMultiple, urlWebBuscar, validacionScript, visible, soloLectura, numeroLineas, tamanioDiv, elementoJsonPadre, parametroSp,idEstado, idUsuario, fechaCrea)
+select @idFormulario,*,1,@idUsuario,getdate() from @detalle
+set @codigo=0;
+set @mensaje='Formulario registrado exitosamente';
+end
+
+
+
+
+CREATE TYPE [dbo].[hisCamposFormularioType] AS TABLE(
+idCampo int,
+elementoJson  varchar(200),
+etiqueta varchar(100),
+valor varchar(100),
+texto varchar(100)
+)
+
+
+create procedure [dbo].[spr_registrarHsFormulario](
+@idformulario int,
+@detalle hisCamposFormularioType READONLY,
+@idUsuario int,
+@codigo int output,
+@mensaje varchar(200) output,
+@error varchar(200) output
+)
+as
+begin
+declare @idForm int=0
+
+insert into histFormulario(idFormularioPadre,titulo,descripcion)
+select idFormulario,titulo,descripcion from catFormulario where idFormulario=@idformulario
+set @idForm=@@IDENTITY
+insert into histCampoFormulario(idHistFormulario,idCampo,elementoJson,etiqueta,valor,texto,idEstado,idUsuario,fechaCrea)
+select @idForm,*,1,@idUsuario,getdate() from @detalle
+set @codigo=0;
+set @mensaje='Datos de Formulatio registrado exitosamente';
+end

@@ -40,12 +40,15 @@ namespace CapaEntidad
         public string expresionRegular { get; set; }
         public string tamanioDiv { get; set; }
         public string elementoJsonPadre { get; set; }
+        public string parametroSp { get; set; }
     }
 
     public class InfoFormulario
     {
-        public string nombre { get; set; }
+        public string titulo { get; set; }
         public string descripcion { get; set; }
+        public string nombreSp { get; set; }
+        public int idTipoFormulario { get; set; }
         public List<Campos> campos { get; set; }
     }
 }

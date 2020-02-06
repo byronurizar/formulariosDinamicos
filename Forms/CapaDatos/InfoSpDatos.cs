@@ -24,6 +24,13 @@ namespace CapaDatos
             string sqlConnString = _sConexion;
             string spName = "sp_procedure_params_100_managed";
             DataSet ds = new DataSet();
+
+            DataTable dtParametros = new DataTable();
+            dtParametros.Columns.Add("PARAMETER_NAME", typeof(string));
+            dtParametros.Columns.Add("MANAGED_DATA_TYPE", typeof(string));
+            dtParametros.Columns.Add("CHARACTER_MAXIMUM_LENGTH", typeof(string));
+            dtParametros.Columns.Add("NUMERIC_PRECISION", typeof(string));
+            dtParametros.Columns.Add("TYPE_NAME", typeof(string));
             try
             {
                 SqlParameter[] storedParms = new SqlParameter[0];
@@ -36,8 +43,33 @@ namespace CapaDatos
                     {
                         if (ds.Tables[0].Rows.Count > 0)
                         {
-                            rsp.codigo = 0;
-                            rsp.valor = ds.Tables[0];
+                           
+                            foreach (DataRow item in ds.Tables[0].Rows)
+                            {
+                                int tipoParametros =Convert.ToInt32(item["PARAMETER_TYPE"].ToString());
+                                if (tipoParametros == 1)
+                                {
+                                    DataRow nuevaFila = dtParametros.NewRow();
+                                    nuevaFila["PARAMETER_NAME"] =item["PARAMETER_NAME"].ToString();
+                                    nuevaFila["MANAGED_DATA_TYPE"] = item["MANAGED_DATA_TYPE"].ToString();
+                                    nuevaFila["CHARACTER_MAXIMUM_LENGTH"] = item["CHARACTER_MAXIMUM_LENGTH"].ToString();
+                                    nuevaFila["NUMERIC_PRECISION"] = item["NUMERIC_PRECISION"].ToString();
+                                    nuevaFila["TYPE_NAME"] = item["TYPE_NAME"].ToString();
+                                    dtParametros.Rows.Add(nuevaFila);
+                                }
+                            }
+                            if (dtParametros.Rows.Count > 0)
+                            {
+                                rsp.codigo = 0;
+                                rsp.valor = dtParametros;
+                            }
+                            else
+                            {
+                                rsp.codigo = -1;
+                                rsp.valor = null;
+                                rsp.mensaje = "El Procedimiento almacenado " +nombreSp +" no cuenta con ningun parametro de entrada";
+                            }
+                            
                         }
                         else
                         {

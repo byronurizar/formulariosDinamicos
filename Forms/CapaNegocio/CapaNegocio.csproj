@@ -48,6 +48,7 @@
     <Compile Include="OrigenesListNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="pruebaNegocio.cs" />
+    <Compile Include="RolMenuNegocio.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">

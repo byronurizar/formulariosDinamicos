@@ -20,7 +20,7 @@ namespace demoForms
         {
             if (!IsPostBack)
             {
-                string idFormulario = Request.QueryString["ID"];
+                string idFormulario = Request.QueryString["i"];
                 hidIdFormulario.Value = idFormulario;
                 OrigenesListNegocio _origenesListNegocio = new OrigenesListNegocio();
                 RespuestaEntidad rsp = new RespuestaEntidad();
@@ -37,7 +37,7 @@ namespace demoForms
                     ds = (DataSet)rsp.valor;
 
                     InfoFormulario info = new InfoFormulario();
-                    info.nombre = ds.Tables[0].Rows[0]["titulo"].ToString(); ;
+                    info.titulo = ds.Tables[0].Rows[0]["titulo"].ToString(); ;
                     info.descripcion = ds.Tables[0].Rows[0]["descripcion"].ToString();
 
                     List<Campos> listaCampos = new List<Campos>();

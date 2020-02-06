@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="55e23f2677c10cde67d50a9802363448.aspx" />
     <Content Include="assets\ajax\api.txt" />
     <Content Include="assets\ajax\arrays.txt" />
     <Content Include="assets\ajax\object.txt" />
@@ -1400,6 +1401,7 @@
     <Content Include="assets\js\svg-icon\svg-icon.js" />
     <Content Include="assets\js\sweet-alert\app.js" />
     <Content Include="assets\js\sweet-alert\sweetalert.min.js" />
+    <Content Include="assets\js\sweetalert2\sweetalert2.js" />
     <Content Include="assets\js\theme-customizer\customizer.js" />
     <Content Include="assets\js\tilt\tilt-custom.js" />
     <Content Include="assets\js\tilt\tilt.jquery.js" />
@@ -1436,6 +1438,7 @@
     <Content Include="assets\js\whether-icon-clipart.js" />
     <Content Include="assets\js\wow\wow-init.js" />
     <Content Include="assets\js\wow\wow.min.js" />
+    <Content Include="assets\myJs\myjs.js" />
     <Content Include="assets\video\auth-bg.mp4" />
     <Content Include="buildForm2.aspx" />
     <Content Include="buildsforms.aspx" />
@@ -1451,6 +1454,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="55e23f2677c10cde67d50a9802363448.aspx.cs">
+      <DependentUpon>55e23f2677c10cde67d50a9802363448.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="55e23f2677c10cde67d50a9802363448.aspx.designer.cs">
+      <DependentUpon>55e23f2677c10cde67d50a9802363448.aspx</DependentUpon>
+    </Compile>
     <Compile Include="buildForm2.aspx.cs">
       <DependentUpon>buildForm2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2205,6 +2215,10 @@
     <ProjectReference Include="..\CapaNegocio\CapaNegocio.csproj">
       <Project>{d4bee5fa-daf8-4658-a37d-b794737550b9}</Project>
       <Name>CapaNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilidades\Utilidades.csproj">
+      <Project>{b9955959-ad29-443d-8cab-9423ef3bfb07}</Project>
+      <Name>Utilidades</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
