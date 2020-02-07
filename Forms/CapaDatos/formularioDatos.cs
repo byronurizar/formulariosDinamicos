@@ -239,7 +239,7 @@ namespace CapaDatos
                     {
                         cmd.Parameters.AddWithValue(fila["parametroSp"].ToString(), fila["valor"].ToString());
                     }
-
+                    cmd.Parameters.AddWithValue("idUsuario", form.idUsuario);
                     SqlParameter CodRes = new SqlParameter("codigo", SqlDbType.Int);
                     CodRes.Direction = ParameterDirection.Output;
                     cmd.Parameters.Add(CodRes);

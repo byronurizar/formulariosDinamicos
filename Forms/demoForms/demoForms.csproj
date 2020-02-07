@@ -1439,6 +1439,7 @@
     <Content Include="assets\js\wow\wow-init.js" />
     <Content Include="assets\js\wow\wow.min.js" />
     <Content Include="assets\myJs\myjs.js" />
+    <Content Include="assets\myJs\myjs2.js" />
     <Content Include="assets\video\auth-bg.mp4" />
     <Content Include="buildForm2.aspx" />
     <Content Include="buildsforms.aspx" />
@@ -1448,7 +1449,6 @@
     <Content Include="frm.aspx" />
     <Content Include="Global.asax" />
     <Content Include="gridViewdemo.aspx" />
-    <Content Include="js\vue.js" />
     <Content Include="miform.aspx" />
     <Content Include="pruebaBD.aspx" />
     <Content Include="Web.config" />

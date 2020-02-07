@@ -11,7 +11,6 @@ function listarParametroSp() {
     if (camposSp.length > 0) {
         htmlOptions = `<option value="">Seleccione</option>`;
         $.each(camposSp, function (i, item) {
-            console.log("Campo", item);
             htmlOptions += `<option value="${item.PARAMETER_NAME}">${item.PARAMETER_NAME}</option>`;
         });
         $('#ltaParametroSp').prepend(htmlOptions);
@@ -27,7 +26,6 @@ $(document).ready(function () {
     pintarCampos().then(res => {
         $("#divCampoFormulario").html(res);
     }).catch(error => {
-        console.log("Data error", error);
     });
 
     $("#ltaTpCampo").change(function () {
@@ -44,12 +42,23 @@ $(document).ready(function () {
         if (tipoCampo == 1) {
             $('#divLtaTpDato').show();
             $('#ltaTpDato').val('');
+
+            "use strict";
+            var editor = ace.edit("txtScript");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+
         } else {
             $('#divLtaTpDato').hide();
         }
         ocultarCampos();
         if (tipoCampo == 2) {
-            let tipoCampo2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divNumeroLineas|divExpReg|divPlaceholder';
+            "use strict";
+            var editor = ace.edit("txtScript");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+
+            let tipoCampo2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divNumeroLineas|divExpReg|divPlaceholder|divVisible|divScript';
             let campos = tipoCampo2.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -59,7 +68,12 @@ $(document).ready(function () {
         }
 
         if (tipoCampo == 3) {
-            let tipoCampo3 = 'divTamanio|divIdCampo|divTituloCampo|divRequeried|divLtaTpOrigen';
+            "use strict";
+            var editor = ace.edit("txtScript");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+
+            let tipoCampo3 = 'divTamanio|divIdCampo|divTituloCampo|divRequeried|divLtaTpOrigen|divVisible|divScript';
             let campos = tipoCampo3.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -280,7 +294,6 @@ $(document).ready(function () {
         pintarCampos().then(res => {
             $("#divCampoFormulario").html(res);
         }).catch(error => {
-            console.log("Data error", error);
         });
     });
     $("#btnRegistrarForm").click(function () {
@@ -305,7 +318,7 @@ function divLimpiarCampos() {
     }
 }
 function ocultarCampos() {
-    let stringCampos = 'divLtaTpOrigen|divDataxOrigen|divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divFechaMin|divFechaMax|divNumericoMin|divNumericoMax|divNumericoStep|divNumeroLineas|divExpReg|divPlaceholder|divInfoItems|divElementos|divModalsDisponibles|divCamposExistenes';
+    let stringCampos = 'divLtaTpOrigen|divDataxOrigen|divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divFechaMin|divFechaMax|divNumericoMin|divNumericoMax|divNumericoStep|divNumeroLineas|divExpReg|divPlaceholder|divInfoItems|divElementos|divModalsDisponibles|divCamposExistenes|divVisible|divScript';
     let campos = stringCampos.split('|');
     for (let i = 0; i < campos.length; i++) {
         let campo = campos[i];
@@ -317,14 +330,14 @@ function mostrarCampo() {
     let tipoDato = $('#ltaTpDato').val();
     if (tipoCampo == 1) {
         if (tipoDato == 1) {
-            let camposTipoDato1 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divExpReg|divPlaceholder';
+            let camposTipoDato1 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divExpReg|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato1.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
                 $(`#${campo}`).show();
             }
         } else if (tipoDato == 2) {
-            let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divPlaceholder';
+            let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato2.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -332,7 +345,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 3) {
-            let camposTipoDato3 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder';
+            let camposTipoDato3 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato3.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -340,7 +353,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 4) {
-            let camposTipoDato4 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divFechaMin|divFechaMax';
+            let camposTipoDato4 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divFechaMin|divFechaMax|divVisible|divScript';
             let campos = camposTipoDato4.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -348,7 +361,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 5) {
-            let camposTipoDato5 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried';
+            let camposTipoDato5 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divVisible|divScript';
             let campos = camposTipoDato5.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -356,7 +369,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 6) {
-            let camposTipoDato6 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder';
+            let camposTipoDato6 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato6.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -364,7 +377,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 7) {
-            let camposTipoDato7 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder';
+            let camposTipoDato7 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato7.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -372,7 +385,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 8) {
-            let camposTipoDato8 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder';
+            let camposTipoDato8 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
             let campos = camposTipoDato8.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -417,7 +430,6 @@ function pintarItemsLista() {
     let data = JSON.parse(localStorage.getItem('campoEspeciales')) || [];
     let infoCampoActual = data.find(item => item.idCampo == idCampo);
     if (infoCampoActual) {
-        console.log("Info Campo especifico", infoCampoActual);
         let htmlElemento = '';
         let contador = 0;
         $.each(infoCampoActual.items, function (i, itemData) {
@@ -596,8 +608,12 @@ function agregarCampo() {
         parametroSp = $("#ltaParametroSp").val();
     }
 
+    
+
 
     if (elementoJson.trim().length > 0) {
+      
+
         let existeCampo = false;
         $.each(infoFormulario.campos, function (i, item) {
             if (item.elementoJson == elementoJson) {
@@ -613,6 +629,12 @@ function agregarCampo() {
         });
 
         if (!existeCampo && !existeParametroSp) {
+            let script = $(".ace_line").text();
+            if (script.length > 0) {
+                validacionScript = `function fun${elementoJson}(){${script}}`;
+                
+            }
+
             etiqueta = $("#txtEtiqueta").val().trim();
             if (etiqueta.length > 0) {
                 placeHolder = $("#txtPlaceholder").val().trim();
@@ -625,6 +647,13 @@ function agregarCampo() {
                 } else {
                     soloLectura = 0;
                 }
+
+                if (!$("#checkVisible").is(':checked')) {
+                    visible = 0;
+                } else {
+                    visible = 1;
+                }
+
 
                 if ($("#checkRequeried").is(':checked')) {
                     esRequerido = 1;
@@ -641,10 +670,10 @@ function agregarCampo() {
                     idTipoDato = parseInt($("#ltaTpDato").val());
                     if (idTipoDato == 1) {
                         if ($("#txtMaxlength").val().trim().length > 0) {
-                            longitudMaxima = $("#txtMaxlength").val().trim();
+                            longitudMaxima = parseInt($("#txtMaxlength").val());
                         }
                         if ($("#txtMinlength").val().trim().length > 0) {
-                            longitudMinima = $("#txtMinlength").val().trim();
+                            longitudMinima = parseInt($("#txtMinlength").val());
                         }
                         if (longitudMaxima > 0) {
                             if (longitudMinima > longitudMaxima) {
@@ -962,7 +991,7 @@ function subirCampo(indexCampo) {
         pintarCampos().then(res => {
             $("#divCampoFormulario").html(res);
         }).catch(error => {
-            console.log("Data error", error);
+            
         });
     } else {
         mostrarAlertaGeneral("Error", "El campo esta en la primera posición", "danger");
@@ -977,7 +1006,7 @@ function eliminarCampo(indexCampo) {
     pintarCampos().then(res => {
         $("#divCampoFormulario").html(res);
     }).catch(error => {
-        console.log("Data error", error);
+        
     });
 }
 function registrarFormulario() {
@@ -1074,3 +1103,123 @@ var getJson = (data, metodo) => {
         }
     });
 }
+
+
+document.getElementById("prevBtn").style.display = "none";
+$('#tituloTab').html('Construcción de Formularios');
+$('#descripcionTab').html('Creación de formularios');
+$("#divSteps").hide();
+
+function validarFormulario(val) {
+    let tipoFormulario = $("#ltaTipoFormulario").val();
+    let tabs = document.getElementsByClassName("tab");
+    let idFormularioActual = 0;
+    idFormularioActual = $("#idFormulario").val();
+    $("#pIntro").hide();
+    $("#divSteps").show();
+
+    document.getElementById("nextBtn").innerHTML = "Siguiente";
+    let idForm = '';
+    if (idFormularioActual == 0) {
+        resaltarIndicadorActual(0);
+        tabs[idFormularioActual].style.display = "block";
+        idForm = 'registroForm';
+        document.getElementById("prevBtn").style.display = "none";
+    } else if (idFormularioActual == 1) {
+        idForm = 'tabBuscarSp';
+        tabs[idFormularioActual].style.display = "block";
+    } else if (idFormularioActual == 2) {
+        tabs[idFormularioActual].style.display = "block";
+        idForm = 'tabConstruccion';
+
+    }
+
+    if (idForm == "registroForm") {
+        let formValido = false;
+        document.getElementById("prevBtn").style.display = "none";
+        let validos = 0;
+        let divPrincipal = document.getElementById(idForm);
+        let controles = divPrincipal.getElementsByClassName("form-control");
+        for (let i = 0; i < controles.length; i++) {
+            control = controles[i];
+            if (control.value.trim().length <= 0) {
+                $(`#Error${control.name}`).show();
+            } else {
+                validos++;
+                $(`#Error${control.name}`).hide();
+            }
+        }
+
+        if (validos == controles.length) {
+            formValido = true;
+        }
+
+        if (formValido) {
+            tabs[idFormularioActual].style.display = "none";
+            if (tipoFormulario == 1) {
+                document.getElementById("nextBtn").innerHTML = "Registrar Formulario";
+                $('#tituloTab').html('Construcción');
+                $('#descripcionTab').html('Construcción dinámica del formulario');
+                $("#idFormulario").val(2);
+                tabs[2].style.display = "block";
+                resaltarIndicadorActual(2);
+
+            } else if (tipoFormulario == 2) {
+                $('#tituloTab').html('Asignación de Procedimiento');
+                $('#descripcionTab').html('Busqueda de parametros del procedimiento almacenado que utilizará la aplicación');
+                $("#idFormulario").val(1);
+                tabs[1].style.display = "block";
+                resaltarIndicadorActual(1);
+            }
+        }
+    } else if (idForm == "tabBuscarSp") {
+        let formValido = false;
+        let validos = 0;
+        let divPrincipal = document.getElementById(idForm);
+        let controles = divPrincipal.getElementsByClassName("form-control");
+        for (let i = 0; i < controles.length; i++) {
+            control = controles[i];
+            if (control.value.trim().length <= 0) {
+                $(`#Error${control.name}`).show();
+            } else {
+                validos++;
+                $(`#Error${control.name}`).hide();
+            }
+        }
+        if (validos == controles.length) {
+
+            let nombreSp = $("#txtNombreSp").val();
+            let infoSp = localStorage.getItem(nombreSp.trim());
+            if (infoSp) {
+                formValido = true;
+            } else {
+                mostrarAlertaGeneral("Error", `No es posible continuar ya que el procedimiento ${nombreSp} no es válido`, "danger");
+            }
+
+        }
+        if (formValido) {
+            $("#Step1").className += " active";
+            tabs[idFormularioActual].style.display = "none";
+            document.getElementById("nextBtn").innerHTML = "Registrar Formulario";
+            $('#tituloTab').html('Construcción');
+            $('#descripcionTab').html('Construcción dinámica del formulario');
+            idFormularioActual == 2;
+            $("#idFormulario").val(2);
+            tabs[2].style.display = "block";
+            resaltarIndicadorActual(2);
+        }
+
+    }
+
+    if (idFormularioActual == 2) {
+        registrarFormulario();
+    }
+}
+function resaltarIndicadorActual(n) {
+    let i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    x[n].className += " active";
+}
+

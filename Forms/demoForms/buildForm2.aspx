@@ -2,35 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <!--ace code editor js-->
+<script src="../assets/js/ace-editor/ace.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <input id="idFormulario" value="0" type="hidden" />
     <div class="page-body">
-
-        <!-- Container-fluid starts -->
-    <%--    <div class="container-fluid">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h3>Creación de Formulario
-                                <small>Creación de formulario para el registro de información en tabla predeterminadas</small>
-                        </h3>
-                    </div>
-                    <div class="col-lg-6">
-                        <ol class="breadcrumb pull-right">
-                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i></a></li>
-                            <li class="breadcrumb-item">Forms</li>
-                            <li class="breadcrumb-item">Creación</li>
-                            <li class="breadcrumb-item active">Nuevo</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>--%>
-        <!-- Container-fluid Ends -->
-
-        <!-- Container-fluid starts -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -102,7 +80,7 @@
                                                                 <option value="3">Correo electrónico</option>
                                                                 <option value="4">Fecha</option>
                                                                 <option value="5">Hora</option>
-                                                                <option value="7">Teléfono</option>
+                                                                <option value="6">Teléfono</option>
                                                                 <option value="7">Password</option>
                                                                 <option value="8">Url</option>
                                                             </select>
@@ -199,6 +177,15 @@
                                                             </div>
                                                         </div>
 
+                                                          <div class="form-group col-md-12 mb-6" id="divVisible" style="display: none">
+                                                            <div class="form-check">
+                                                                <div class="checkbox p-0">
+                                                                    <input id="checkVisible" type="checkbox" checked class="form-check-input">
+                                                                    <label class="form-check-label" for="checkVisible">Campo Visible</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
 
                                                         <%--Texto--%>
                                                         <div class="col-md-6 mb-3" id="divMinlength" style="display: none">
@@ -258,6 +245,13 @@
                                                         <div class="col-md-12 mb-6" id="divPlaceholder" style="display: none">
                                                             <label for="txtPlaceholder">Texto de Ayuda</label>
                                                             <input type="text" class="form-control form-control-sm" id="txtPlaceholder" name="txtPlaceholder" placeholder="Ingrese un texto de ayuda al usuario">
+                                                            <br />
+                                                        </div>
+                                                        
+                                                          <div class="col-md-12 mb-6" id="divScript" style="display: none">
+                                                            <label for="txtPlaceholder">JavaScript</label>
+                                                              <%--<textarea class="form-control form-control-sm ace-editor" id="txtScript" name="txtScript" placeholder="Escriba el código JavaScript" rows="10"></textarea>--%>
+                                                              <div class="ace-editor" id="txtScript"></div>
                                                             <br />
                                                         </div>
 
@@ -341,130 +335,6 @@
             </div>
         </div>
         <!-- Container-fluid Ends -->
-
     </div>
     <script src="assets/myJs/myjs.js"></script>
-
-    <script>
-        
-        document.getElementById("prevBtn").style.display = "none";
-        $('#tituloTab').html('Construcción de Formularios');
-        $('#descripcionTab').html('Creación de formularios');
-        $("#divSteps").hide();
-
-        function validarFormulario(val) {
-            let tipoFormulario = $("#ltaTipoFormulario").val();
-            let tabs = document.getElementsByClassName("tab");
-            let idFormularioActual = 0;
-            idFormularioActual = $("#idFormulario").val();
-            $("#pIntro").hide();
-            $("#divSteps").show();
-
-            document.getElementById("nextBtn").innerHTML = "Siguiente";
-            let idForm = '';
-            if (idFormularioActual == 0) {
-                resaltarIndicadorActual(0);
-                tabs[idFormularioActual].style.display = "block";
-                idForm = 'registroForm';
-                document.getElementById("prevBtn").style.display = "none";
-            } else if (idFormularioActual == 1) {
-                idForm = 'tabBuscarSp';
-                tabs[idFormularioActual].style.display = "block";
-            } else if (idFormularioActual == 2) {
-                tabs[idFormularioActual].style.display = "block";
-                idForm = 'tabConstruccion';
-                
-            }
-            
-            if (idForm == "registroForm") {
-                let formValido = false;
-                document.getElementById("prevBtn").style.display = "none";
-                let validos = 0;
-                let divPrincipal = document.getElementById(idForm);
-                let controles = divPrincipal.getElementsByClassName("form-control");
-                for (let i = 0; i < controles.length; i++) {
-                    control = controles[i];
-                    if (control.value.trim().length <= 0) {
-                        $(`#Error${control.name}`).show();
-                    } else {
-                        validos++;
-                        $(`#Error${control.name}`).hide();
-                    }
-                }
-
-                if (validos == controles.length) {
-                    formValido = true;
-                }
-
-                if (formValido) {
-                    tabs[idFormularioActual].style.display = "none";
-                    if (tipoFormulario == 1) {
-                        document.getElementById("nextBtn").innerHTML = "Registrar Formulario";
-                        $('#tituloTab').html('Construcción');
-                        $('#descripcionTab').html('Construcción dinámica del formulario');
-                        $("#idFormulario").val(2);
-                        tabs[2].style.display = "block";
-                        resaltarIndicadorActual(2);
-                    } else if (tipoFormulario == 2) {
-                        $('#tituloTab').html('Asignación de Procedimiento');
-                        $('#descripcionTab').html('Busqueda de parametros del procedimiento almacenado que utilizará la aplicación');
-                        $("#idFormulario").val(1);
-                        tabs[1].style.display = "block";
-                        resaltarIndicadorActual(1);
-                    }
-                }
-            } else if (idForm == "tabBuscarSp") {
-                let formValido = false;
-                let validos = 0;
-                let divPrincipal = document.getElementById(idForm);
-                let controles = divPrincipal.getElementsByClassName("form-control");
-                for (let i = 0; i < controles.length; i++) {
-                    control = controles[i];
-                    if (control.value.trim().length <= 0) {
-                        $(`#Error${control.name}`).show();
-                    } else {
-                        validos++;
-                        $(`#Error${control.name}`).hide();
-                    }
-                }
-                if (validos == controles.length) {
-
-                    let nombreSp = $("#txtNombreSp").val();
-                    let infoSp = localStorage.getItem(nombreSp.trim());
-                    if (infoSp) {
-                        formValido = true;
-                    } else {
-                        mostrarAlertaGeneral("Error", `No es posible continuar ya que el procedimiento ${nombreSp} no es válido`, "danger");
-                    }
-
-                }
-                if (formValido) {
-                    $("#Step1").className += " active";
-                    tabs[idFormularioActual].style.display = "none";
-                    document.getElementById("nextBtn").innerHTML = "Registrar Formulario";
-                    $('#tituloTab').html('Construcción');
-                    $('#descripcionTab').html('Construcción dinámica del formulario');
-                    idFormularioActual == 2;
-                    $("#idFormulario").val(2);
-                    tabs[2].style.display = "block";
-                    resaltarIndicadorActual(2);
-                }
-
-            }
-
-            if (idFormularioActual == 2) {
-                registrarFormulario();
-            }
-        }
-        function resaltarIndicadorActual(n) {
-            let i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
-                x[i].className = x[i].className.replace(" active", "");
-            }
-            x[n].className += " active";
-        }
-
-
-    </script>
-
 </asp:Content>

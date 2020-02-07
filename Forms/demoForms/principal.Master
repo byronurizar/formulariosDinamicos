@@ -58,6 +58,16 @@
   align-items: center;
 }
     </style>
+
+     <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap.js"></script>
+
+    <!-- Sweet alert jquery-->
+    <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
+    <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
+    <script src="assets/js/sweetalert2/sweetalert2.js"></script>
+
 </head>
 <body>
     <!-- Loader starts -->
@@ -271,11 +281,9 @@
     </div>
     <!--page-wrapper Ends-->
 
-    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    
 
-    <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap.js"></script>
+  
 
     <!-- Sidebar jquery-->
     <script src="../assets/js/sidebar-menu.js"></script>
@@ -285,19 +293,13 @@
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/theme-customizer/customizer.js"></script>
     <script src="../assets/js/chat-sidebar/chat.js"></script>
-    <script src="../assets/js/form-validation-custom.js"></script>
     <script src="../assets/js/popover-custom.js"></script>
     <!-- bootstrap notify js -->
     <script src="../assets/js/notify/bootstrap-notify.min.js"></script>
     <script src="../assets/js/notify/notify-script.js"></script>
 
 
-    <!-- Sweet alert jquery-->
-    <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
-    <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
 
-    <!--Datatable js-->
-    <script src="../assets/js/datatables/jquery.dataTables.min.js"></script>
 
 
 
