@@ -11,8 +11,8 @@
     <meta name="description" content="universal admin is super flexible, powerful, clean & modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, universal admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
     <title>Universal - Premium Admin Template</title>
 
     <!--Google font-->
@@ -20,28 +20,28 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
 
     <!-- ico-font -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/icofont.css">
 
     <!-- Themify icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/themify.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/themify.css">
 
     <!--JSGrid css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/datatables.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables.css" />
 
     <!-- Flag icon -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/flag-icon.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/flag-icon.css">
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 
     <!-- App css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
     <!-- Responsive css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
 
     
 
@@ -60,12 +60,12 @@
     </style>
 
      <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap.js"></script>
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+    <script src="assets/js/bootstrap/bootstrap.js"></script>
 
     <!-- Sweet alert jquery-->
-    <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
-    <%--<script src="../assets/js/sweet-alert/app.js" ></script>--%>
+    <script src="assets/js/sweet-alert/sweetalert.min.js"></script>
+    <%--<script src="assets/js/sweet-alert/app.js" ></script>--%>
     <script src="assets/js/sweetalert2/sweetalert2.js"></script>
 
 </head>
@@ -102,8 +102,8 @@
             <div class="main-header-left">
                 <div class="logo-wrapper">
                     <a href="index.html">
-                        <img src="../assets/images/logo-light.png" class="image-dark" alt="" />
-                        <img src="../assets/images/logo-light-dark-layout.png" class="image-light" alt="" />
+                        <img src="assets/images/logo-light.png" class="image-dark" alt="" />
+                        <img src="assets/images/logo-light-dark-layout.png" class="image-light" alt="" />
                     </a>
                 </div>
             </div>
@@ -120,12 +120,12 @@
                     <ul class="nav-menus">
                         <li>
                             <a href="#!" onclick="javascript:toggleFullScreen()" class="text-dark">
-                                <img class="align-self-center pull-right mr-2" src="../assets/images/dashboard/browser.png" alt="header-browser">
+                                <img class="align-self-center pull-right mr-2" src="assets/images/dashboard/browser.png" alt="header-browser">
                             </a>
                         </li>
                         <li class="onhover-dropdown">
                             <a href="#!" class="txt-dark">
-                                <img class="align-self-center pull-right mr-2" src="../assets/images/dashboard/notification.png" alt="header-notification">
+                                <img class="align-self-center pull-right mr-2" src="assets/images/dashboard/notification.png" alt="header-notification">
                                 <span class="badge badge-pill badge-primary notification">3</span>
                             </a>
                             <ul class="notification-dropdown onhover-show-div">
@@ -166,7 +166,7 @@
                         </li>
                         <li class="onhover-dropdown">
                             <div class="media  align-items-center">
-                                <img class="align-self-center pull-right mr-2" src="../assets/images/dashboard/user.png" alt="header-user" />
+                                <img class="align-self-center pull-right mr-2" src="assets/images/dashboard/user.png" alt="header-user" />
                                 <div class="media-body">
                                     <h6 class="m-0 txt-dark f-16">My Account
                                     <i class="fa fa-angle-down pull-right ml-2"></i>
@@ -222,7 +222,7 @@
             <div class="page-sidebar custom-scrollbar">
                 <div class="sidebar-user text-center">
                     <div>
-                        <img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#">
+                        <img class="img-50 rounded-circle" src="assets/images/user/1.jpg" alt="#">
                     </div>
                     <h6 class="mt-3 f-12">Johan Deo</h6>
                 </div>
@@ -286,17 +286,17 @@
   
 
     <!-- Sidebar jquery-->
-    <script src="../assets/js/sidebar-menu.js"></script>
+    <script src="assets/js/sidebar-menu.js"></script>
 
 
     <!-- Theme js-->
-    <script src="../assets/js/script.js"></script>
-    <script src="../assets/js/theme-customizer/customizer.js"></script>
-    <script src="../assets/js/chat-sidebar/chat.js"></script>
-    <script src="../assets/js/popover-custom.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/theme-customizer/customizer.js"></script>
+    <script src="assets/js/chat-sidebar/chat.js"></script>
+    <script src="assets/js/popover-custom.js"></script>
     <!-- bootstrap notify js -->
-    <script src="../assets/js/notify/bootstrap-notify.min.js"></script>
-    <script src="../assets/js/notify/notify-script.js"></script>
+    <script src="assets/js/notify/bootstrap-notify.min.js"></script>
+    <script src="assets/js/notify/notify-script.js"></script>
 
 
 

@@ -1,0 +1,6 @@
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\bin\Release\CapaEntidad.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\bin\Release\CapaEntidad.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Release\CapaEntidad.csprojAssemblyReference.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Release\CapaEntidad.csproj.CoreCompileInputs.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Release\CapaEntidad.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaEntidad\obj\Release\CapaEntidad.pdb

@@ -3,3 +3,9 @@ C:\demoProyects\Net\formulariosDinamicos\Forms\Utilidades\bin\Debug\Utilidades.p
 C:\demoProyects\Net\formulariosDinamicos\Forms\Utilidades\obj\Debug\Utilidades.csprojAssemblyReference.cache
 C:\demoProyects\Net\formulariosDinamicos\Forms\Utilidades\obj\Debug\Utilidades.dll
 C:\demoProyects\Net\formulariosDinamicos\Forms\Utilidades\obj\Debug\Utilidades.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\bin\Debug\Utilidades.dll
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\bin\Debug\Utilidades.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Debug\Utilidades.csprojAssemblyReference.cache
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Debug\Utilidades.dll
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Debug\Utilidades.pdb

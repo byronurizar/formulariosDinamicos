@@ -242,3 +242,5 @@ C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\bin\Newtonsoft.Json.dll
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\bin\Newtonsoft.Json.xml
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\bin\Utilidades.dll
 C:\demoProyects\Net\formulariosDinamicos\Forms\demoForms\bin\Utilidades.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Utilidades.dll
+D:\2020\ProyectoQuali\Formularios\Forms\demoForms\bin\Utilidades.pdb

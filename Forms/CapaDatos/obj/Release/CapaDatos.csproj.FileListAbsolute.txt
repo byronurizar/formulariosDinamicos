@@ -1,0 +1,9 @@
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\bin\Release\CapaDatos.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\bin\Release\CapaDatos.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\bin\Release\CapaEntidad.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\bin\Release\CapaEntidad.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Release\CapaDatos.csprojAssemblyReference.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Release\CapaDatos.csproj.CoreCompileInputs.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Release\CapaDatos.csproj.CopyComplete
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Release\CapaDatos.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaDatos\obj\Release\CapaDatos.pdb

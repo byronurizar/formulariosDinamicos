@@ -1,0 +1,11 @@
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaNegocio.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaNegocio.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaDatos.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaEntidad.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaDatos.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\bin\Release\CapaEntidad.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Release\CapaNegocio.csprojAssemblyReference.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Release\CapaNegocio.csproj.CoreCompileInputs.cache
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Release\CapaNegocio.csproj.CopyComplete
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Release\CapaNegocio.dll
+D:\2020\ProyectoQuali\Formularios\Forms\CapaNegocio\obj\Release\CapaNegocio.pdb

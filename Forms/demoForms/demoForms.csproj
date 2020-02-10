@@ -2200,6 +2200,7 @@
     <Content Include="assets\scss\whether-icon\_whether-icon.scss" />
     <None Include="packages.config" />
     <Content Include="principal.Master" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

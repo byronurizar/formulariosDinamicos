@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/principal.Master" AutoEventWireup="true" CodeBehind="55e23f2677c10cde67d50a9802363448.aspx.cs" Inherits="demoForms._55e23f2677c10cde67d50a9802363448" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
-    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
 
     <!--Datatable js-->
-    <script src="../assets/js/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/myJs/myjs2.js"></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <script src="../assets/js/form-validation-custom.js" ></script>
+    <script src="assets/js/form-validation-custom.js" ></script>
   
 </asp:Content>
 

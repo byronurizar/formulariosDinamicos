@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/principal.Master" AutoEventWireup="true" CodeBehind="gridViewdemo.aspx.cs" Inherits="demoForms.gridViewdemo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
     <script src="assets/js/datatables/dataTables.bootstrap4.min.js"></script>
     

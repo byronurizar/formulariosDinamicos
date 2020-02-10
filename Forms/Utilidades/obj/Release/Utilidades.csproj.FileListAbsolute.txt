@@ -1,0 +1,5 @@
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\bin\Release\Utilidades.dll
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\bin\Release\Utilidades.pdb
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Release\Utilidades.csproj.CoreCompileInputs.cache
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Release\Utilidades.dll
+D:\2020\ProyectoQuali\Formularios\Forms\Utilidades\obj\Release\Utilidades.pdb
