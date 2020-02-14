@@ -38,7 +38,7 @@ namespace demoForms
                     InfoFormulario info = new InfoFormulario();
                     info.titulo = ds.Tables[0].Rows[0]["titulo"].ToString();
                     info.descripcion = ds.Tables[0].Rows[0]["descripcion"].ToString();
-
+                    info.javaScript= ds.Tables[0].Rows[0]["javaScript"].ToString();
                     List<Campos> listaCampos = new List<Campos>();
 
                     foreach (DataRow item in ds.Tables[1].Select("", "tabIndex asc"))

@@ -2,6 +2,7 @@
     try {
         let titulo = json.valor.titulo;
         let descripcion = json.valor.descripcion;
+        let jsFormulario = json.valor.javaScript;
         let htmlTitulo = `<h5>${titulo}</h5> <span id="descripcionTab">${descripcion}</span>`;
         $("#divTitulo").html(htmlTitulo);
         let htmlCampo = '';
@@ -39,6 +40,7 @@
             let elementoJsonPadre = campo.elementoJsonPadre;
 
             let onchange = '';
+            let onclick = '';
             let htmlTamanio = ` class="col-md-6 mb-3" id="div${elementoJson}" `;
 
             let htmlAdd = '';
@@ -69,7 +71,12 @@
             if (validacionScript.trim().length > 0) {
                 script2 += validacionScript;
                 onchange = ` onchange="fun${elementoJson}()"`;
+                if (idTipoCampo == 6) {
+                    onclick = ` onclick="fun${elementoJson}()"`;
+                }
             }
+
+            
 
             if (tipoOrigen == 2) {
                 if (elementoJsonPadre.trim().length <= 0) {
@@ -234,6 +241,54 @@
                                 </div>
                             </div>
                             `;
+            } else if (campo.idTipoCampo == 5) {
+                htmlCampo += `
+  
+                   <div ${htmlTamanio} ${htmlVisible} id="div${elementoJson}">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>${etiqueta}</h5>
+                                <span>${placeHolder}</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" id="${elementoJson}">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    
+</div>
+                    `;
+            } else if (campo.idTipoCampo == 6) {
+                htmlCampo += `
+                     <div ${htmlTamanio} ${htmlVisible}>
+                    <div class="form-group">
+                    <label for="texto">&nbsp;&nbsp;</label>
+                    <div class="input-group">
+                    <button type="button" id="${elementoJson}" class="${placeHolder}" ${onclick}>${etiqueta}</button>
+                    </div>
+                    </div>
+                    </div>
+                    `;
             }
         });
         let jsScript = document.createElement("script");
@@ -244,10 +299,17 @@
         jsScript2.text = script2;
         document.getElementsByTagName('head')[0].appendChild(jsScript2);
 
+
+        if (jsFormulario) {
+            let jsForm = document.createElement("script");
+            jsForm.text = jsFormulario;
+            document.getElementsByTagName('head')[0].appendChild(jsForm);
+        }
+
         $("#divCampoFormulario").html(htmlCampo);
     }
     catch (error) {
-        swal('Error', error.message, 'warning');
+        swal.fire('Error', error.message, 'warning');
     }
 }
 
@@ -267,15 +329,15 @@ var getJson = (data, metodo) => {
                         resolver(JSON.parse(dataResponse));
                     } catch (err) {
                         rechazar(JSON.stringify(err));
-                        swal("ERROR", "El objeto no es un json válido", "error");
+                        swal.fire("ERROR", "El objeto no es un json válido", "error");
                     }
                 }
             }).fail(function (xhr, textStatus, errorThrown) {
-                swal("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
+                swal.fire("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
                 rechazar(JSON.stringify(xhr));
             });
         } catch (error) {
-            swal("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
+            swal.fire("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
             rechazar(JSON.stringify(error));
         }
     });
@@ -296,10 +358,10 @@ function getItemsListaConParametros(elementoJson, nombreSp, elementoPadre) {
             } else {
                 htmlOptions = `<option value="">No existen registros</option>`;
                 $(`#${elementoJson}`).prepend(htmlOptions);
-                swal("Alerta", response.mensaje, "error");
+                swal.fire("Alerta", response.mensaje, "error");
             }
         }).catch(error => {
-            swal("Alerta", error, "warning");
+            swal.fire("Alerta", error, "warning");
         });
     }
 }
@@ -317,10 +379,10 @@ function getItemsListaSinParametros(elementoJson, nombreSp) {
         } else {
             htmlOptions = `<option value="">No existen registros</option>`;
             $(`#${elementoJson}`).prepend(htmlOptions);
-            swal("Alerta", response.mensaje, "error");
+            swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal("Alerta", error, "warning");
+        swal.fire("Alerta", error, "warning");
     });
 }
 
@@ -347,10 +409,10 @@ function getModal(elementoJson, idModal) {
             $('#modalBusqueda').modal('show');
             $('#txtCriterioBusqueda').attr("placeholder", response.valor[0].textoAyuda);
         } else {
-            swal("Alerta", response.mensaje, "error");
+            swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal("Alerta", error, "warning");
+        swal.fire("Alerta", error, "warning");
     });
 }
 
@@ -433,10 +495,10 @@ function getBusquedaModal() {
                     }
                 });
             } else {
-                swal("Alerta", response.mensaje, "error");
+                swal.fire("Alerta", response.mensaje, "error");
             }
         }).catch(error => {
-            swal("Alerta", error, "warning");
+            swal.fire("Alerta", error, "warning");
         });
     } else {
         mostrarAlertaGeneral("Error", "Debe de ingresar un valor", "danger");
@@ -515,10 +577,10 @@ function registrarFormulario() {
             })
 
         } else {
-            swal("Alerta", response.mensaje, "error");
+            swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal("Alerta", error, "warning");
+        swal.fire("Alerta", error, "warning");
     });
 
 }

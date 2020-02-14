@@ -127,6 +127,7 @@ namespace demoForms
                         dataForm.titulo = frm.infoFormulario.titulo;
                         dataForm.descripcion = frm.infoFormulario.descripcion;
                         dataForm.nombreSp = frm.infoFormulario.nombreSp;
+                        dataForm.javaScript = frm.infoFormulario.javaScript;
                         dataForm.idTipoFormulario = frm.infoFormulario.idTipoFormulario;
                         dataForm.idUsuario = 1;
                         dataForm.dtCampos = dtCampo;
@@ -153,6 +154,31 @@ namespace demoForms
                 rsp.mensaje = string.Empty;
                 rsp.error = ex.ToString();
                 jsonResponse = JsonConvert.SerializeObject(rsp);
+            }
+            return jsonResponse;
+
+        }
+        [WebMethod]
+        static public string getInfoSpTabla(string stringRequest)
+        {
+            string jsonResponse = string.Empty;
+            RespuestaEntidad response = new RespuestaEntidad();
+            InfoSpNegocio infoSp = new InfoSpNegocio();
+            try
+            {
+                JObject solicitud = JObject.Parse(stringRequest);
+                string nombreSp = (string)solicitud["nombreSp"];
+                response = infoSp.infoSpTabla(nombreSp);
+                jsonResponse = JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                response.codigo = -1;
+                response.mensaje = "Ocurrió un error al serializar el objeto";
+                response.error = ex.ToString();
+                response.valor = null;
+                jsonResponse = JsonConvert.SerializeObject(response);
+
             }
             return jsonResponse;
 
@@ -199,5 +225,15 @@ namespace demoForms
             return jsonResponse;
 
         }
+    }
+
+    public class infoSpTabla{
+        public string nombreSp { get; set; }
+        public List<parametros> parametros { get; set; }
+        }
+    public class parametros
+    {
+        public string parametro { get; set; }
+        public string valor { get; set; }
     }
 }

@@ -1438,6 +1438,7 @@
     <Content Include="assets\js\whether-icon-clipart.js" />
     <Content Include="assets\js\wow\wow-init.js" />
     <Content Include="assets\js\wow\wow.min.js" />
+    <Content Include="assets\myJs\listaObjetos.js" />
     <Content Include="assets\myJs\myjs.js" />
     <Content Include="assets\myJs\myjs2.js" />
     <Content Include="assets\video\auth-bg.mp4" />

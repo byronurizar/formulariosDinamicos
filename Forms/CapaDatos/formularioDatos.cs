@@ -35,6 +35,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("titulo", form.titulo);
                     cmd.Parameters.AddWithValue("descripcion", form.descripcion);
                     cmd.Parameters.AddWithValue("nombreSp", form.nombreSp);
+                    cmd.Parameters.AddWithValue("javaScript", form.javaScript);
                     cmd.Parameters.AddWithValue("idTipoFormulario", form.idTipoFormulario);
                     cmd.Parameters.AddWithValue("idUsuario", form.idUsuario);
                     cmd.Parameters.AddWithValue("detalle", form.dtCampos);

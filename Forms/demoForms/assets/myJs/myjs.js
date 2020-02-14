@@ -19,8 +19,6 @@ function listarParametroSp() {
         htmlOptions = `<option value="">No existen registros</option>`;
         $('#ltaParametroSp').prepend(htmlOptions);
     }
-
-
 }
 $(document).ready(function () {
     pintarCampos().then(res => {
@@ -39,26 +37,18 @@ $(document).ready(function () {
         $("#agregarCampo").show();
         inputPorTipoDato();
         let tipoCampo = $('#ltaTpCampo').val();
+        
+        $("#jsBasico").val('');
         if (tipoCampo == 1) {
             $('#divLtaTpDato').show();
             $('#ltaTpDato').val('');
-
-            "use strict";
-            var editor = ace.edit("txtScript");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/javascript");
 
         } else {
             $('#divLtaTpDato').hide();
         }
         ocultarCampos();
         if (tipoCampo == 2) {
-            "use strict";
-            var editor = ace.edit("txtScript");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/javascript");
-
-            let tipoCampo2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divNumeroLineas|divExpReg|divPlaceholder|divVisible|divScript';
+            let tipoCampo2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divNumeroLineas|divExpReg|divPlaceholder|divVisible|divJsBasico';
             let campos = tipoCampo2.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -68,12 +58,7 @@ $(document).ready(function () {
         }
 
         if (tipoCampo == 3) {
-            "use strict";
-            var editor = ace.edit("txtScript");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/javascript");
-
-            let tipoCampo3 = 'divTamanio|divIdCampo|divTituloCampo|divRequeried|divLtaTpOrigen|divVisible|divScript';
+            let tipoCampo3 = 'divTamanio|divIdCampo|divTituloCampo|divRequeried|divLtaTpOrigen|divVisible|divJsBasico';
             let campos = tipoCampo3.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -94,7 +79,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#txtIdCampo").keyup(function () {
+    $("#txtIdCampo,#txtIdBtn,#txtIdTabla").keyup(function () {
         $(this).val($(this).val().trim());
     });
 
@@ -288,7 +273,6 @@ $(document).ready(function () {
             mostrarAlertaGeneral("Error", "Antes de agregar un elemento debe de asignarle un id al campo", "danger");
         }
     });
-
     $("#agregarCampo").click(function () {
         agregarCampo();
         pintarCampos().then(res => {
@@ -301,6 +285,17 @@ $(document).ready(function () {
     });
 
 
+    $('#checkJsBasico').click(function () {
+        if (!$("#checkJsBasico").is(':checked')) {
+            $("#txtScript").html('');
+            $("#divScript").hide();
+        } else {
+            $("#divScript").show();
+            $("#jsBasico").val('');
+        }
+    });
+
+    
 });
 function divLimpiarCampos() {
     $("#checkSoloLectura").prop("checked", false);
@@ -318,7 +313,7 @@ function divLimpiarCampos() {
     }
 }
 function ocultarCampos() {
-    let stringCampos = 'divLtaTpOrigen|divDataxOrigen|divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divFechaMin|divFechaMax|divNumericoMin|divNumericoMax|divNumericoStep|divNumeroLineas|divExpReg|divPlaceholder|divInfoItems|divElementos|divModalsDisponibles|divCamposExistenes|divVisible|divScript';
+    let stringCampos = 'divLtaTpOrigen|divDataxOrigen|divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divFechaMin|divFechaMax|divNumericoMin|divNumericoMax|divNumericoStep|divNumeroLineas|divExpReg|divPlaceholder|divInfoItems|divElementos|divModalsDisponibles|divCamposExistenes|divVisible|divJsBasico';
     let campos = stringCampos.split('|');
     for (let i = 0; i < campos.length; i++) {
         let campo = campos[i];
@@ -330,14 +325,14 @@ function mostrarCampo() {
     let tipoDato = $('#ltaTpDato').val();
     if (tipoCampo == 1) {
         if (tipoDato == 1) {
-            let camposTipoDato1 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divExpReg|divPlaceholder|divVisible|divScript';
+            let camposTipoDato1 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divMinlength|divMaxlength|divExpReg|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato1.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
                 $(`#${campo}`).show();
             }
         } else if (tipoDato == 2) {
-            let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divPlaceholder|divVisible|divScript';
+            let camposTipoDato2 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divNumericoMin|divNumericoMax|divNumericoStep|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato2.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -345,7 +340,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 3) {
-            let camposTipoDato3 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
+            let camposTipoDato3 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato3.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -353,7 +348,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 4) {
-            let camposTipoDato4 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divFechaMin|divFechaMax|divVisible|divScript';
+            let camposTipoDato4 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divFechaMin|divFechaMax|divVisible|divJsBasico';
             let campos = camposTipoDato4.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -361,7 +356,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 5) {
-            let camposTipoDato5 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divVisible|divScript';
+            let camposTipoDato5 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divVisible|divJsBasico';
             let campos = camposTipoDato5.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -369,7 +364,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 6) {
-            let camposTipoDato6 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
+            let camposTipoDato6 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato6.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -377,7 +372,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 7) {
-            let camposTipoDato7 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
+            let camposTipoDato7 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato7.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -385,7 +380,7 @@ function mostrarCampo() {
             }
         }
         else if (tipoDato == 8) {
-            let camposTipoDato8 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divScript';
+            let camposTipoDato8 = 'divTamanio|divIdCampo|divTituloCampo|divValor|divSoloLectura|divRequeried|divPlaceholder|divVisible|divJsBasico';
             let campos = camposTipoDato8.split('|');
             for (let i = 0; i < campos.length; i++) {
                 let campo = campos[i];
@@ -393,8 +388,6 @@ function mostrarCampo() {
             }
         }
     }
-
-
 }
 function inputPorTipoDato() {
     let tipoCampo = $('#ltaTpCampo').val();
@@ -478,10 +471,10 @@ function getOrigenesList() {
         } else {
             htmlOptions = `<option value="">No existen registros</option>`;
             $('#ltaOrigen').prepend(htmlOptions);
-            swal("Alerta", response.mensaje, "error");
+            swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal("Alerta", error, "warning");
+        swal.fire("Alerta", error, "warning");
     });
 
 
@@ -499,10 +492,10 @@ function getModalsBusqueda() {
         } else {
             htmlOptions = `<option value="">No existen registros</option>`;
             $('#ltaModals').prepend(htmlOptions);
-            swal("Alerta", response.mensaje, "error");
+            swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal("Alerta", error, "warning");
+        swal.fire("Alerta", error, "warning");
     });
 }
 function mostrarCamposPorOrigen(idOrigen) {
@@ -542,15 +535,15 @@ var getJson = (data, metodo) => {
                         resolver(JSON.parse(dataResponse));
                     } catch (err) {
                         rechazar(JSON.stringify(err));
-                        swal("ERROR", "El objeto no es un json válido", "error");
+                        swal.fire("ERROR", "El objeto no es un json válido", "error");
                     }
                 }
             }).fail(function (xhr, textStatus, errorThrown) {
-                swal("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
+                swal.fire("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
                 rechazar(JSON.stringify(xhr));
             });
         } catch (error) {
-            swal("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
+            swal.fire("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
             rechazar(JSON.stringify(error));
         }
     });
@@ -562,8 +555,10 @@ function agregarCampo() {
     let infoFormulario = JSON.parse(localStorage.getItem('infoForms'));
     let tituloFormulario = '';
     let descripcion = '';
+    
     tituloFormulario = $("#txtTitulo").val();
     descripcion = $("#txtDescripcion").val();
+   
     let spUtilizar = '';
     if (tipoFormulario == 2) {
         spUtilizar = $("#txtNombreSp").val();
@@ -629,11 +624,18 @@ function agregarCampo() {
         });
 
         if (!existeCampo && !existeParametroSp) {
-            let script = $(".ace_line").text();
-            if (script.length > 0) {
-                validacionScript = `function fun${elementoJson}(){${script}}`;
-                
+
+            
+            if (!$("#checkJsBasico").is(':checked')) {
+                validacionScript="";
+            } else {
+                let script = $("#jsBasico").val();
+                if (script.length > 0) {
+                    validacionScript = `function fun${elementoJson}(){${script}}`;
+                }
             }
+
+           
 
             etiqueta = $("#txtEtiqueta").val().trim();
             if (etiqueta.length > 0) {
@@ -772,6 +774,11 @@ function agregarCampo() {
                 }
                 
                 if (agregarCampo) {
+
+                    $("#checkJsBasico").prop("checked", false);
+                    $("#jsBasico").val('');
+                    $("#divScript").hide();
+                    
                     let infoCampo = {
                         idTipoCampo,
                         idTipoDato,
@@ -805,6 +812,7 @@ function agregarCampo() {
                     localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
                     mostrarAlertaGeneral("Información", "Campo agregado exitosamente", "success");
                     divLimpiarCampos();
+                    pintarObjetosEnDiv(infoFormulario);
                 }
             } else {
                 mostrarAlertaGeneral("Error", "Debe de ingresar una etiqueta", "danger");
@@ -837,7 +845,9 @@ function pintarCampos() {
                 let htmlTamanio = "col-md-6 mb-3";
                 let htmlAdd = '';
                 let valor = campo.valor;
-                if (parseInt(campo.tamanioDiv) == 12) {
+                if (parseInt(campo.tamanioDiv) == 4) {
+                    htmlTamanio = "col-md-4 mb-2";
+                } else if (parseInt(campo.tamanioDiv) == 12) {
                     htmlTamanio = "col-md-12 mb-6";
                 }
 
@@ -964,7 +974,56 @@ function pintarCampos() {
                             </div>
                         </div>
                         `;
-                }
+                } else if (campo.idTipoCampo == 5) {
+                    htmlCampo += `
+  
+                   <div class="${htmlTamanio}">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>${campo.etiqueta}</h5>
+                                <span>${campo.placeHolder}</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+</div>
+                    `;
+                } else if (campo.idTipoCampo == 6) {
+                    htmlCampo += `
+                    <div class="${htmlTamanio}">
+                    <div class="form-group">
+                    <label for="texto">&nbsp;&nbsp;</label>
+                    <div class="input-group">
+                    <button type="button" id="${campo.elementoJson}" class="${campo.placeHolder}">${campo.etiqueta}</button>
+                    </div>
+                    <a class="btn" onclick="subirCampo(${indexCampo})"><span class="icon-arrow-up"></span></a>|<a class="btn" onclick="eliminarCampo(${indexCampo})"><span class="icon-trash"></span></a>
+                    </div>
+                    </div>
+                    `;
+                    }
                 indexCampo++;
             });
 
@@ -987,7 +1046,7 @@ function subirCampo(indexCampo) {
         infoFormulario.campos[indexCampo - 1] = item1;
 
         localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
-
+        pintarObjetosEnDiv(infoFormulario);
         pintarCampos().then(res => {
             $("#divCampoFormulario").html(res);
         }).catch(error => {
@@ -1003,6 +1062,7 @@ function eliminarCampo(indexCampo) {
     infoFormulario.campos.splice(indexCampo, 1);
 
     localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+    pintarObjetosEnDiv(infoFormulario);
     pintarCampos().then(res => {
         $("#divCampoFormulario").html(res);
     }).catch(error => {
@@ -1015,6 +1075,9 @@ function registrarFormulario() {
     let formValido = true;
     infoFormulario = JSON.parse(localStorage.getItem("infoForms"));
     if (infoFormulario) {
+        let jsForm = '';
+        jsForm = $(".ace_line").text();
+        infoFormulario.javaScript = jsForm;
         if (tipoFormulario == 2) {
             let spUtilizar = $("#txtNombreSp").val();
             let infoSp = JSON.parse(localStorage.getItem(spUtilizar));
@@ -1031,21 +1094,35 @@ function registrarFormulario() {
         if (formValido) {
             getJson(JSON.stringify({ infoFormulario }), "buildForm2.aspx/regFormulario").then(response => {
                 if (response.codigo == 0) {
-                    swal("Alerta", response.mensaje, "success");
+                    Swal.fire({
+                        title: 'Información?',
+                        text: response.mensaje,
+                        icon: 'success',
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Aceptar!'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.reload();
+                        }
+                    });
+
                 } else {
-                    swal("Alerta", response.mensaje + "  " + response.error, "error");
+                    swal.fire("Alerta", response.mensaje + "  " + response.error, "error");
                 }
             }).catch(error => {
-                swal("Alerta", error, "warning");
+                swal.fire("Alerta", error, "warning");
             });
         } else {
-            swal("Alerta", "No es posible registrar el formulario ya que no se estan asignando todos los parametros requeridos por el Procedimiento Almacenado", "error");
+            swal.fire("Alerta", "No es posible registrar el formulario ya que no se estan asignando todos los parametros requeridos por el Procedimiento Almacenado", "error");
         }
     } else {
-        swal("Alerta", "No es posible registrar un formulario sin campos", "warning");
+        swal.fire("Alerta", "No es posible registrar un formulario sin campos", "warning");
     }
 }
-
 $(document).ready(function () {
     $("#btnBuscarInfoSp").click(function (e) {
         let nombreSp = $("#txtNombreSp").val();
@@ -1058,22 +1135,53 @@ $(document).ready(function () {
                         $("#SuccesstxtNombreSp").show();
                         localStorage.setItem(nombreSp.trim(), JSON.stringify(response.valor))
                     } else {
-                        swal("Alerta", `No es posible utilizar el procedimiento ${nombreSp} ya que no recibe ningun parametro`, "error");
+                        swal.fire("Alerta", `No es posible utilizar el procedimiento ${nombreSp} ya que no recibe ningun parametro`, "error");
                     }
                 } else {
-                    swal("Alerta", response.mensaje, "error");
+                    swal.fire("Alerta", response.mensaje, "error");
                 }
             }).catch(error => {
-                swal("Alerta", error, "warning");
+                swal.fire("Alerta", error, "warning");
             });
         } else {
             mostrarAlertaGeneral("Error", `Debe de ingresar el nombre del procedimiento almacenado`, "danger");
         }
     });
+
+ 
+
+
+    $("#btn2BuscarInfoSp").click(function (e) {
+        $("#divScript2").hide();
+        $("#txtScript2").html('');
+        let nombreSp = $("#txtNombreSpExe").val();
+        if (nombreSp.length > 0) {
+            getJson(JSON.stringify({ nombreSp: nombreSp }), "buildForm2.aspx/getInfoSpTabla").then(response => {
+                if (response.codigo == 0) {
+                    let json = JSON.stringify(response.valor);
+                    let nombre = "nombre";
+                    let valor = "'10'";
+                    
+let script = `$(document).ready(function () {
+    $("#nombreBtn").click(function (e) {
+        let jsonData={nombreSp:"${nombreSp.trim()}",
+            parametros[]};
+        generarTabla(jsonData);
+    });
+});`;
+
+                } else {
+                    swal.fire("Alerta", response.mensaje, "error");
+                }
+            }).catch(error => {
+                swal.fire("Alerta", error.message, "warning");
+            });
+        } else {
+            mostrarAlertaGeneral("Error", `Debe de ingresar el nombre del procedimiento almacenado`, "danger");
+        }
+    });
+
 });
-
-
-
 var getJson = (data, metodo) => {
     return new Promise(function (resolver, rechazar) {
         try {
@@ -1090,20 +1198,19 @@ var getJson = (data, metodo) => {
                         resolver(JSON.parse(dataResponse));
                     } catch (err) {
                         rechazar(JSON.stringify(err));
-                        swal("ERROR", "El objeto no es un json válido", "error");
+                        swal.fire("ERROR", "El objeto no es un json válido", "error");
                     }
                 }
             }).fail(function (xhr, textStatus, errorThrown) {
-                swal("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
+                swal.fire("Alerta", "No se logró comunicación con el servidor, por favor intente nuevamente", "warning");
                 rechazar(JSON.stringify(xhr));
             });
         } catch (error) {
-            swal("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
+            swal.fire("ERROR", "Ocurrió un error al intentar realizar la petición", "error");
             rechazar(JSON.stringify(error));
         }
     });
 }
-
 
 document.getElementById("prevBtn").style.display = "none";
 $('#tituloTab').html('Construcción de Formularios');
@@ -1162,6 +1269,12 @@ function validarFormulario(val) {
                 $('#descripcionTab').html('Construcción dinámica del formulario');
                 $("#idFormulario").val(2);
                 tabs[2].style.display = "block";
+
+                $("#divJavaScript").show();
+                "use strict";
+                let editor = ace.edit("txtScript3");
+                editor.setTheme("ace/theme/monokai");
+                editor.getSession().setMode("ace/mode/javascript");
                 resaltarIndicadorActual(2);
 
             } else if (tipoFormulario == 2) {
@@ -1206,6 +1319,12 @@ function validarFormulario(val) {
             idFormularioActual == 2;
             $("#idFormulario").val(2);
             tabs[2].style.display = "block";
+            $("#divJavaScript").show();
+            "use strict";
+            var editor = ace.edit("txtScript3");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+
             resaltarIndicadorActual(2);
         }
 
@@ -1221,5 +1340,358 @@ function resaltarIndicadorActual(n) {
         x[i].className = x[i].className.replace(" active", "");
     }
     x[n].className += " active";
+}
+
+function pintarObjetosEnDiv({ campos }) {
+    let htmlObjetos = '<ul>';
+    let htmlInputs = '<strong>Caja de Texto</strong>';
+    let htmlAreaTexto = '<strong>Area de Texto</strong>';
+    let htmlLista = '<strong>Listas</strong>';
+    let htmlModal = '<strong>Modal Busqueda</strong>';
+    let htmlTablas = '<strong>Tablas</strong>';
+    let htmlBotones = '<strong>Botones</strong>';
+    let existeInputs = false;
+    let existeAreaTexto = false;
+    let existeLista = false;
+    let existeModal = false;
+    let existeTabla = false;
+    let existeBoton = false;;
+    $.each(campos, function (i, campo) {
+        if (campo.idTipoCampo == 1) {
+            htmlInputs += `<li style="padding-bottom:0px">&nbsp&nbsp${campo.elementoJson}</li>`;
+            existeInputs = true;
+        } else if (campo.idTipoCampo == 2) {
+            htmlAreaTexto += `<li style="padding-bottom:0px">&nbsp&nbsp${campo.elementoJson}</li>`;
+            existeAreaTexto = true;
+        } else if (campo.idTipoCampo == 3) {
+            htmlLista += `<li style="padding-bottom:0px">&nbsp&nbsp${campo.elementoJson}</li>`;
+            existeLista = true;
+        } else if (campo.idTipoCampo == 4) {
+            htmlModal += `<li style="padding-bottom:0px">&nbsp&nbsphidden${campo.elementoJson}</li>`;
+            existeModal = true;
+        } else if (campo.idTipoCampo == 5) {
+            htmlTablas += `<li style="padding-bottom:0px">&nbsp&nbsp${campo.elementoJson}</li>`;
+            existeTabla = true;
+        } else if (campo.idTipoCampo == 6) {
+            htmlBotones += `<li style="padding-bottom:0px">&nbsp&nbsp${campo.elementoJson}</li>`;
+            existeBoton = true;
+        }
+        
+    });
+    if (existeInputs) {
+        htmlObjetos += htmlInputs;
+    }
+    if (existeAreaTexto) {
+        htmlObjetos += htmlAreaTexto;
+    }
+    if (existeLista) {
+        htmlObjetos += htmlLista;
+    }
+    if (existeModal) {
+        htmlObjetos += htmlModal;
+    }
+    if (existeTabla) {
+        htmlObjetos += htmlTablas;
+    }
+    if (existeBoton) {
+        htmlObjetos += htmlBotones;
+    }
+    
+    htmlObjetos += "</ul>";
+    $("#divListaObjetos").html(htmlObjetos);
+}
+
+$(document).ready(function () {
+    $("#agregarTabla").click(function (e) {
+        agregarTabla();
+    });
+    $("#agregarBoton").click(function (e) {
+        agregarBoton();
+    });
+
+    $('#checkBtnJs').click(function () {
+        if (!$("#checkBtnJs").is(':checked')) {
+            $("#txtScriptBtn").html('');
+            $("#divScriptBtn").hide();
+        } else {
+            $("#divScriptBtn").show();
+            $("#txtScriptBtn").val('');
+        }
+    });
+});
+function agregarTabla() {
+    let tablaValida = false;
+    
+    let infoFormulario = JSON.parse(localStorage.getItem('infoForms'));
+    if (!infoFormulario) {
+        let tipoFormulario = $("#ltaTipoFormulario").val();
+        let tituloFormulario = '';
+        let descripcion = '';
+        tituloFormulario = $("#txtTitulo").val();
+        descripcion = $("#txtDescripcion").val();
+        let spUtilizar = '';
+        if (tipoFormulario == 2) {
+            spUtilizar = $("#txtNombreSp").val();
+        }
+        infoFormulario = { titulo: tituloFormulario, descripcion: descripcion, nombreSp: spUtilizar, idTipoFormulario: tipoFormulario, campos: [] }
+    }
+
+    let idTipoCampo = 5;
+    let idTipoDato = 0;
+    let tabIndex = 0;
+    let etiqueta = "";
+    let valor = "";
+    let texto = "";
+    let placeHolder = "";
+    let longitudMinima = 0;
+    let longitudMaxima = 0;
+    let valMinimo = 0;
+    let valMax = 0;
+    let mascara = "";
+    let esRequerido = 0;
+    let tipoOrigen = 0;
+    let valorLista = "";
+    let elementoJson = "";
+    let seleccionMultiple = 0;
+    let urlWebBuscar = "";
+    let validacionScript = "";
+    let visible = 1;
+    let soloLectura = 0;
+    let numeroLineas = 0;
+    let aumentarEn = 0;
+    let expresionRegular = "";
+    let tamanioDiv = 0;
+    let elementoJsonPadre = "";
+    let parametroSp = '';
+    let itemsCampo = new Array();
+    let existeParametroSp = false;
+
+    if ($("#txtIdTabla").val().trim().length > 0) {
+        elementoJson = $("#txtIdTabla").val().replace(" ","");
+        let existeCampo = false;
+        $.each(infoFormulario.campos, function (i, item) {
+            if (item.elementoJson == elementoJson) {
+                existeCampo = true;
+                return false;
+            }
+        });
+
+        
+        if (!$("#checkTblVisible").is(':checked')) {
+            visible = 0;
+        } else {
+            visible = 1;
+        }
+
+        if (!existeCampo) {
+            if ($("#txtTituloTabla").val().trim().length > 0) {
+                etiqueta = $("#txtTituloTabla").val().trim();
+                tamanioDiv = $("#tamanioTabla").val();
+                placeHolder = $("#txtDesTabla").val().trim();
+                tablaValida = true;
+            } else {
+                mostrarAlertaGeneral("Error", `La tabla debe de tener un título`, "danger");
+            }
+            
+            if (tablaValida) {
+                let infoCampo = {
+                    idTipoCampo,
+                    idTipoDato,
+                    tabIndex,
+                    etiqueta,
+                    valor,
+                    texto,
+                    placeHolder,
+                    longitudMinima,
+                    longitudMaxima,
+                    valMinimo,
+                    valMax,
+                    mascara,
+                    esRequerido,
+                    tipoOrigen,
+                    valorLista: JSON.stringify(itemsCampo),
+                    elementoJson,
+                    seleccionMultiple,
+                    urlWebBuscar,
+                    validacionScript,
+                    visible,
+                    soloLectura,
+                    numeroLineas,
+                    aumentarEn,
+                    expresionRegular,
+                    tamanioDiv,
+                    elementoJsonPadre,
+                    parametroSp: parametroSp
+                };
+                infoFormulario.campos.push(infoCampo);
+                localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+                mostrarAlertaGeneral("Información", "Tabla agregada exitosamente", "success");
+                pintarObjetosEnDiv(infoFormulario);
+                $("#txtTituloTabla").val('');
+                $("#txtIdTabla").val('');
+                $("#txtDesTabla").val('');
+                $("#txtNombreSpExe").val('');
+
+                pintarCampos().then(res => {
+                    $("#divCampoFormulario").html(res);
+                }).catch(error => {
+                });
+
+            }
+
+        } else {
+            mostrarAlertaGeneral("Error", `El id que le intenta asignar a la tabla ya existe`, "danger");
+        }
+    } else {
+        mostrarAlertaGeneral("Error", `La tabla debe de contener un id`, "danger");
+    }
+
+}
+
+function agregarBoton() {
+    let elementoValido = false;
+
+    let infoFormulario = JSON.parse(localStorage.getItem('infoForms'));
+    if (!infoFormulario) {
+        let tipoFormulario = $("#ltaTipoFormulario").val();
+        let tituloFormulario = '';
+        let descripcion = '';
+        tituloFormulario = $("#txtTitulo").val();
+        descripcion = $("#txtDescripcion").val();
+        let spUtilizar = '';
+        if (tipoFormulario == 2) {
+            spUtilizar = $("#txtNombreSp").val();
+        }
+        infoFormulario = { titulo: tituloFormulario, descripcion: descripcion, nombreSp: spUtilizar, idTipoFormulario: tipoFormulario, campos: [] }
+    }
+
+    let idTipoCampo = 6;
+    let idTipoDato = 0;
+    let tabIndex = 0;
+    let etiqueta = "";
+    let valor = "";
+    let texto = "";
+    let placeHolder = "";
+    let longitudMinima = 0;
+    let longitudMaxima = 0;
+    let valMinimo = 0;
+    let valMax = 0;
+    let mascara = "";
+    let esRequerido = 0;
+    let tipoOrigen = 0;
+    let valorLista = "";
+    let elementoJson = "";
+    let seleccionMultiple = 0;
+    let urlWebBuscar = "";
+    let validacionScript = "";
+    let visible = 1;
+    let soloLectura = 0;
+    let numeroLineas = 0;
+    let aumentarEn = 0;
+    let expresionRegular = "";
+    let tamanioDiv = 0;
+    let elementoJsonPadre = "";
+    let parametroSp = '';
+    let itemsCampo = new Array();
+    let existeParametroSp = false;
+
+    if ($("#txtIdBtn").val().trim().length > 0) {
+
+
+        
+
+        elementoJson = $("#txtIdBtn").val().replace(" ", "");
+        let existeCampo = false;
+        $.each(infoFormulario.campos, function (i, item) {
+            if (item.elementoJson == elementoJson) {
+                existeCampo = true;
+                return false;
+            }
+        });
+
+        if (!$("#checkbtnVisible").is(':checked')) {
+            visible = 0;
+        } else {
+            visible = 1;
+        }
+
+        if (!existeCampo) {
+            if ($("#txtTextoBtn").val().trim().length > 0) {
+                etiqueta = $("#txtTextoBtn").val().trim();
+                tamanioDiv = $("#tamanioDivBtn").val();
+                
+                if ($('input:radio[name=color]:checked').val()) {
+                    placeHolder = $('input:radio[name=color]:checked').val();
+                } else {
+                    placeHolder = "btn btn-primary";
+                }
+                elementoValido = true;
+            } else {
+                mostrarAlertaGeneral("Error", `El boton debe de contener un texto de ayuda`, "danger");
+            }
+
+            if (!$("#checkBtnJs").is(':checked')) {
+                validacionScript = "";
+            } else {
+                let script = $("#txtScriptBtn").val();
+                if (script.length > 0) {
+                    validacionScript = `function fun${elementoJson}(){${script}}`;
+                }
+            }
+            
+
+            if (elementoValido) {
+
+                $("#checkBtnJs").prop("checked", false);
+                $("#txtScriptBtn").val('');
+                $("#divScriptBtn").hide();
+
+                let infoCampo = {
+                    idTipoCampo,
+                    idTipoDato,
+                    tabIndex,
+                    etiqueta,
+                    valor,
+                    texto,
+                    placeHolder,
+                    longitudMinima,
+                    longitudMaxima,
+                    valMinimo,
+                    valMax,
+                    mascara,
+                    esRequerido,
+                    tipoOrigen,
+                    valorLista: JSON.stringify(itemsCampo),
+                    elementoJson,
+                    seleccionMultiple,
+                    urlWebBuscar,
+                    validacionScript,
+                    visible,
+                    soloLectura,
+                    numeroLineas,
+                    aumentarEn,
+                    expresionRegular,
+                    tamanioDiv,
+                    elementoJsonPadre,
+                    parametroSp: parametroSp
+                };
+                infoFormulario.campos.push(infoCampo);
+                localStorage.setItem('infoForms', JSON.stringify(infoFormulario));
+                mostrarAlertaGeneral("Información", "Boton agregado exitosamente", "success");
+                pintarObjetosEnDiv(infoFormulario);
+                pintarCampos().then(res => {
+                    $("#divCampoFormulario").html(res);
+                }).catch(error => {
+                });
+
+            }
+
+        } else {
+            mostrarAlertaGeneral("Error", `El id que le intenta asignar al boton ya existe`, "danger");
+        }
+    } else {
+        mostrarAlertaGeneral("Error", `El boton debe de contener un id`, "danger");
+    }
+
 }
 

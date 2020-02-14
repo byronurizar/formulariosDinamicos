@@ -14,5 +14,9 @@ namespace CapaNegocio
         {
             return info.getParametrosSp(nombreSp);
         }
+        public RespuestaEntidad infoSpTabla(string nombreSp)
+        {
+            return info.getParametrosSpTabla(nombreSp);
+        }
     }
 }

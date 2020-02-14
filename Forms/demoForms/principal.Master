@@ -63,8 +63,8 @@
     <script src="assets/js/bootstrap/popper.min.js"></script>
     <script src="assets/js/bootstrap/bootstrap.js"></script>
 
-    <!-- Sweet alert jquery-->
-    <script src="assets/js/sweet-alert/sweetalert.min.js"></script>
+    
+        <!-- Sweet alert jquery-->
     <%--<script src="assets/js/sweet-alert/app.js" ></script>--%>
     <script src="assets/js/sweetalert2/sweetalert2.js"></script>
 
@@ -257,7 +257,7 @@
                     </div>
                 </form>
 
-                <footer class="footer-fix">
+    <%--            <footer class="footer-fix">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-12 col-md-6 col-xl-6 footer-copyright">
@@ -272,7 +272,7 @@
                             </div>
                         </div>
                     </div>
-                </footer>
+                </footer>--%>
 
             </div>
         </div>
@@ -291,13 +291,12 @@
 
     <!-- Theme js-->
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/theme-customizer/customizer.js"></script>
-    <script src="assets/js/chat-sidebar/chat.js"></script>
+    <%--<script src="assets/js/theme-customizer/customizer.js"></script>--%>
+    <%--<script src="assets/js/chat-sidebar/chat.js"></script>--%>
     <script src="assets/js/popover-custom.js"></script>
     <!-- bootstrap notify js -->
     <script src="assets/js/notify/bootstrap-notify.min.js"></script>
     <script src="assets/js/notify/notify-script.js"></script>
-
 
 
 

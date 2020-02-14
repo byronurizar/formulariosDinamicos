@@ -11,6 +11,9 @@
     <asp:HiddenField ID="hidIdFormulario" runat="server" Value="0" ClientIDMode="Static" />
     <div class="form-builder">
         <div class="row">
+      <%--      <div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="http://localhost:60019/55e23f2677c10cde67d50a9802363448.aspx?i=7" allowfullscreen></iframe>
+</div>--%>
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header" id="divTitulo">
