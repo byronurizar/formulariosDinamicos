@@ -580,8 +580,77 @@ function registrarFormulario() {
             swal.fire("Alerta", response.mensaje, "error");
         }
     }).catch(error => {
-        swal.fire("Alerta", error, "warning");
+        swal.fire("Alerta", error, "error");
     });
 
 }
 
+function prueba() {
+    let infoCampo = new Array();
+    let parametro = {
+        parametroSp: "@id",
+        valor: "1"
+    }
+    infoCampo.push(parametro);
+
+    let parametro2 = {
+        parametroSp: "@nombre",
+        valor: "Byron"
+    }
+
+    infoCampo.push(parametro2);
+    getDataTabla("tablaPagos","getClientes", infoCampo);
+}
+
+
+function getDataTabla(el,nombreSp, data) {
+    let tituloAgregado = false;
+    let htmlTabla = '';
+    let nombreTitulos = '';
+    let htmlBody = '<tbody>';
+    let htmlTitulo = '<thead>';
+    getJson(JSON.stringify({ nombreSp,data}), "55e23f2677c10cde67d50a9802363448.aspx/getTabla").then(response => {
+        if (response.codigo == 0) {
+            $(`#${el}`).empty();
+            $.each(response.valor, function (i, fila) {
+
+                let titulo = fila;
+                console.log("Valor fila", fila);
+                if (!tituloAgregado) {
+                    htmlTitulo += '<tr>';
+                    for (let key in titulo) {
+                        htmlTitulo += `<th>${key}</th>`;
+                        nombreTitulos += key + '|';
+                    }
+                    htmlTitulo += `<th></th>`;
+                    htmlTitulo += '</tr></thead>';
+                    tituloAgregado = true;
+                }
+
+                htmlBody += '<tr>';
+                let codigo = '';
+                let descripcion = '';
+                let arregloText = nombreTitulos.split('|');
+                for (let i = 0; i < (arregloText.length - 1); i++) {
+                    let llave = arregloText[i];
+                    htmlBody += '<td>' + fila[llave] + '</td>';
+
+                    if (i == 0) {
+                        codigo = fila[llave];
+                    }
+                    if (i == 1) {
+                        descripcion = fila[llave];
+                    }
+                }
+
+            });
+            htmlBody += "</tbody>";
+            htmlTabla = htmlTitulo + htmlBody;
+            $(`#${el}`).html(htmlTabla);
+        } else {
+            swal.fire("Alerta", response.mensaje, "error");
+        }
+    }).catch(error => {
+        swal.fire("Error", error.message, "error");
+    });
+}
